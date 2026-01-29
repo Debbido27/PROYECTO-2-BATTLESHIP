@@ -22,6 +22,19 @@ public LoginManager(){
     CurrentUser=null;
 }
 
+//CLASE buscar jugador, aca se pide el username,
+//FOR EACH
+ public Player buscarPlayer(String username){
+     for (Player p: getPlayers()) {
+         if(p.getUsername().equals(username)){
+             return p;
+         }
+     }
+     return null;
+ }
+ 
+ 
+
  
 
 //OBTENER LA INFORMACION, se pone player para que retorne un objeto player de la clase
