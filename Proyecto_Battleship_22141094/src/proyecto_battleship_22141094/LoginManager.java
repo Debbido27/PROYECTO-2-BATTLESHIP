@@ -63,6 +63,10 @@ public LoginManager(){
      return false;
  }
  
+ //METODO PARA PODER SALIR
+ public void logout(){
+     CurrentUser=null;
+ }
  
  
  
