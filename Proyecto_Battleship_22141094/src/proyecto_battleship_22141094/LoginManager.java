@@ -22,6 +22,24 @@ public LoginManager(){
     CurrentUser=null;
 }
 
+ 
+
+//OBTENER LA INFORMACION, se pone player para que retorne un objeto player de la clase
+  public Player [] getPlayers(){
+      Player [] copia = new Player [totalPlayers];
+      for (int i = 0; i < totalPlayers; i++) {
+          copia[i]=players[i];
+      }
+      return copia;
+  }
+  
+  public Player getCurrentUser(){
+      return CurrentUser;
+  }
+  
+  public int getTotalPlayer(){
+      return totalPlayers;
+  }
   
 
 
