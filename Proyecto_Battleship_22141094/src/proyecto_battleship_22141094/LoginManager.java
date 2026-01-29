@@ -52,6 +52,18 @@ public LoginManager(){
      return true;
  }
  
+ //METODO PARA PODER ENTRAR PORLOGIN
+ public boolean login(String username,String password){
+     //Se usa player para que el motod buscarplayer puede llamar el username 
+     Player p = buscarPlayer(username);
+     if(p !=null && p.getPassword().equals(password)){
+         CurrentUser=p;
+         return true;
+     }
+     return false;
+ }
+ 
+ 
  
  
 
