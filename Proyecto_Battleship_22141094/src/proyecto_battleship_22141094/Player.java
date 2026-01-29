@@ -7,14 +7,16 @@ public class Player {
     //Atributos
     String username;
     String password;
-    int puntos;
-    int historial;
+    private int puntos;
+    private String[] logs;
+    private int CuentaLog;
     
-    public Player(String username, String password, int puntos, int historial){
+    public Player(String username, String password){
      this.username=username;
      this.password=password;
-     this.puntos=puntos;
-     this.historial=historial;
+     this.puntos=0;
+     this.logs= new String [10];
+     this.CuentaLog=0;
     }
 
     public String getUsername() {
@@ -41,12 +43,29 @@ public class Player {
         this.puntos = puntos;
     }
 
-    public int getHistorial() {
-        return historial;
+    public String[] getLogs() {
+        return logs;
     }
 
-    public void setHistorial(int historial) {
-        this.historial = historial;
+    public void setLogs(String[] logs) {
+        this.logs = logs;
     }
+
+    public int getCuentaLog() {
+        return CuentaLog;
+    }
+
+    public void setCuentaLog(int CuentaLog) {
+        this.CuentaLog = CuentaLog;
+    }
+
+
     
-}
+   
+    }
+
+
+
+
+    
+
