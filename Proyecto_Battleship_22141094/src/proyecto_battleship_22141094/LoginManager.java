@@ -33,6 +33,26 @@ public LoginManager(){
      return null;
  }
  
+ //METODO PARA PODER CREAR PLAYER
+ public boolean crearPlayer(String username, String password){
+     if(buscarPlayer(username)!=null){
+         return false;
+     }
+     if(totalPlayers>=MAX_PLAYERS){
+         return false;
+     }
+     
+     //Se crea un nuevo objeto
+     Player nuevo = new Player(username, password);
+     players[totalPlayers]=nuevo;
+     totalPlayers++;
+     
+     //Curren user pasa a ser nuevo
+     CurrentUser=nuevo;
+     return true;
+ }
+ 
+ 
  
 
  
