@@ -48,6 +48,7 @@ public LoginManager(){
      totalPlayers++;
      
      //Curren user pasa a ser nuevo
+     //ingresa automaticamente
      CurrentUser=nuevo;
      return true;
  }
