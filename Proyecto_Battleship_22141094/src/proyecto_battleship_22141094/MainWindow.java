@@ -15,4 +15,10 @@ public class MainWindow extends JFrame {
     private JPasswordField txtPassword;
     private String usuarioActual;
     
+    
+    public MainWindow (){
+        loginManager = new LoginManager();
+        
+    }
+    
 }
