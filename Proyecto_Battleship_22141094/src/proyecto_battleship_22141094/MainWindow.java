@@ -3,6 +3,8 @@ package proyecto_battleship_22141094;
 
 //
 
+import static java.awt.AWTEventMulticaster.add;
+import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -19,6 +21,17 @@ public class MainWindow extends JFrame {
     public MainWindow (){
         loginManager = new LoginManager();
         
+    }
+    
+    private void VENTANA_CONFI(){
+        setTitle("BATTLESHIP - 22141094");
+        setSize(900,550);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(true);
+        
+        panelPrincipal = new JPanel(new CardLayout());
+        add(panelPrincipal);
     }
     
 }
