@@ -70,7 +70,9 @@ public LoginManager(){
  }
  
  
- 
+ public String modificarDatos(String newUsername, String newPassword){
+     
+ }
 
  
 

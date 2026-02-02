@@ -30,8 +30,10 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
         
+        //Se crea el cl objeto layout para mostrar 1 al la vez
         panelPrincipal = new JPanel(new CardLayout());
         add(panelPrincipal);
     }
+
     
 }
