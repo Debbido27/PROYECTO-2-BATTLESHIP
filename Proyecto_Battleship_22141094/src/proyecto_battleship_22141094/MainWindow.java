@@ -407,6 +407,34 @@ public class MainWindow extends JFrame {
         JButton boton = new JButton(texto);
         boton.setBackground(color);
         boton.setForeground(Color.WHITE);
+        boton.setFont(new Font("Arial", Font.BOLD, 14));
+        boton.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        boton.setFocusPainted(false);
+    }
+    
+    private void manejarBotonMenu(String opcion){
+        switch(opcion){
+            case "Jugadr Battleship":
+                mostrarPantalla("BATTLESHIP");
+               break;
+               
+            case "Configuracion":
+                mostrarPantalla("Configuracion");
+                break;
+                
+            case "Reportes":
+                mostrarPantalla("Reportes");
+                break;
+                
+            case "Mi perfil":
+                mostrarPantalla("Mi perfil");
+                
+            case "Cerrar Sesion":
+                usuarioActual=null;
+                mostrarPantalla("Inicio");
+                break;
+               
+        }
         
     }
 
