@@ -9,5 +9,8 @@ package proyecto_battleship_22141094;
  * @author Dell
  */
 public class GridLayout {
+
+    public GridLayout(int par, int par1, int par2, int par3) {
+    }
     
 }

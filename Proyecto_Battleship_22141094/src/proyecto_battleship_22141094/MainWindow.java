@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -377,6 +378,30 @@ public class MainWindow extends JFrame {
     panelPrincipal.add(panelRegistro,"REGISTRO");
 }
     
+    
+    private void crearMenuPrincipal(){
+        JPanel panelMenu = new JPanel(new BorderLayout());
+        panelMenu.setBackground(new Color(250, 250, 250));
+        panelMenu.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));    
+        
+        JLabel titulo = new JLabel("MENÚ PRINCIPAL", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 32));
+        titulo.setForeground(new Color(40, 40, 40));
+        panelMenu.add(titulo, BorderLayout.NORTH);
+        
+        JPanel panelBienvenida = new JPanel();
+        panelBienvenida.setBackground(new Color(250, 250, 250));
+        JLabel lblBienvenida = new JLabel("Bienvenido: " + usuarioActual);
+        lblBienvenida.setFont(new Font("Arial", Font.BOLD, 16));
+        panelBienvenida.add(lblBienvenida);
+        panelMenu.add(panelBienvenida, BorderLayout.CENTER);
+
+        JPanel panelBotonesMenu = new JPanel((LayoutManager) new GridLayout(5, 1, 15, 15));
+        panelBotonesMenu.setBorder(BorderFactory.createEmptyBorder(50, 250, 50, 250));
+        panelBotonesMenu.setBackground(new Color(250, 250, 250));
+        
+        
+        }
     private boolean camposVacios(){
         return txtUser.getText().isEmpty()||new String (txtPassword.getPassword()).isEmpty();
     }
