@@ -100,11 +100,13 @@ public class MainWindow extends JFrame {
             usuarioActual = user;
             mostrarMensaje("¡Login exitoso! Bienvenido " + user, true);
             limpiarCampos();
-            mostrarPantalla("MENU");  // ¡AQUÍ ESTABA EL PROBLEMA! Faltaba esta línea
+            mostrarPantalla("MENU"); 
         } else {
             mostrarMensaje("Usuario o contraseña incorrectos", false);
         }
     }
+    
+    
     private void crearPanelLogin(){
         JPanel panelLogin = new JPanel(new GridBagLayout());
         panelLogin.setBackground(new Color(250,250,250));
@@ -138,8 +140,16 @@ public class MainWindow extends JFrame {
         panelBotones.setBackground(new Color(250,250,250));
         
         JButton btnLogin= new JButton("Iniciar Sesion");
-     
+        btnLogin.addActionListener(e -> iniciarSesion());
+        panelBotones.add(btnLogin);
         
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.addActionListener(e -> mostrarPantalla("INICIO"));
+        panelBotones.add(btnVolver);
+
+        panelLogin.add(panelBotones, BorderLayout.SOUTH);
+
+        panelPrincipal.add(panelLogin, "LOGIN");
       
         
     }
