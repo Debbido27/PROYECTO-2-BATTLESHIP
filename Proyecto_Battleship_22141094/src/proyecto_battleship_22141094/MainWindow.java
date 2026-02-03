@@ -63,6 +63,8 @@ public class MainWindow extends JFrame {
        panelInicio.setBackground(new Color (250, 250, 250));
        
        panelInicio.add(crearPanelTitulo(), BorderLayout.NORTH);
+       panelInicio.add(crearPanelBotonesYMensaje(), BorderLayout.CENTER);
+
        panelPrincipal.add(panelInicio, "INICIO");
  
     }
@@ -96,10 +98,31 @@ public class MainWindow extends JFrame {
         return etiqueta;
     }
     
-    private JPanel crearPanelBotonesYMensaje(){
-        
-    }
-    
+    private JPanel crearPanelBotonesYMensaje() {
+    JPanel panel = new JPanel(new GridBagLayout());
+    panel.setBackground(new Color(250,250,250));
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(10,10,10,10);
+
+    JButton btnLogin = new JButton("Iniciar Sesión");
+    btnLogin.addActionListener(e -> mostrarPantalla("LOGIN"));
+
+    JButton btnRegistro = new JButton("Crear Cuenta");
+    btnRegistro.addActionListener(e -> mostrarPantalla("REGISTRO"));
+
+    gbc.gridy = 0;
+    panel.add(btnLogin, gbc);
+
+    gbc.gridy = 1;
+    panel.add(btnRegistro, gbc);
+
+    gbc.gridy = 2;
+    panel.add(mensajeLabel, gbc);
+
+    return panel;
+}
+
     
     private void iniciarSesion(){
         String user = txtUser.getText();
