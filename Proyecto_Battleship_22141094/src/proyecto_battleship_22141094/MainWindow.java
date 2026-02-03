@@ -45,14 +45,17 @@ public class MainWindow extends JFrame {
        JPanel panelInicio= new JPanel (new BorderLayout());
        panelInicio.setBackground(new Color (250, 250, 250));
        
-       
+       panelInicio.add(crearPanelTitulo(), BorderLayout.NORTH);
        panelPrincipal.add(panelInicio, "INICIO");
  
     }
     
     private JPanel crearPanelTitulo(){
+        //borderlayout divie en 5 zonas, north sout, east, west y center
         JPanel panelTitulo = new JPanel(new BorderLayout());
         panelTitulo.setBackground(new Color(250,250,250));
+        
+        //para que no este pegado al borde
         panelTitulo.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
         
         JLabel titulo = new JLabel ("BATTLESHIP", SwingConstants.CENTER);
