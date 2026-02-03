@@ -77,7 +77,29 @@ public LoginManager(){
      return "Tus Dtos "+CurrentUser.toString();
  }
 
- 
+ public String modificarDatos(String newUsername, String newPassword){
+     if(CurrentUser==null){
+         return "Error, no hay usuario";
+     }
+
+     if(newUsername.isEmpty()||newPassword.isEmpty()){
+         return "ERROR!, USUARIO O CONTRASENA NO PUEDEN ESTAR VACIOS!!";
+     }
+
+     String userNameNow=CurrentUser.getUsername();
+
+     if(!userNameNow.equals(newUsername)){
+         Player existente = buscarPlayer(newUsername);
+     if(existente!=null){
+         return "Error el usuario"+newUsername+"Ya existe";
+     }
+     }
+     
+      CurrentUser.setUsername(newUsername);
+      CurrentUser.setPassword(newPassword);
+     return "Datos modificados exitosamente "+"Nuevo Usuario: "+newUsername+"\n"+"Nueva Contrasena: "+newPassword+"\n";
+}
+
 
 //OBTENER LA INFORMACION, se pone player para que retorne un objeto player de la clase
   public Player [] getPlayers(){
