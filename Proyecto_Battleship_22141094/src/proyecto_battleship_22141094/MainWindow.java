@@ -46,7 +46,7 @@ public class MainWindow extends JFrame {
    crearMenuPrincipal();
    crearPanelConfiguracion();
    crearPanelReportes();
-   crearPanelPerfil();
+    crearPanelPerfil();
    
 
     mostrarPantalla("INICIO");
@@ -401,7 +401,7 @@ public class MainWindow extends JFrame {
         panelBienvenida.add(lblBienvenida);
         panelMenu.add(panelBienvenida, BorderLayout.CENTER);
 
-        JPanel panelBotonesMenu = new JPanel((LayoutManager) new GridLayout(5, 1, 15, 15));
+       JPanel panelBotonesMenu = new JPanel((LayoutManager) new java.awt.GridLayout(5, 1, 15, 15));
         panelBotonesMenu.setBorder(BorderFactory.createEmptyBorder(50, 250, 50, 250));
         panelBotonesMenu.setBackground(new Color(250, 250, 250));
         
@@ -418,7 +418,7 @@ public class MainWindow extends JFrame {
         }
     
     
-     private void creaaPanelPerfil(){
+     private void crearPanelPerfil(){
          JPanel panelPerfil = new JPanel(new BorderLayout());
          panelPerfil.setBackground(new Color(250, 250, 250));
          panelPerfil.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
@@ -427,7 +427,7 @@ public class MainWindow extends JFrame {
          titulo.setFont(new Font("Arial", Font.BOLD, 28));
          titulo.setForeground(new Color(40, 40, 40));
          panelPerfil.add(titulo, BorderLayout.NORTH);
-            JPanel panelOpciones = new JPanel(new GridLayout(3, 1, 20, 20));             panelOpciones.setBackground(new Color(250, 250, 250));
+JPanel panelOpciones = new JPanel((LayoutManager) new java.awt.GridLayout(3, 1, 20, 20));
             panelOpciones.setBorder(BorderFactory.createEmptyBorder(30, 150, 30, 150));
 
             JButton btnVerDatos = crearBotonPerfil("Ver Mis Datos", new Color(70, 130, 180));
@@ -457,7 +457,7 @@ public class MainWindow extends JFrame {
     });
             
     btnModificar.addActionListener(e -> {
-        JPanel panelModificar = new JPanel(new GridLayout(2, 2, 10, 10));
+JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2, 10, 10));
         
         JLabel lblNuevoUser = new JLabel("Nuevo Usuario:");
         JTextField txtNuevoUser = new JTextField(15);
@@ -568,8 +568,8 @@ public class MainWindow extends JFrame {
                 break;
                 
             case "Mi Perfil":
-                mostrarPantalla("Mi Perfil");
-                
+                mostrarPantalla("PERFIL");
+                break;
             case "Cerrar Sesión":
                 usuarioActual=null;
                 mostrarPantalla("INICIO");
