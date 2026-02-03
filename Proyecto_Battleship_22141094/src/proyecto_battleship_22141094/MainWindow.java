@@ -425,11 +425,23 @@ public class MainWindow extends JFrame {
          titulo.setFont(new Font("Arial", Font.BOLD, 28));
          titulo.setForeground(new Color(40, 40, 40));
          panelPerfil.add(titulo, BorderLayout.NORTH);
+         JPanel panelOpciones = new JPanel((LayoutManager) new GridLayout(3, 1, 20, 20));
+            panelOpciones.setBackground(new Color(250, 250, 250));
+            panelOpciones.setBorder(BorderFactory.createEmptyBorder(30, 150, 30, 150));
+
      }
     
     
     
-    
+    private JButton crearBotonPerfil(String texto, Color color){
+        JButton boton = new JButton (texto);
+        boton.setBackground(color);
+        boton.setForeground(Color.WHITE);
+        boton.setFont(new Font("Arial",Font.BOLD,14));
+        boton.setBorder(BorderFactory.createEmptyBorder(15,0,15,0));
+        boton.setFocusPainted(false);
+        return boton;
+    }
     
     
     private JButton crearBotonMenu(String texto, Color color){
