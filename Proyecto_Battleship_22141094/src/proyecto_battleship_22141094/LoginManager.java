@@ -70,8 +70,11 @@ public LoginManager(){
  }
  
  
- public String modificarDatos(String newUsername, String newPassword){
-     
+ public String verDatos(){
+     if (CurrentUser==null){
+         return "Error, no hay usuario";
+     }
+     return "Tus Dtos "+CurrentUser.toString();
  }
 
  
