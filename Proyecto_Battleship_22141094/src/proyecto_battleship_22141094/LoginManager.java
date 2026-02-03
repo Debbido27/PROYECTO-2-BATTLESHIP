@@ -99,6 +99,39 @@ public LoginManager(){
       CurrentUser.setPassword(newPassword);
      return "Datos modificados exitosamente "+"Nuevo Usuario: "+newUsername+"\n"+"Nueva Contrasena: "+newPassword+"\n";
 }
+ 
+ public String eliminarCuenta(){
+     if(CurrentUser==null){
+         return "Error, no hay usuario logueado";
+     }
+     //guardar username
+     String usernameEliminar=CurrentUser.getUsername();
+     //bandera
+      int pocision =-1;
+      for (int i = 0; i < totalPlayers; i++) {
+         if(players[i].getUsername().equals(usernameEliminar)){
+             //cambio bandear
+             pocision=i;
+             break;
+         }
+     }
+      
+      
+      if(pocision==-1){
+          return "Error, usuario No encontrado";    
+          }
+      
+             for (int i = pocision; i < totalPlayers-1; i++) {
+                 //cambio de pocision a siguiente pocision
+              players[i]=players[i+1];
+             }
+             
+          players[totalPlayers-1]=null;
+          totalPlayers--;
+          
+          CurrentUser=null;
+          return"Cuenta elinada exitosamente"+" El usuario"+usernameEliminar+"Ya no existe";
+ }
 
 
 //OBTENER LA INFORMACION, se pone player para que retorne un objeto player de la clase
