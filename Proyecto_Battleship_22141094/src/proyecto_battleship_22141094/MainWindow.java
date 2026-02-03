@@ -8,6 +8,9 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -71,6 +74,20 @@ public class MainWindow extends JFrame {
         
         return panelTitulo;
     }
+    
+    
+    private void crearPanelLogin(){
+        JPanel panelLogin = new JPanel(new GridBagLayout());
+        panelLogin.setBackground(new Color(250,250,250));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets=new Insets(10,10,10,10);
+        
+        gbc.gridx=0;
+        gbc.gridy=0;
+      
+        
+    }
+    
 
     
 }
