@@ -203,6 +203,15 @@ public class MainWindow extends JFrame {
          
          JButton btnCrear = new JButton("Crear cuenta");
          btnCrear.addActionListener(e-> crearCuenta());
+         panelBotones.add(btnCrear);
+         
+         JButton btnVolver = new JButton("Volver");
+         btnVolver.addActionListener(e-> mostrarPantalla("Inicio"));
+         panelBotones.add(btnVolver);
+         
+         panelRegistro.add(panelBotones, BorderLayout.SOUTH);
+         panelPrincipal.add(panelRegistro,"REGISTRO");
+                 
          
     }
     
