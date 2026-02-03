@@ -7,11 +7,13 @@ import static java.awt.AWTEventMulticaster.add;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +24,7 @@ import javax.swing.SwingConstants;
 public class MainWindow extends JFrame {
     private JPanel panelPrincipal;
     private LoginManager loginManager;
+    private JLabel mensajeLabel;
     private JTextField txtUser;
     private JPasswordField txtPassword;
     private String usuarioActual;
@@ -75,19 +78,91 @@ public class MainWindow extends JFrame {
         return panelTitulo;
     }
     
+    private JLabel crearEtiqueta (String texto){
+        JLabel etiqueta=new JLabel (texto);
+        etiqueta.setFont(new Font("Arial", Font.BOLD,14));
+        etiqueta.setForeground(new Color(80,80,80));
+        return etiqueta;
+    }
     
+    
+    private void iniciarSesion(){
+        String user = txtUser.getText();
+        String pass = new String(txtPassword.getPassword());
+        
+        if(camposVacios()){
+            
+              mostrarMensaje("Por favor complete todos los campos", false);
+            return;
+        }
+        
+        if (loginManager.login(user, pass)) {
+            usuarioActual = user;
+            mostrarMensaje("¡Login exitoso! Bienvenido " + user, true);
+            limpiarCampos();
+            mostrarPantalla("MENU");  // ¡AQUÍ ESTABA EL PROBLEMA! Faltaba esta línea
+        } else {
+            mostrarMensaje("Usuario o contraseña incorrectos", false);
+        }
+    }
     private void crearPanelLogin(){
         JPanel panelLogin = new JPanel(new GridBagLayout());
         panelLogin.setBackground(new Color(250,250,250));
+        
+        JLabel titulo = new JLabel("INICIAR SESIÓN", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 32));
+        titulo.setForeground(new Color(40, 40, 40));
+        panelLogin.add(titulo, BorderLayout.NORTH);
+        
+        JPanel panelCampos= new JPanel(new GridBagLayout());
+        panelCampos.setBackground(new Color(250,250,250));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
         
+        
         gbc.gridx=0;
         gbc.gridy=0;
+        panelLogin.add(crearEtiqueta("Usuario: "),gbc);
+        gbc.gridx=1;
+        panelCampos.add(txtUser,gbc);
+        
+        gbc.gridx=0;
+        gbc.gridy=1;
+        panelLogin.add(crearEtiqueta("Password: "),gbc);
+        gbc.gridx=1;
+        panelCampos.add(txtPassword,gbc);
+        
+        panelLogin.add(panelCampos, BorderLayout.CENTER);
+        
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
+        panelBotones.setBackground(new Color(250,250,250));
+        
+        JButton btnLogin= new JButton("Iniciar Sesion");
+     
+        
       
         
     }
     
+    private boolean camposVacios(){
+        return txtUser.getText().isEmpty()||new String (txtPassword.getPassword()).isEmpty();
+    }
+    
+    private void mostrarMensaje(String texto, boolean exito){
+        mensajeLabel.setForeground(exito ? new Color(0, 150, 0) : new Color(200, 0, 0));
+        mensajeLabel.setText(texto);
+    }
+   
+        private void limpiarCampos() {
+        txtUser.setText("");
+        txtPassword.setText("");
+    }
+    
 
+    private void mostrarPantalla(String nombre) {
+        CardLayout cl = (CardLayout) panelPrincipal.getLayout();
+        cl.show(panelPrincipal, nombre);
+
+    }
     
 }
