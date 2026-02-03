@@ -611,6 +611,23 @@ public class MainWindow extends JFrame {
     return panel;
 }
 
+     private void crearPanelConfiguracion() {
+    JPanel panelConfig = crearPanelBasico("CONFIGURACIÓN");
+    
+    JButton btnVolver = crearBotonVolver();
+    panelConfig.add(btnVolver, BorderLayout.SOUTH);
+    
+    panelPrincipal.add(panelConfig, "CONFIG");
+}
+     
+     private void crearPanelReportes() {
+    JPanel panelReportes = crearPanelBasico("REPORTES");
+    
+    JButton btnVolver = crearBotonVolver();
+    panelReportes.add(btnVolver, BorderLayout.SOUTH);
+    
+    panelPrincipal.add(panelReportes, "REPORTES");
+}
     
 
     private void mostrarPantalla(String nombre) {
