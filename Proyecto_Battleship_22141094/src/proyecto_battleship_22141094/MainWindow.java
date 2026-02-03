@@ -12,11 +12,11 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
-import javax.swing.BorderFactory;
+import java.awt.*;import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -44,7 +44,9 @@ public class MainWindow extends JFrame {
     crearPanelLogin();
    crearPanelRegistro();
    crearMenuPrincipal();
- 
+   crearPanelConfiguracion();
+   crearPanelReportes();
+   crearPanelPerfil();
    
 
     mostrarPantalla("INICIO");
@@ -425,8 +427,7 @@ public class MainWindow extends JFrame {
          titulo.setFont(new Font("Arial", Font.BOLD, 28));
          titulo.setForeground(new Color(40, 40, 40));
          panelPerfil.add(titulo, BorderLayout.NORTH);
-         JPanel panelOpciones = new JPanel((LayoutManager) new GridLayout(3, 1, 20, 20));
-            panelOpciones.setBackground(new Color(250, 250, 250));
+            JPanel panelOpciones = new JPanel(new GridLayout(3, 1, 20, 20));             panelOpciones.setBackground(new Color(250, 250, 250));
             panelOpciones.setBorder(BorderFactory.createEmptyBorder(30, 150, 30, 150));
 
             JButton btnVerDatos = crearBotonPerfil("Ver Mis Datos", new Color(70, 130, 180));
@@ -436,9 +437,96 @@ public class MainWindow extends JFrame {
             panelOpciones.add(btnVerDatos);
             panelOpciones.add(btnModificar);
             panelOpciones.add(btnEliminar);
+             JPanel panelMensaje = new JPanel();
+    panelMensaje.setBackground(new Color(250, 250, 250));
+    JLabel lblMensajePerfil = new JLabel(" ");
+    lblMensajePerfil.setFont(new Font("Arial", Font.PLAIN, 13));
+    panelMensaje.add(lblMensajePerfil);
+    
+    JButton btnVolver = crearBotonVolver();
+    
+    JPanel panelSur = new JPanel(new BorderLayout());
+    panelSur.setBackground(new Color(250, 250, 250));
+    panelSur.add(panelMensaje, BorderLayout.CENTER);
+    panelSur.add(btnVolver, BorderLayout.SOUTH);
+    
+    btnVerDatos.addActionListener(e -> {
+        String datos = loginManager.verDatos();
+        lblMensajePerfil.setForeground(new Color(0, 100, 0));
+        lblMensajePerfil.setText("<html>" + datos.replace("\n", "<br>") + "</html>");
+    });
             
+    btnModificar.addActionListener(e -> {
+        JPanel panelModificar = new JPanel(new GridLayout(2, 2, 10, 10));
+        
+        JLabel lblNuevoUser = new JLabel("Nuevo Usuario:");
+        JTextField txtNuevoUser = new JTextField(15);
+        
+        JLabel lblNuevoPass = new JLabel("Nueva Contraseña:");
+        JPasswordField txtNuevoPass = new JPasswordField(15);
+        
+        panelModificar.add(lblNuevoUser);
+        panelModificar.add(txtNuevoUser);
+        panelModificar.add(lblNuevoPass);
+        panelModificar.add(txtNuevoPass);
+        
+        int resultado = JOptionPane.showConfirmDialog(
+            this, 
+            panelModificar, 
+            "Modificar Mis Datos", 
+            JOptionPane.OK_CANCEL_OPTION
+        );
+        
+        if (resultado == JOptionPane.OK_OPTION) {
+            String nuevoUser = txtNuevoUser.getText();
+            String nuevoPass = new String(txtNuevoPass.getPassword());
             
-     }
+            String respuesta = loginManager.modificarDatos(nuevoUser, nuevoPass);
+            
+            if (respuesta.contains("Error")) {
+                lblMensajePerfil.setForeground(new Color(200, 0, 0));
+            } else {
+                lblMensajePerfil.setForeground(new Color(0, 150, 0));
+                usuarioActual = nuevoUser;
+            }
+            lblMensajePerfil.setText("<html>" + respuesta.replace("\n", "<br>") + "</html>");
+        }
+    });
+    
+    btnEliminar.addActionListener(e -> {
+        int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿ESTÁS SEGURO de eliminar tu cuenta?\n" +
+            "Esta acción NO se puede deshacer.\n" +
+            "Perderás todos tus datos permanentemente.",
+            "Confirmar Eliminación",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+        
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            String respuesta = loginManager.eliminarCuenta();
+            
+            if (respuesta.contains("Error")) {
+                lblMensajePerfil.setForeground(new Color(200, 0, 0));
+                lblMensajePerfil.setText("<html>" + respuesta.replace("\n", "<br>") + "</html>");
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "¡Cuenta eliminada!\nSerás redirigido al inicio.",
+                    "Cuenta Eliminada",
+                    JOptionPane.INFORMATION_MESSAGE);
+                
+                usuarioActual = null;
+                mostrarPantalla("INICIO");
+            }
+        }
+    });
+    
+    panelPerfil.add(panelOpciones, BorderLayout.CENTER);
+    panelPerfil.add(panelSur, BorderLayout.SOUTH);
+    
+    panelPrincipal.add(panelPerfil, "PERFIL");
+}
     
     
     
@@ -467,24 +555,24 @@ public class MainWindow extends JFrame {
     
     private void manejarBotonMenu(String opcion){
         switch(opcion){
-            case "Jugadr Battleship":
+            case "Jugar Battleship":
                 mostrarPantalla("BATTLESHIP");
                break;
                
-            case "Configuracion":
-                mostrarPantalla("Configuracion");
+            case "Configuración":
+                mostrarPantalla("CONFIG");
                 break;
                 
             case "Reportes":
-                mostrarPantalla("Reportes");
+                mostrarPantalla("REPORTES");
                 break;
                 
-            case "Mi perfil":
-                mostrarPantalla("Mi perfil");
+            case "Mi Perfil":
+                mostrarPantalla("Mi Perfil");
                 
-            case "Cerrar Sesion":
+            case "Cerrar Sesión":
                 usuarioActual=null;
-                mostrarPantalla("Inicio");
+                mostrarPantalla("INICIO");
                 break;
                
         }
