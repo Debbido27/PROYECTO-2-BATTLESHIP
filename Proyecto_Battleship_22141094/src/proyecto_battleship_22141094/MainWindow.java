@@ -33,6 +33,17 @@ public class MainWindow extends JFrame {
     public MainWindow (){
         loginManager = new LoginManager();
         
+    txtUser = new JTextField(15);
+    txtPassword = new JPasswordField(15);
+    mensajeLabel = new JLabel("", SwingConstants.CENTER);
+
+    VENTANA_CONFI();
+    CrearPantallaIni();
+    crearPanelLogin();
+    crearPanelRegistro();
+
+    mostrarPantalla("INICIO");
+    setVisible(true);  
     }
     
     private void VENTANA_CONFI(){
@@ -85,6 +96,10 @@ public class MainWindow extends JFrame {
         return etiqueta;
     }
     
+    private JPanel crearPanelBotonesYMensaje(){
+        
+    }
+    
     
     private void iniciarSesion(){
         String user = txtUser.getText();
@@ -125,6 +140,8 @@ public class MainWindow extends JFrame {
             mostrarMensaje("Username ya existe o límite alcanzado", false);
         }
     }
+    
+    
     private void crearPanelLogin(){
         JPanel panelLogin = new JPanel(new GridBagLayout());
         panelLogin.setBackground(new Color(250,250,250));
