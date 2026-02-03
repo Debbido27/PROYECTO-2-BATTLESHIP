@@ -580,6 +580,18 @@ public class MainWindow extends JFrame {
     }
 
     
+    private JButton crearBotonVolver(){
+    JButton btnVolver = new JButton("Volver al Menú");
+    btnVolver.setBackground(new Color(70, 130, 180));
+    btnVolver.setForeground(Color.WHITE);
+    btnVolver.setFont(new Font("Arial", Font.BOLD, 14));
+    btnVolver.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30));
+    btnVolver.setFocusPainted(false);
+    btnVolver.addActionListener(e -> mostrarPantalla("MENU"));
+    
+    return btnVolver;
+    }
+    
     private void mostrarMensaje(String texto, boolean exito){
         mensajeLabel.setForeground(exito ? new Color(0, 150, 0) : new Color(200, 0, 0));
         mensajeLabel.setText(texto);
