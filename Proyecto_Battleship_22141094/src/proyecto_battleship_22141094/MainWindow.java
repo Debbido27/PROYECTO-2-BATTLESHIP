@@ -41,7 +41,7 @@ public class MainWindow extends JFrame {
     VENTANA_CONFI();
     CrearPantallaIni();
     crearPanelLogin();
-  //  crearPanelRegistro();
+   crearPanelRegistro();
 
     mostrarPantalla("INICIO");
     setVisible(true);  
@@ -138,7 +138,7 @@ public class MainWindow extends JFrame {
         if (loginManager.login(user, pass)) {
             usuarioActual = user;
             mostrarMensaje("¡Login exitoso! Bienvenido " + user, true);
-            limpiarCampos();
+            
             mostrarPantalla("MENU"); 
         } else {
             mostrarMensaje("Usuario o contraseña incorrectos", false);
@@ -158,7 +158,7 @@ public class MainWindow extends JFrame {
         if (loginManager.crearPlayer(user, pass)) {
             usuarioActual = user;
             mostrarMensaje("¡Cuenta creada exitosamente!", true);
-            limpiarCampos();
+           
             mostrarPantalla("MENU");  
         } else {
             mostrarMensaje("Username ya existe o límite alcanzado", false);
@@ -245,7 +245,7 @@ public class MainWindow extends JFrame {
             usuarioActual = user;
             mensajeLogin.setForeground(new Color(0, 150, 0));
             mensajeLogin.setText("¡Login exitoso! Bienvenido " + user);
-            limpiarCampos();
+           
             mostrarPantalla("MENU");
         } else {
             mensajeLogin.setForeground(Color.RED);
@@ -273,52 +273,110 @@ public class MainWindow extends JFrame {
       
         
     }
-    /*
+    
     private void crearPanelRegistro(){
-        JTextField txtUserRegistro = new JTextField(15);
-        JPasswordField txtPasswordRegistro = new JPasswordField(15);
-        JPanel panelRegistro = new JPanel(new BorderLayout());
-        panelRegistro.setBackground(new Color(250,250,250));
-        
-        JLabel titulo = new JLabel("Crear Cuenta", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial",Font.BOLD,32));
-        titulo.setForeground(new Color(40,40,40));
-        panelRegistro.add(titulo, BorderLayout.NORTH);
-        
-        JPanel panelCampos= new JPanel(new GridBagLayout());
-        panelCampos.setBackground(new Color(250,250,250));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10,10,10,10);
-        
-         gbc.gridx = 0; gbc.gridy = 0;
-         panelCampos.add(crearEtiqueta("Usuario:"), gbc);
-         gbc.gridx = 1;
-         panelCampos.add(txtUser, gbc);
+    JTextField txtUserRegistro = new JTextField(20);
+    JPasswordField txtPasswordRegistro = new JPasswordField(20);
+    
+    JLabel mensajeRegistro = new JLabel("", SwingConstants.CENTER);
+    mensajeRegistro.setFont(new Font("Arial", Font.PLAIN, 14));
+    mensajeRegistro.setForeground(Color.red);
+    
+    JPanel panelRegistro = new JPanel(new BorderLayout());
+    panelRegistro.setBackground(new Color(250,250,250));
+    panelRegistro.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+    
+    JLabel titulo = new JLabel("CREAR CUENTA", SwingConstants.CENTER);
+    titulo.setFont(new Font("Arial", Font.BOLD, 32));
+    titulo.setForeground(new Color(40,40,40));
+    titulo.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
+    panelRegistro.add(titulo, BorderLayout.NORTH);
+    
+    JPanel panelCampos= new JPanel(new GridBagLayout());
+    panelCampos.setBackground(new Color(250,250,250));
+    panelCampos.setBorder(BorderFactory.createEmptyBorder(20,100,20,100));
+    
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(15,15,15,15);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.weightx = 1.0;
+    
+   
+    gbc.gridx = 0; 
+    gbc.gridy = 0;
+    gbc.anchor = GridBagConstraints.EAST;
+    panelCampos.add(crearEtiqueta("Usuario:"), gbc);
+    
+    gbc.gridx = 1;
+    gbc.anchor = GridBagConstraints.WEST;
+    txtUserRegistro.setPreferredSize(new java.awt.Dimension(200,30));
+    txtUserRegistro.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
+    panelCampos.add(txtUserRegistro, gbc);
 
-         gbc.gridx = 0; gbc.gridy = 1;
-         panelCampos.add(crearEtiqueta("Contraseña:"), gbc);
-         gbc.gridx = 1;
-         panelCampos.add(txtPassword, gbc);
-
-         panelRegistro.add(panelCampos, BorderLayout.CENTER);
-         
-         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER,20,15));
-         panelBotones.setBackground(new Color(250,250,250));
-         
-         JButton btnCrear = new JButton("Crear cuenta");
-         btnCrear.addActionListener(e-> crearCuenta());
-         panelBotones.add(btnCrear);
-         
-         JButton btnVolver = new JButton("Volver");
-         btnVolver.addActionListener(e-> mostrarPantalla("INICIO"));
-         panelBotones.add(btnVolver);
-         
-         panelRegistro.add(panelBotones, BorderLayout.SOUTH);
-         panelPrincipal.add(panelRegistro,"REGISTRO");
-                 
-         
-    }
-    */
+   
+    gbc.gridx = 0; 
+    gbc.gridy = 1;
+    gbc.anchor = GridBagConstraints.EAST;
+    panelCampos.add(crearEtiqueta("Contraseña:"), gbc);
+    
+    gbc.gridx = 1;
+    gbc.anchor = GridBagConstraints.WEST;
+    txtPasswordRegistro.setPreferredSize(new java.awt.Dimension(200,30));
+    txtPasswordRegistro.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
+    panelCampos.add(txtPasswordRegistro, gbc);
+    
+   
+    gbc.gridx = 0;
+    gbc.gridy = 2;
+    gbc.gridwidth = 2;
+    gbc.anchor = GridBagConstraints.CENTER;
+    panelCampos.add(mensajeRegistro, gbc);
+    
+    panelRegistro.add(panelCampos, BorderLayout.CENTER);
+    
+    JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER,20,15));
+    panelBotones.setBackground(new Color(250,250,250));
+    panelBotones.setBorder(BorderFactory.createEmptyBorder(0,0,30,0));
+    
+    JButton btnCrear = new JButton("Crear cuenta");
+    btnCrear.setPreferredSize(new java.awt.Dimension(150, 40));
+    btnCrear.addActionListener(e -> {
+       
+        String user = txtUserRegistro.getText();
+        String pass = new String(txtPasswordRegistro.getPassword());
+        
+        if(user.isEmpty() || pass.isEmpty()){
+            mensajeRegistro.setForeground(Color.RED);
+            mensajeRegistro.setText("Por favor complete todos los campos");
+            return;
+        }
+        
+        if (loginManager.crearPlayer(user, pass)) {
+            usuarioActual = user;
+            mensajeRegistro.setForeground(new Color(0, 150, 0));
+            mensajeRegistro.setText("¡Cuenta creada exitosamente!");
+            txtUserRegistro.setText("");
+            txtPasswordRegistro.setText("");
+            mostrarPantalla("MENU");
+        } else {
+            mensajeRegistro.setForeground(Color.RED);
+            mensajeRegistro.setText("Username ya existe o límite alcanzado");
+        }
+    });
+    panelBotones.add(btnCrear);
+    
+    JButton btnVolver = new JButton("Volver");
+    btnVolver.setPreferredSize(new java.awt.Dimension(150, 40));
+    btnVolver.addActionListener(e -> {
+        mensajeRegistro.setText("");
+        mostrarPantalla("INICIO");
+    });
+    panelBotones.add(btnVolver);
+    
+    panelRegistro.add(panelBotones, BorderLayout.SOUTH);
+    panelPrincipal.add(panelRegistro,"REGISTRO");
+}
+    
     private boolean camposVacios(){
         return txtUser.getText().isEmpty()||new String (txtPassword.getPassword()).isEmpty();
     }
@@ -327,11 +385,7 @@ public class MainWindow extends JFrame {
         mensajeLabel.setForeground(exito ? new Color(0, 150, 0) : new Color(200, 0, 0));
         mensajeLabel.setText(texto);
     }
-   
-        private void limpiarCampos() {
-        txtUser.setText("");
-        txtPassword.setText("");
-    }
+
     
 
     private void mostrarPantalla(String nombre) {
