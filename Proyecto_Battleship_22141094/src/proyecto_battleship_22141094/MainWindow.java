@@ -416,7 +416,7 @@ public class MainWindow extends JFrame {
         }
     
     
-     private void creraPanelPerfil(){
+     private void creaaPanelPerfil(){
          JPanel panelPerfil = new JPanel(new BorderLayout());
          panelPerfil.setBackground(new Color(250, 250, 250));
          panelPerfil.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
@@ -429,6 +429,15 @@ public class MainWindow extends JFrame {
             panelOpciones.setBackground(new Color(250, 250, 250));
             panelOpciones.setBorder(BorderFactory.createEmptyBorder(30, 150, 30, 150));
 
+            JButton btnVerDatos = crearBotonPerfil("Ver Mis Datos", new Color(70, 130, 180));
+            JButton btnModificar = crearBotonPerfil("Modificar Mis Datos", new Color(255, 140, 0));
+            JButton btnEliminar = crearBotonPerfil("Eliminar Mi Cuenta", new Color(220, 20, 60));
+
+            panelOpciones.add(btnVerDatos);
+            panelOpciones.add(btnModificar);
+            panelOpciones.add(btnEliminar);
+            
+            
      }
     
     
