@@ -107,6 +107,24 @@ public class MainWindow extends JFrame {
     }
     
     
+    private void crearCuenta(){
+        String user = txtUser.getText();
+        String pass = new String(txtPassword.getPassword());
+        
+        if (camposVacios()) {
+            mostrarMensaje("Por favor complete todos los campos", false);
+            return;
+        }
+        
+        if (loginManager.crearPlayer(user, pass)) {
+            usuarioActual = user;
+            mostrarMensaje("¡Cuenta creada exitosamente!", true);
+            limpiarCampos();
+            mostrarPantalla("MENU");  
+        } else {
+            mostrarMensaje("Username ya existe o límite alcanzado", false);
+        }
+    }
     private void crearPanelLogin(){
         JPanel panelLogin = new JPanel(new GridBagLayout());
         panelLogin.setBackground(new Color(250,250,250));
@@ -152,6 +170,40 @@ public class MainWindow extends JFrame {
         panelPrincipal.add(panelLogin, "LOGIN");
       
         
+    }
+    
+    private void crearPanelRegistro(){
+        JPanel panelRegistro = new JPanel(new BorderLayout());
+        panelRegistro.setBackground(new Color(250,250,250));
+        
+        JLabel titulo = new JLabel("Crear Cuenta", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial",Font.BOLD,32));
+        titulo.setForeground(new Color(40,40,40));
+        panelRegistro.add(titulo, BorderLayout.NORTH);
+        
+        JPanel panelCampos= new JPanel(new GridBagLayout());
+        panelCampos.setBackground(new Color(250,250,250));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10,10,10,10);
+        
+         gbc.gridx = 0; gbc.gridy = 0;
+         panelCampos.add(crearEtiqueta("Usuario:"), gbc);
+         gbc.gridx = 1;
+         panelCampos.add(txtUser, gbc);
+
+         gbc.gridx = 0; gbc.gridy = 1;
+         panelCampos.add(crearEtiqueta("Contraseña:"), gbc);
+         gbc.gridx = 1;
+         panelCampos.add(txtPassword, gbc);
+
+         panelRegistro.add(panelCampos, BorderLayout.CENTER);
+         
+         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER,20,15));
+         panelBotones.setBackground(new Color(250,250,250));
+         
+         JButton btnCrear = new JButton("Crear cuenta");
+         btnCrear.addActionListener(e-> crearCuenta());
+         
     }
     
     private boolean camposVacios(){
