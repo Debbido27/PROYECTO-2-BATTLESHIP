@@ -28,13 +28,14 @@ public class MainWindow extends JFrame {
     private JTextField txtUser;
     private JPasswordField txtPassword;
     private String usuarioActual;
+
     
     
     public MainWindow (){
         loginManager = new LoginManager();
         
-    txtUser = new JTextField(15);
-    txtPassword = new JPasswordField(15);
+    //txtUser = new JTextField(15);
+    ///txtPassword = new JPasswordField(15);
     mensajeLabel = new JLabel("", SwingConstants.CENTER);
 
     VENTANA_CONFI();
@@ -118,7 +119,7 @@ public class MainWindow extends JFrame {
     panel.add(btnRegistro, gbc);
 
     gbc.gridy = 2;
-    panel.add(mensajeLabel, gbc);
+    
 
     return panel;
 }
@@ -128,7 +129,7 @@ public class MainWindow extends JFrame {
         String user = txtUser.getText();
         String pass = new String(txtPassword.getPassword());
         
-        if(camposVacios()){
+        if(user.isEmpty()||pass.isEmpty()){
             
               mostrarMensaje("Por favor complete todos los campos", false);
             return;
@@ -149,7 +150,7 @@ public class MainWindow extends JFrame {
         String user = txtUser.getText();
         String pass = new String(txtPassword.getPassword());
         
-        if (camposVacios()) {
+            if(user.isEmpty() || pass.isEmpty()){
             mostrarMensaje("Por favor complete todos los campos", false);
             return;
         }
@@ -166,44 +167,98 @@ public class MainWindow extends JFrame {
     
     
     private void crearPanelLogin(){
-        JPanel panelLogin = new JPanel(new GridBagLayout());
+        JTextField txtLoginUser = new JTextField(20);
+        JPasswordField txtLoginPassword= new JPasswordField(20);
+        
+               
+        JLabel mensajeLogin = new JLabel ("",SwingConstants.CENTER);
+        mensajeLogin.setFont(new Font("Arial",Font.PLAIN,14));
+        mensajeLogin.setForeground(Color.red);
+        
+       
+        JPanel panelLogin = new JPanel(new BorderLayout());
         panelLogin.setBackground(new Color(250,250,250));
         
         JLabel titulo = new JLabel("INICIAR SESIÓN", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 32));
         titulo.setForeground(new Color(40, 40, 40));
+        panelLogin.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+
         panelLogin.add(titulo, BorderLayout.NORTH);
+        
         
         JPanel panelCampos= new JPanel(new GridBagLayout());
         panelCampos.setBackground(new Color(250,250,250));
+        panelLogin.setBorder(BorderFactory.createEmptyBorder(20,100,20,100));
+
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets=new Insets(10,10,10,10);
+        gbc.insets=new Insets(15,15,15,15);
+        gbc.fill=GridBagConstraints.HORIZONTAL;
+        gbc.weightx=1.0;
         
         
         gbc.gridx=0;
         gbc.gridy=0;
-        panelLogin.add(crearEtiqueta("Usuario: "),gbc);
+        gbc.anchor= GridBagConstraints.EAST;
+        panelCampos.add(crearEtiqueta("Usuario: "),gbc);
         gbc.gridx=1;
+        gbc.anchor = GridBagConstraints.WEST;
+        
+        txtUser.setPreferredSize(new java.awt.Dimension(200,30));
+        txtUser.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
         panelCampos.add(txtUser,gbc);
         
         gbc.gridx=0;
         gbc.gridy=1;
-        panelLogin.add(crearEtiqueta("Password: "),gbc);
+        gbc.anchor=GridBagConstraints.EAST;
+        panelCampos.add(crearEtiqueta("Password: "),gbc);
         gbc.gridx=1;
+        gbc.anchor= GridBagConstraints.EAST;
+        txtPassword.setPreferredSize(new java.awt.Dimension(150, 25));
+          
         panelCampos.add(txtPassword,gbc);
         
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2; 
+        panelCampos.add(mensajeLogin,gbc);
         panelLogin.add(panelCampos, BorderLayout.CENTER);
         
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
         panelBotones.setBackground(new Color(250,250,250));
         
         JButton btnLogin= new JButton("Iniciar Sesion");
-        btnLogin.addActionListener(e -> iniciarSesion());
+        btnLogin.addActionListener(e ->{
+            String user = txtUser.getText();
+            String pass = new String(txtPassword.getPassword());
+            
+            if(user.isEmpty()||pass.isEmpty()){
+                mensajeLogin.setForeground(Color.RED);
+                mensajeLogin.setText("Porfaor complete todos los campos");
+                return;
+            }        if (loginManager.login(user, pass)) {
+            usuarioActual = user;
+            mensajeLogin.setForeground(new Color(0, 150, 0));
+            mensajeLogin.setText("¡Login exitoso! Bienvenido " + user);
+            limpiarCampos();
+            mostrarPantalla("MENU");
+        } else {
+            mensajeLogin.setForeground(Color.RED);
+            mensajeLogin.setText("Usuario o contraseña incorrectos");
+        }
+    });
+            
+        
+  
         panelBotones.add(btnLogin);
         
         JButton btnVolver = new JButton("Volver");
-        btnVolver.addActionListener(e -> mostrarPantalla("INICIO"));
+        btnVolver.addActionListener(e -> {
+        mensajeLogin.setText(""); 
+        mostrarPantalla("Inicio");
+        });
         panelBotones.add(btnVolver);
+        
 
         panelLogin.add(panelBotones, BorderLayout.SOUTH);
 
@@ -213,6 +268,8 @@ public class MainWindow extends JFrame {
     }
     
     private void crearPanelRegistro(){
+        JTextField txtUserRegistro = new JTextField(15);
+        JPasswordField txtPasswordRegistro = new JPasswordField(15);
         JPanel panelRegistro = new JPanel(new BorderLayout());
         panelRegistro.setBackground(new Color(250,250,250));
         
@@ -246,7 +303,7 @@ public class MainWindow extends JFrame {
          panelBotones.add(btnCrear);
          
          JButton btnVolver = new JButton("Volver");
-         btnVolver.addActionListener(e-> mostrarPantalla("Inicio"));
+         btnVolver.addActionListener(e-> mostrarPantalla("INICIO"));
          panelBotones.add(btnVolver);
          
          panelRegistro.add(panelBotones, BorderLayout.SOUTH);
