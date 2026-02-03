@@ -43,6 +43,9 @@ public class MainWindow extends JFrame {
     CrearPantallaIni();
     crearPanelLogin();
    crearPanelRegistro();
+   crearMenuPrincipal();
+ 
+   
 
     mostrarPantalla("INICIO");
     setVisible(true);  
@@ -400,8 +403,34 @@ public class MainWindow extends JFrame {
         panelBotonesMenu.setBorder(BorderFactory.createEmptyBorder(50, 250, 50, 250));
         panelBotonesMenu.setBackground(new Color(250, 250, 250));
         
+        panelBotonesMenu.add(crearBotonMenu("Jugar Battleship", new Color(70, 130, 180)));
+        panelBotonesMenu.add(crearBotonMenu("Configuración", new Color(70, 130, 180)));
+        panelBotonesMenu.add(crearBotonMenu("Reportes", new Color(70, 130, 180)));
+        panelBotonesMenu.add(crearBotonMenu("Mi Perfil", new Color(70, 130, 180)));
+        panelBotonesMenu.add(crearBotonMenu("Cerrar Sesión", new Color(255, 0, 0)));
+
+        panelMenu.add(panelBotonesMenu, BorderLayout.SOUTH);
+
+        panelPrincipal.add(panelMenu, "MENU");
         
         }
+    
+    
+     private void creraPanelPerfil(){
+         JPanel panelPerfil = new JPanel(new BorderLayout());
+         panelPerfil.setBackground(new Color(250, 250, 250));
+         panelPerfil.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
+
+         JLabel titulo = new JLabel("MI PERFIL", SwingConstants.CENTER);
+         titulo.setFont(new Font("Arial", Font.BOLD, 28));
+         titulo.setForeground(new Color(40, 40, 40));
+         panelPerfil.add(titulo, BorderLayout.NORTH);
+     }
+    
+    
+    
+    
+    
     
     private JButton crearBotonMenu(String texto, Color color){
         JButton boton = new JButton(texto);
@@ -410,6 +439,9 @@ public class MainWindow extends JFrame {
         boton.setFont(new Font("Arial", Font.BOLD, 14));
         boton.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         boton.setFocusPainted(false);
+        
+        boton.addActionListener(e->manejarBotonMenu(texto));
+        return boton;
     }
     
     private void manejarBotonMenu(String opcion){
