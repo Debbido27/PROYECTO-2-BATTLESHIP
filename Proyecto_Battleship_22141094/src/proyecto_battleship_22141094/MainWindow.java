@@ -592,10 +592,24 @@ public class MainWindow extends JFrame {
     return btnVolver;
     }
     
+    
     private void mostrarMensaje(String texto, boolean exito){
         mensajeLabel.setForeground(exito ? new Color(0, 150, 0) : new Color(200, 0, 0));
         mensajeLabel.setText(texto);
     }
+    
+    private JPanel crearPanelBasico(String tituloTexto) {
+    JPanel panel = new JPanel(new BorderLayout());
+    panel.setBackground(new Color(250, 250, 250));
+    panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+    
+    JLabel titulo = new JLabel(tituloTexto, SwingConstants.CENTER);
+    titulo.setFont(new Font("Arial", Font.BOLD, 28));
+    titulo.setForeground(new Color(40, 40, 40));
+    
+    panel.add(titulo, BorderLayout.CENTER);
+    return panel;
+}
 
     
 
