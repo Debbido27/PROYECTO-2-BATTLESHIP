@@ -4,7 +4,9 @@ package proyecto_battleship_22141094;
 //
 
 import static java.awt.AWTEventMulticaster.add;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -34,6 +36,15 @@ public class MainWindow extends JFrame {
         panelPrincipal = new JPanel(new CardLayout());
         add(panelPrincipal);
     }
+    
+    private void CrearPantallaIni(){
+       JPanel panelInicio= new JPanel (new BorderLayout());
+       panelInicio.setBackground(new Color (250, 250, 250));
+       
+       panelPrincipal.add(panelInicio, "INICIO");
+ 
+    }
+    
 
     
 }
