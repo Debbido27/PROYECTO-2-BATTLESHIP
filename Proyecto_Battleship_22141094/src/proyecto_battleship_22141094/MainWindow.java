@@ -402,9 +402,14 @@ public class MainWindow extends JFrame {
         
         
         }
-    private boolean camposVacios(){
-        return txtUser.getText().isEmpty()||new String (txtPassword.getPassword()).isEmpty();
+    
+    private JButton crearBotonMenu(String texto, Color color){
+        JButton boton = new JButton(texto);
+        boton.setBackground(color);
+        boton.setForeground(Color.WHITE);
+        
     }
+
     
     private void mostrarMensaje(String texto, boolean exito){
         mensajeLabel.setForeground(exito ? new Color(0, 150, 0) : new Color(200, 0, 0));
