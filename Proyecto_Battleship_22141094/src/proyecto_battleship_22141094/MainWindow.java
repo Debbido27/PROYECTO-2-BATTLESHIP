@@ -41,7 +41,7 @@ public class MainWindow extends JFrame {
     VENTANA_CONFI();
     CrearPantallaIni();
     crearPanelLogin();
-    crearPanelRegistro();
+  //  crearPanelRegistro();
 
     mostrarPantalla("INICIO");
     setVisible(true);  
@@ -189,7 +189,7 @@ public class MainWindow extends JFrame {
         
         JPanel panelCampos= new JPanel(new GridBagLayout());
         panelCampos.setBackground(new Color(250,250,250));
-        panelLogin.setBorder(BorderFactory.createEmptyBorder(20,100,20,100));
+        panelCampos.setBorder(BorderFactory.createEmptyBorder(20,100,20,100));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets=new Insets(15,15,15,15);
@@ -204,33 +204,38 @@ public class MainWindow extends JFrame {
         gbc.gridx=1;
         gbc.anchor = GridBagConstraints.WEST;
         
-        txtUser.setPreferredSize(new java.awt.Dimension(200,30));
-        txtUser.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
-        panelCampos.add(txtUser,gbc);
+        txtLoginUser.setPreferredSize(new java.awt.Dimension(200,30));
+        txtLoginUser.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
+        panelCampos.add(txtLoginUser,gbc);
         
         gbc.gridx=0;
         gbc.gridy=1;
         gbc.anchor=GridBagConstraints.EAST;
         panelCampos.add(crearEtiqueta("Password: "),gbc);
         gbc.gridx=1;
-        gbc.anchor= GridBagConstraints.EAST;
-        txtPassword.setPreferredSize(new java.awt.Dimension(150, 25));
-          
-        panelCampos.add(txtPassword,gbc);
+        gbc.anchor= GridBagConstraints.WEST;
+        txtLoginPassword.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtLoginPassword.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
+
+        panelCampos.add(txtLoginPassword,gbc);
         
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2; 
+        gbc.anchor = GridBagConstraints.CENTER;
         panelCampos.add(mensajeLogin,gbc);
+        
         panelLogin.add(panelCampos, BorderLayout.CENTER);
         
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
         panelBotones.setBackground(new Color(250,250,250));
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
         
         JButton btnLogin= new JButton("Iniciar Sesion");
+        btnLogin.setPreferredSize(new java.awt.Dimension(150, 40)); 
         btnLogin.addActionListener(e ->{
-            String user = txtUser.getText();
-            String pass = new String(txtPassword.getPassword());
+            String user = txtLoginUser.getText();
+            String pass = new String(txtLoginPassword.getPassword());
             
             if(user.isEmpty()||pass.isEmpty()){
                 mensajeLogin.setForeground(Color.RED);
@@ -247,15 +252,17 @@ public class MainWindow extends JFrame {
             mensajeLogin.setText("Usuario o contraseña incorrectos");
         }
     });
+        
             
         
   
         panelBotones.add(btnLogin);
         
         JButton btnVolver = new JButton("Volver");
+          btnVolver.setPreferredSize(new java.awt.Dimension(150, 40));
         btnVolver.addActionListener(e -> {
         mensajeLogin.setText(""); 
-        mostrarPantalla("Inicio");
+        mostrarPantalla("INICIO");
         });
         panelBotones.add(btnVolver);
         
@@ -266,7 +273,7 @@ public class MainWindow extends JFrame {
       
         
     }
-    
+    /*
     private void crearPanelRegistro(){
         JTextField txtUserRegistro = new JTextField(15);
         JPasswordField txtPasswordRegistro = new JPasswordField(15);
@@ -311,7 +318,7 @@ public class MainWindow extends JFrame {
                  
          
     }
-    
+    */
     private boolean camposVacios(){
         return txtUser.getText().isEmpty()||new String (txtPassword.getPassword()).isEmpty();
     }
