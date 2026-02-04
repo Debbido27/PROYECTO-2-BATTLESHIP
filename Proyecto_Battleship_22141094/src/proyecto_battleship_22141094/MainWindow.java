@@ -121,6 +121,11 @@ public class MainWindow extends JFrame {
     btnLogin.addActionListener(e -> mostrarPantalla("LOGIN"));
 
     JButton btnRegistro = new JButton("Crear Cuenta");
+    btnRegistro.setBackground(new Color (0,51,102));
+    btnRegistro.setForeground(Color.WHITE);
+    btnRegistro.setFont(new Font("Arial",Font.BOLD,14));
+    btnRegistro.setBorder(BorderFactory.createEmptyBorder(10,25,10,25));
+    btnRegistro.setFocusPainted(false);
     btnRegistro.addActionListener(e -> mostrarPantalla("REGISTRO"));
     
     gbc.gridy = 0;
