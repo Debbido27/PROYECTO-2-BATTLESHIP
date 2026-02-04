@@ -110,14 +110,19 @@ public class MainWindow extends JFrame {
     panel.setBackground(new Color(250,250,250));
 
     GridBagConstraints gbc = new GridBagConstraints();
-    gbc.insets = new Insets(10,10,10,10);
+    gbc.insets = new Insets(15,15,15,15);
 
     JButton btnLogin = new JButton("Iniciar Sesión");
+    btnLogin.setBackground(new Color (255,102,0));
+    btnLogin.setForeground(Color.WHITE);
+    btnLogin.setFont(new Font("Arial",Font.BOLD,14));
+    btnLogin.setBorder(BorderFactory.createEmptyBorder(10,25,10,25));
+    btnLogin.setFocusPainted(false);
     btnLogin.addActionListener(e -> mostrarPantalla("LOGIN"));
 
     JButton btnRegistro = new JButton("Crear Cuenta");
     btnRegistro.addActionListener(e -> mostrarPantalla("REGISTRO"));
-
+    
     gbc.gridy = 0;
     panel.add(btnLogin, gbc);
 
