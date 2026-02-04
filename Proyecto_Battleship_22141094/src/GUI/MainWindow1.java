@@ -1,8 +1,9 @@
 
-package proyecto_battleship_22141094;
+package GUI;
 
 //
 
+import proyecto_battleship_22141094.*;
 import static java.awt.AWTEventMulticaster.add;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -21,8 +22,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
-public class MainWindow extends JFrame {
+public class MainWindow1 extends JFrame {
     private JPanel panelPrincipal;
     private LoginManager loginManager;
     private JLabel mensajeLabel;
@@ -32,7 +34,7 @@ public class MainWindow extends JFrame {
 
     
     
-    public MainWindow (){
+    public MainWindow1 (){
         loginManager = new LoginManager();
         
     //txtUser = new JTextField(15);
@@ -128,6 +130,15 @@ public class MainWindow extends JFrame {
     btnRegistro.setFocusPainted(false);
     btnRegistro.addActionListener(e -> mostrarPantalla("REGISTRO"));
     
+    JButton btnSalir = new JButton("Salir");
+    btnSalir.setBackground(new Color (255,0,0));
+    btnSalir.setForeground(Color.WHITE);
+    btnSalir.setFont(new Font("Arial",Font.BOLD,14));
+    btnSalir.setBorder(BorderFactory.createEmptyBorder(10,25,10,25));
+    btnSalir.setFocusPainted(false);
+    btnSalir.addActionListener(e -> System.exit(0));
+    
+    
     gbc.gridy = 0;
     panel.add(btnLogin, gbc);
 
@@ -135,7 +146,7 @@ public class MainWindow extends JFrame {
     panel.add(btnRegistro, gbc);
 
     gbc.gridy = 2;
-    
+    panel.add(btnSalir,gbc);
 
     return panel;
 }
@@ -190,7 +201,7 @@ public class MainWindow extends JFrame {
         JLabel mensajeLogin = new JLabel ("",SwingConstants.CENTER);
         mensajeLogin.setFont(new Font("Arial",Font.PLAIN,14));
         mensajeLogin.setForeground(Color.red);
-        
+        mensajeLogin.setVisible(false);
        
         JPanel panelLogin = new JPanel(new BorderLayout());
         panelLogin.setBackground(new Color(250,250,250));
@@ -255,13 +266,21 @@ public class MainWindow extends JFrame {
             
             if(user.isEmpty()||pass.isEmpty()){
                 mensajeLogin.setForeground(Color.RED);
-                mensajeLogin.setText("Porfaor complete todos los campos");
+                mensajeLogin.setText("Porfavor complete todos los campos");
+                mensajeLogin.setVisible(true);
                 return;
             }        if (loginManager.login(user, pass)) {
             usuarioActual = user;
             mensajeLogin.setForeground(new Color(0, 150, 0));
             mensajeLogin.setText("¡Login exitoso! Bienvenido " + user);
+           mensajeLogin.setVisible(true);
            
+           
+         //  TIMER PARA COTNROLAR EL TIEMPO
+           Timer timer = new Timer(2000,ev->{
+               mensajeLogin.setVisible(false);
+               mensajeLogin.setText("");
+           });
             mostrarPantalla("MENU");
         } else {
             mensajeLogin.setForeground(Color.RED);
@@ -277,6 +296,7 @@ public class MainWindow extends JFrame {
         JButton btnVolver = new JButton("Volver");
           btnVolver.setPreferredSize(new java.awt.Dimension(150, 40));
         btnVolver.addActionListener(e -> {
+        mensajeLogin.setVisible(false);
         mensajeLogin.setText(""); 
         mostrarPantalla("INICIO");
         });
@@ -297,6 +317,7 @@ public class MainWindow extends JFrame {
     JLabel mensajeRegistro = new JLabel("", SwingConstants.CENTER);
     mensajeRegistro.setFont(new Font("Arial", Font.PLAIN, 14));
     mensajeRegistro.setForeground(Color.red);
+    mensajeRegistro.setVisible(false);
     
     JPanel panelRegistro = new JPanel(new BorderLayout());
     panelRegistro.setBackground(new Color(250,250,250));
@@ -362,8 +383,11 @@ public class MainWindow extends JFrame {
         String pass = new String(txtPasswordRegistro.getPassword());
         
         if(user.isEmpty() || pass.isEmpty()){
+           
             mensajeRegistro.setForeground(Color.RED);
             mensajeRegistro.setText("Por favor complete todos los campos");
+            mensajeRegistro.setVisible(true);
+
             return;
         }
         
@@ -371,12 +395,26 @@ public class MainWindow extends JFrame {
             usuarioActual = user;
             mensajeRegistro.setForeground(new Color(0, 150, 0));
             mensajeRegistro.setText("¡Cuenta creada exitosamente!");
+            mensajeRegistro.setVisible(true);
+            
             txtUserRegistro.setText("");
             txtPasswordRegistro.setText("");
+            
+            
+            Timer timer = new Timer(2000,ev ->{
+                mensajeRegistro.setVisible(false);
+                mensajeRegistro.setText("");
+                 
+            });
+            timer.setRepeats(false);
+            timer.start();
             mostrarPantalla("MENU");
+            
+           
         } else {
             mensajeRegistro.setForeground(Color.RED);
             mensajeRegistro.setText("Username ya existe o límite alcanzado");
+            mensajeRegistro.setVisible(true);
         }
     });
     panelBotones.add(btnCrear);
@@ -384,12 +422,14 @@ public class MainWindow extends JFrame {
     JButton btnVolver = new JButton("Volver");
     btnVolver.setPreferredSize(new java.awt.Dimension(150, 40));
     btnVolver.addActionListener(e -> {
+        mensajeRegistro.setVisible(false);
         mensajeRegistro.setText("");
         mostrarPantalla("INICIO");
     });
     panelBotones.add(btnVolver);
     
     panelRegistro.add(panelBotones, BorderLayout.SOUTH);
+    
     panelPrincipal.add(panelRegistro,"REGISTRO");
 }
     
@@ -466,6 +506,11 @@ JPanel panelOpciones = new JPanel((LayoutManager) new java.awt.GridLayout(3, 1, 
         lblMensajePerfil.setText("<html>" + datos.replace("\n", "<br>") + "</html>");
     });
             
+    btnVolver.addActionListener(e->{
+        lblMensajePerfil.setText("");
+        mostrarPantalla("MENU");
+    });
+    
     btnModificar.addActionListener(e -> {
 JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2, 10, 10));
         
@@ -582,6 +627,7 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
                 break;
             case "Cerrar Sesión":
                 usuarioActual=null;
+                loginManager.logout();
                 mostrarPantalla("INICIO");
                 break;
                
