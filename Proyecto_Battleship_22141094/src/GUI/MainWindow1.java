@@ -285,6 +285,11 @@ public class MainWindow1 extends JFrame {
         } else {
             mensajeLogin.setForeground(Color.RED);
             mensajeLogin.setText("Usuario o contraseña incorrectos");
+            mensajeLogin.setVisible(true);
+               Timer timer = new Timer(2000,ev->{
+               mensajeLogin.setVisible(false);
+               mensajeLogin.setText("");
+           });
         }
     });
         
