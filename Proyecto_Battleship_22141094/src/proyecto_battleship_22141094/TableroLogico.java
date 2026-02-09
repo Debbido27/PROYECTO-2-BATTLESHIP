@@ -146,10 +146,10 @@ private void colocarBarcoAleatorio(BARCOS barco, int index){
                     barcoColumna[index] = j;
                     barcoHorizontal[index] = true;
                     colocado = true;
-            }
-            }
-}
-}
+              }
+          }
+      }
+   }
 }
 
 public void limpiarFallos(){
@@ -185,7 +185,7 @@ public boolean procesarImpactoYRegenerar(int fila, int columna){
     ultimoTipoImpactado=barco.getCodigo().charAt(0);
     ultimoBarcoHundido=barco.estaHundido();
     
-
+  regenerarTodosBarcos();
     
     return true;
 }
