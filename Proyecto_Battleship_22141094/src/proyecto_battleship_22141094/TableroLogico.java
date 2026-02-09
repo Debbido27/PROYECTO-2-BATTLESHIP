@@ -190,5 +190,37 @@ public boolean procesarImpactoYRegenerar(int fila, int columna){
     return true;
 }
 
+  
+private void eliminarBarcoCompleto (BARCOS barco){
+    
+    for (int i = 0; i < totalBarcos; i++) {
+        if(barcos[i] == barco){
+            int filaInicio = barcoFila[i];
+            int columnaInicio = barcoColumna[i];
+            boolean horizontal = barcoHorizontal[i];
+            int tamano = barco.getTamano();
+            
+            if(horizontal){
+                for (int c = columnaInicio; c < columnaInicio + tamano; c++) {
+                    tableroBarcos[filaInicio][c]=null;
+                }
+            }else{
+                for (int f = filaInicio; f < filaInicio+tamano; f++) {
+                    tableroBarcos[f][columnaInicio]=null;
+                }
+            }
+            
+            barcos[i] = barcos[totalBarcos-1];
+            barcoFila[i]=barcoFila[totalBarcos-1];
+            barcoColumna[i]=barcoColumna[totalBarcos-1];
+            barcoHorizontal[i]=barcoHorizontal[totalBarcos-1];
+            totalBarcos--;
+            
+            break;
+        }
+    }
+    
+}
+
 
 }
