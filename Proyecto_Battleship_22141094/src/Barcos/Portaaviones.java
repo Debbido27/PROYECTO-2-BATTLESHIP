@@ -6,7 +6,7 @@ public class Portaaviones extends BARCOS {
     private final String codigo = "PA";
     
     public Portaaviones(){
-        super("Portaaviones",4);
+        super("Portaaviones",5);
     }
     
     public String getCodigo(){
