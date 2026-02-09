@@ -260,6 +260,18 @@ private void eliminarBarcoCompleto (BARCOS barco){
       return totalBarcos;
   }
   
+  public void  imprimirTableroBarcos(){
+      for (int i = 0; i < filas; i++) {
+          for (int j = 0; j < columnas; j++) {
+              System.out.print(tableroBarcos[i][j]!=null?tableroBarcos[i][j].getCodigo(): "~~");
+              System.out.print(" ");
+          }
+          System.out.println("");
+      }
+  }
+  
+  
+  
   
   
   
