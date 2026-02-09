@@ -219,8 +219,24 @@ private void eliminarBarcoCompleto (BARCOS barco){
             break;
         }
     }
-    
 }
+
+  private void regenerarTodosBarcos(){
+      BARCOS [] barcosTemp = new BARCOS[totalBarcos];
+      System.arraycopy(barcos, 0, barcosTemp, 0, totalBarcos);
+      
+      for (int i = 0; i < filas; i++) {
+          for (int j = 0; j < columnas; j++) {
+              tableroBarcos[i][j]=null;
+          }
+      }
+      
+      for (int i = 0; i < totalBarcos; i++) {
+          colocarBarcoAleatorio(barcosTemp[i],i);
+      }
+  }
+  
+  
 
 
 }
