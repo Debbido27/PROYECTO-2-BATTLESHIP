@@ -20,7 +20,7 @@ public abstract class BARCOS {
         if(vida <=0) hundido=true;
     }
     
-    public boolean estaHundid(){
+    public boolean estaHundido(){
         return hundido;
     }
 
