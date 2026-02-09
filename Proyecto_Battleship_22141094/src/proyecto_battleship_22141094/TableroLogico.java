@@ -127,13 +127,28 @@ private void colovarBarcoAleatorio(BARCOS barco, int index){
                  tableroBarcos[f][columna]=barco;
              }
          }
+         
+         barcos[index]=barco;
+         barcoFila[index]=fila;
+         barcoColumna[index]=columna;
+         barcoHorizontal[index]=horizontal;
+         colocado =true;
         
-    }    
+    }
     
-    
+    if(!colocado){
+              for (int i = 0; i < filas && !colocado; i++) {
+            for (int j = 0; j < columnas && !colocado; j++) {
+                if (tableroBarcos[i][j] == null) {
+                    tableroBarcos[i][j] = barco;
+                    barcos[index] = barco;
+                    barcoFila[index] = i;
+                    barcoColumna[index] = j;
+                    barcoHorizontal[index] = true;
+                    colocado = true;
+            }
+            }
 }
-
-
-
-    
+}
+}
 }
