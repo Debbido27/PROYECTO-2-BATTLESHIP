@@ -33,6 +33,15 @@ public TableroLogico (int filas, int columnas){
     
 }
 
+private void inicializarTablero(){
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            tableroBarcos[i][j]=null;
+            tableroDisparos[i][j]=AGUA;
+        }
+    }
+    totalBarcos=0;
+}
 
     
 }
