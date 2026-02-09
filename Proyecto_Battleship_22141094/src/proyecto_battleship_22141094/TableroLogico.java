@@ -270,13 +270,15 @@ private void eliminarBarcoCompleto (BARCOS barco){
       }
   }
   
+  public void imprimirTableroDisparos(){
+      for (int i = 0; i < filas; i++) {
+          for(int j=0; j<columnas; j++){
+              System.out.print(tableroDisparos[i][j]+" ");
+          
+      }
+          System.out.println();
+       }
+    }
   
   
-  
-  
-  
-  
-  
-
-
 }
