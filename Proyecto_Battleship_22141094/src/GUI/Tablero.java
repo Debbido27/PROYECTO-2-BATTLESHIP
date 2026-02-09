@@ -3,8 +3,10 @@ package GUI;
 
 import Barcos.BARCOS;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import proyecto_battleship_22141094.LoginManager;
 import proyecto_battleship_22141094.TableroLogico;
 
@@ -37,4 +39,16 @@ public class Tablero {
     
         private FaseJuego faseActual;
     
+        
+        //Comoponentes UI
+        private JLabel lblEstado;
+        private JLabel lblContadorBarcos;
+        private JPanel panelTabler1;
+        private Jpanel panelTablero2;
+        private JTextField txtPlayer2;
+        private JButton btnConectar;
+        private JButton btnIniciarJuego;
+        
+        
+      
 }
