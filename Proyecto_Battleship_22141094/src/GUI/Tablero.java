@@ -2,6 +2,8 @@
 package GUI;
 
 import Barcos.BARCOS;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -49,6 +51,8 @@ public class Tablero {
         private JButton btnConectar;
         private JButton btnIniciarJuego;
         
-        
+private static final Map<String, String> NOMBRES_BARCOS = new HashMap<>();
+private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
+
       
 }
