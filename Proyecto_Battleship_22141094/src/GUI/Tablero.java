@@ -2,8 +2,29 @@
 package GUI;
 
 import Barcos.BARCOS;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import proyecto_battleship_22141094.LoginManager;
 import proyecto_battleship_22141094.TableroLogico;
 
 public class Tablero {
+    private JPanel panelPrincipal;
+    private TableroLogico tableroLogicoPlayer1;
+    private TableroLogico tableroLogicoPlayer2;
+    private JButton[][] celdasPlayer1;
+    private JButton[][] celdasPlayer2;
+    private JButton[][] celdasPlayer2ParaColocar;
+    private LoginManager loginManager;
+    private boolean horizontalSeleccionado = true;
+    private JRadioButton rbtnHorizontal;
+    private JRadioButton rbtVertital;
+    
+    //Estados del juego
+    private String playerUsername;
+    private String player2username;
+    private int dificulad;
+    private boolean modoTutorial;
+    
     
 }
