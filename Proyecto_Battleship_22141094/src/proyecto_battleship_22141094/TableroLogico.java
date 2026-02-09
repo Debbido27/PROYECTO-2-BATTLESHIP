@@ -100,8 +100,33 @@ private void colovarBarcoAleatorio(BARCOS barco, int index){
         
         boolean espacioLibre = true;
         
-
-        }
+         if(horizontal){
+             for (int c = columna; c < columna + tamano; c++) {
+                 if(tableroBarcos[fila][c] != null){
+                     espacioLibre=false;
+                     break;
+                 }
+             }
+        } else{
+             for (int f = fila; f < fila+tamano; f++) {
+                 if(tableroBarcos[f][columna] != null){
+                     espacioLibre = false;
+                     break;
+                 }
+             }
+         }
+         
+         if(!espacioLibre) continue;
+         
+         if(horizontal){
+             for (int c = columna; c < columna+tamano; c++) {
+                 tableroBarcos[fila][c]=barco;
+             }
+         }else{
+             for (int f = fila; f < fila+tamano; f++) {
+                 tableroBarcos[f][columna]=barco;
+             }
+         }
         
     }    
     
