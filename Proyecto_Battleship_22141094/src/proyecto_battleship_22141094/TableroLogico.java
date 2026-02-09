@@ -43,5 +43,42 @@ private void inicializarTablero(){
     totalBarcos=0;
 }
 
+//COLOCAR BARCO MANUAL INICIO DE PARTIDA
+public boolean colocarBarcoManual(int fila, int columna, BARCOS barco, boolean horizontal){
+   int tamano = barco.getTamano();
+
+   //validar espacio
+    if(horizontal){
+        if(columna+tamano>columnas)return false;
+     for (int c = columna; c < columna + tamano; c++) {
+            if(tableroBarcos[fila][c] != null) return false;
+        }
+     
+     for(int c = columna; c< columna + tamano; c++){
+         tableroBarcos[fila][c]=barco;
+     }
+    }else{
+             if(fila+tamano>filas)return false;
+             for (int f = fila; f < fila+tamano; f++) {
+             if(tableroBarcos[f][columna] != null) return false;
+             }
+             
+             for (int f = fila; f < fila; f++) {
+                 tableroBarcos [f][columna]=barco;
+      } 
+    }
+    
+    barcos[totalBarcos]=barco;
+    barcoFila[totalBarcos]=fila;
+    barcoColumna[totalBarcos]=columna;
+    barcoHorizontal[totalBarcos]=horizontal;
+    totalBarcos++;
+    
+    return true;
+    
+}
+
+
+
     
 }
