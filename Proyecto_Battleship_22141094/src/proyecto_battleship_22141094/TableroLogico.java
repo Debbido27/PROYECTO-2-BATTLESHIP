@@ -248,6 +248,20 @@ private void eliminarBarcoCompleto (BARCOS barco){
       return totalBarcos==0;
   }
   
+  public BARCOS getBarcoEn(int fila, int columna){
+      return tableroBarcos[fila][columna];
+  }
+  
+  public char getDisparoEn(int fila, int columna){
+      return tableroDisparos[fila][columna];
+  }
+  
+  public int getTotalBarcos(){
+      return totalBarcos;
+  }
+  
+  
+  
   
   
   
