@@ -26,5 +26,15 @@ public class Tablero {
     private int dificulad;
     private boolean modoTutorial;
     
+    //FASES DEL JUEGO
+    private enum FaseJuego{
+        CONECTANDO_PLAYER2,
+        COLOCANDO_PLAYER1,
+        COLOCANDO_PLAYER2,
+        EN_JUEGO,
+        TERMINADO 
+    }
+    
+        private FaseJuego faseActual;
     
 }
