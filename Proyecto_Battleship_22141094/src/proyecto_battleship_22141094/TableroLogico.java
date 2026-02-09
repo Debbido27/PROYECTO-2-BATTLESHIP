@@ -163,5 +163,32 @@ public void limpiarFallos(){
  
 }
 
+public boolean procesarImpactoYRegenerar(int fila, int columna){
+    ultimoTipoImpactado=AGUA;
+    ultimoBarcoHundido=false;
+    
+    if(fila<0 || fila >= filas || columna <0 || columna >= columnas)
+        return false;
+    
+    if(tableroDisparos[fila][columna]!=AGUA)
+        return false;
+    
+    BARCOS barco = tableroBarcos[fila][columna];
+    
+    if(barco==null){
+        tableroDisparos[fila][columna]=FALLO;
+        return false;
+    }
+    
+    barco.recibirDano();
+    tableroDisparos[fila][columna]=IMPACTO;
+    ultimoTipoImpactado=barco.getCodigo().charAt(0);
+    ultimoBarcoHundido=barco.estaHundido();
+    
+
+    
+    return true;
+}
+
 
 }
