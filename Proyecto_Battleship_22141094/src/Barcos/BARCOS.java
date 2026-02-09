@@ -15,6 +15,33 @@ public abstract class BARCOS {
         this.hundido=false;
     }
     
+    public void recibirDano(){
+        vida --;
+        if(vida <=0) hundido=true;
+    }
+    
+    public boolean estaHundid(){
+        return hundido;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getTamano() {
+        return tamano;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public boolean isHundido() {
+        return hundido;
+    }
+    
+    public abstract String getCodigo();
+    
 
     
 }
