@@ -54,5 +54,20 @@ public class Tablero {
 private static final Map<String, String> NOMBRES_BARCOS = new HashMap<>();
 private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
 
+
+//STATIC
+      static {
+          NOMBRES_BARCOS.put("PA", "Portaaviones");
+          NOMBRES_BARCOS.put("AZ","Acorazado");
+          NOMBRES_BARCOS.put("SM", "SUBMARINO");
+          NOMBRES_BARCOS.put("DT","DESTRUCTOR");
+          
+          TAMANOS_BARCOS.put("PA", 5);
+          TAMANOS_BARCOS.put("AZ",4);
+          TAMANOS_BARCOS.put("SM",3);
+          TAMANOS_BARCOS.put("DT",2);
+      }
+      
+      
       
 }
