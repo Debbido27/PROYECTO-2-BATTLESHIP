@@ -235,6 +235,20 @@ private void eliminarBarcoCompleto (BARCOS barco){
           colocarBarcoAleatorio(barcosTemp[i],i);
       }
   }
+
+    public char getUltimoTipoImpactado() {
+        return ultimoTipoImpactado;
+    }
+
+    public boolean isUltimoBarcoHundido() {
+        return ultimoBarcoHundido;
+    }
+  
+  public boolean todosBarcosHundidos(){
+      return totalBarcos==0;
+  }
+  
+  
   
   
 
