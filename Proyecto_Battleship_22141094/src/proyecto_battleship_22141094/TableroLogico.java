@@ -79,7 +79,7 @@ public boolean colocarBarcoManual(int fila, int columna, BARCOS barco, boolean h
 }
 
 
-private void colovarBarcoAleatorio(BARCOS barco, int index){
+private void colocarBarcoAleatorio(BARCOS barco, int index){
     boolean colocado = false;
     int tamano = barco.getTamano();
     int intentos=0;
@@ -152,6 +152,16 @@ private void colovarBarcoAleatorio(BARCOS barco, int index){
 }
 }
 
+public void limpiarFallos(){
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            if(tableroDisparos[i][j]==FALLO){
+                tableroDisparos[i][j]=AGUA;
+            }
+        }
+    }
+ 
+}
 
 
 }
