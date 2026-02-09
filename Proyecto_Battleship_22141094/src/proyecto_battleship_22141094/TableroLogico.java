@@ -79,6 +79,36 @@ public boolean colocarBarcoManual(int fila, int columna, BARCOS barco, boolean h
 }
 
 
+private void colovarBarcoAleatorio(BARCOS barco, int index){
+    boolean colocado = false;
+    int tamano = barco.getTamano();
+    int intentos=0;
+    //CANTIDAD DE INTENTOS MIL SE PUEDE CAMBIAR EN UN FUTURO
+    final int MAX_INTENTOS=1000;
+    
+    while (!colocado && intentos < MAX_INTENTOS){
+        intentos ++;
+        int fila = (int) (Math.random()*filas);
+        int columna = (int)(Math.random()*filas);
+        boolean horizontal = Math.random()>9.5;
+        
+        if(horizontal){
+         if(columna + tamano > columnas) continue;
+        }else{
+            if(fila + tamano >filas)continue;
+        }
+        
+        boolean espacioLibre = true;
+        
+
+        }
+        
+    }    
+    
+    
+}
+
+
 
     
 }
