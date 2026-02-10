@@ -379,10 +379,57 @@ if (jugador == 1) {
     });
     return boton;
 }
+    
+    private void conectarPlayer2(){
+        String username = txtPlayer2.getText().trim();
+        
+        if (username.isEmpty()) {
+            mostrarMensaje("Ingresa el username del rival", true);
+            return;
+        }
+        
+        if (username.equalsIgnoreCase("exit")) {
+            if (listener != null) listener.onReturnToMenu();
+            return;
+        }
+        
+        if (username.equalsIgnoreCase(player1Username)) {
+        mostrarMensaje("❌ ERROR: No puedes jugar contra ti mismo (" + player1Username + ")", true);
+        txtPlayer2.setText(""); // Limpiar campo
+        txtPlayer2.requestFocus(); // Volver al campo
+        return;
+    }
+        // VERIFICACIÓN 2: Debe existir en el sistema
+        if (!loginManager.usuarioExiste(username)) {
+            mostrarMensaje("❌ El jugador '" + username + "' no existe. Debe registrarse primero.", true);
+            return;
+        }
+        
+        player2Username = username;
+        faseActual = FaseJuego.COLOCANDO_PLAYER1;
+        
+        // Ocultar panel de conexión
+        txtPlayer2.setVisible(false);
+        btnConectar.setVisible(false);
+        
+        mostrarMensaje("✅ Rival conectado: " + username, false);
+        actualizarUI();
+        
+    }
+         private void mostrarMensaje(String mensaje, boolean esError) {
+        if (listener != null) {
+            listener.avisar(mensaje, esError);
+        } else {
+            JOptionPane.showMessageDialog(panelPrincipal, mensaje,
+                esError ? "Error" : "Información",
+                esError ? JOptionPane.ERROR_MESSAGE : JOptionPane.INFORMATION_MESSAGE);
+        }
+    }   
+    }
 
       
       
-}
+
       
 
        

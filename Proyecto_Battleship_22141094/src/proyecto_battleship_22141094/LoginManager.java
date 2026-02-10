@@ -21,6 +21,15 @@ public LoginManager(){
     //null no hay nada
     CurrentUser=null;
 }
+public boolean usuarioExiste(String username) {
+    for (Player p : players) {
+        if (p != null && p.getUsername().equals(username)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 //CLASE buscar jugador, aca se pide el username,
 //FOR EACH
