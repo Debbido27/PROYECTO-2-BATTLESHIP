@@ -36,7 +36,7 @@ public class Tablero {
     private LoginManager loginManager;
     private boolean horizontalSeleccionado = true;
     private JRadioButton rbtnHorizontal;
-    private JRadioButton rbtVertital;
+    private JRadioButton rbtnVertical;
     
     //Estados del juego
     private String player1Username;
@@ -72,7 +72,7 @@ public class Tablero {
         private JLabel lblEstado;
         private JLabel lblContadorBarcos;
         private JPanel panelTablero1;
-        private Jpanel panelTablero2;
+        private JPanel panelTablero2;
         private JTextField txtPlayer2;
         private JButton btnConectar;
         private JButton btnIniciarJuego;
@@ -300,6 +300,20 @@ if (jugador == 1) {
             new Font("Arial", Font.BOLD, 12),
             Color.YELLOW));
         
+                JButton[] botonesBarcos = {
+            crearBotonBarco("Portaaviones (5)", "PA", 5, Color.RED),
+            crearBotonBarco("Acorazado (4)", "AZ", 4, Color.ORANGE),
+            crearBotonBarco("Submarino (3)", "SM", 3, Color.GREEN),
+            crearBotonBarco("Destructor (2)", "DT", 2, Color.CYAN)
+
+        };
+        
+        for (JButton btn : botonesBarcos) {
+            panelBarcos.add(btn);
+        }
+        
+        JPanel panelControles = new JPanel(new GridLayout(4, 1, 10, 10));
+        panelControles.setBackground(new Color(50, 50, 50));
           btnIniciarJuego = new JButton("INICIAR JUEGO");
           btnIniciarJuego.setFont(new Font("Arial", Font.BOLD, 14));
           btnIniciarJuego.setBackground(new Color(0, 100, 200));
@@ -317,7 +331,7 @@ if (jugador == 1) {
         btnVolverMenu.setBackground(new Color(200, 0, 0));
         btnVolverMenu.setForeground(Color.WHITE);
         btnVolverMenu.addActionListener(e -> {
-            if (listener != null) listener.();
+            if (listener != null) listener.avisarVolverMenu();
         });
         
         JPanel panelOrientacion = new JPanel(new FlowLayout());
@@ -480,12 +494,12 @@ boolean colocado = tablero.colocarBarcoManual(
 
   
 // cambio de fase
-if (jugador == 1 && barcosColocadosPlayer1 >= dificulad) {
+if (jugador == 1 && barcosColocadosPlayer1 >= dificultad) {
     faseActual = FaseJuego.COLOCANDO_PLAYER2;
     mostrarMensaje( player1Username + " termino de colocar sus barcos.\n  Turno de " + player2Username, false);
 }
 
-if (jugador == 2 && barcosColocadosPlayer2 >= dificulad) {
+if (jugador == 2 && barcosColocadosPlayer2 >= dificultad) {
     mostrarMensaje( player2Username + " termino de colocar sus barcos.\n Ya pueden iniciar el juego", false);
     btnIniciarJuego.setEnabled(true);
 }
