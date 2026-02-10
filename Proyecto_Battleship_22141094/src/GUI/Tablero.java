@@ -5,6 +5,7 @@ import Barcos.BARCOS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.HashMap;
@@ -136,6 +137,10 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
          //PANELSUPERIOR CON LA INFORAMCION
          JPanel panelSuperior = crearPanelSuperior();
          panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
+        
+        // Panel central con tableros
+        JPanel panelCentral = crearPanelCentral();
+        panelPrincipal.add(panelCentral, BorderLayout.CENTER);
          
      }
      
@@ -245,6 +250,46 @@ if (jugador == 1) {
     
       }
       
+      
+      private JPanel crearPanelInferior(){
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(50, 50, 50));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        
+        JPanel panelConexion = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
+        panelConexion.setBackground(new Color(50, 50, 50));
+        
+        JLabel lblPlayer2 = new JLabel("Username del Rival:");
+        lblPlayer2.setFont(new Font("Arial", Font.BOLD, 14));
+        lblPlayer2.setForeground(Color.WHITE);
+        
+        txtPlayer2 = new JTextField(20);
+        txtPlayer2.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtPlayer2.setPreferredSize(new Dimension(200, 30));
+        
+        btnConectar = new JButton("Conectar Rival");
+        btnConectar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnConectar.setBackground(new Color(0, 150, 0));
+        btnConectar.setForeground(Color.WHITE);
+        
+        
+        panelConexion.add(lblPlayer2);
+        panelConexion.add(txtPlayer2);
+        panelConexion.add(btnConectar);
+        
+        JPanel panelBarcos = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        panelBarcos.setBackground(new Color(50, 50, 50));
+        panelBarcos.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Color.YELLOW), 
+            "SELECCIONAR BARCO",
+            javax.swing.border.TitledBorder.CENTER,
+            javax.swing.border.TitledBorder.TOP,
+            new Font("Arial", Font.BOLD, 12),
+            Color.YELLOW));
+        
+  
+        
+      }
       
 }
        
