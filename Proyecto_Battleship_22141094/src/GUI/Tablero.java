@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -287,8 +288,60 @@ if (jugador == 1) {
             new Font("Arial", Font.BOLD, 12),
             Color.YELLOW));
         
-  
+          btnIniciarJuego = new JButton("INICIAR JUEGO");
+          btnIniciarJuego.setFont(new Font("Arial", Font.BOLD, 14));
+          btnIniciarJuego.setBackground(new Color(0, 100, 200));
+          btnIniciarJuego.setForeground(Color.WHITE);
+          btnIniciarJuego.addActionListener(e -> iniciarJuego());
+          btnIniciarJuego.setEnabled(false);
+          JButton btnRendirse = new JButton("RENDIRSE");
+            btnRendirse.setFont(new Font("Arial", Font.BOLD, 14));
+            btnRendirse.setBackground(new Color(220, 0, 0));
+            btnRendirse.setForeground(Color.WHITE);
+            btnRendirse.addActionListener(e -> rendirse());
+            
+        JButton btnVolverMenu = new JButton("VOLVER AL MENÚ");
+        btnVolverMenu.setFont(new Font("Arial", Font.BOLD, 14));
+        btnVolverMenu.setBackground(new Color(200, 0, 0));
+        btnVolverMenu.setForeground(Color.WHITE);
+        btnVolverMenu.addActionListener(e -> {
+            if (listener != null) listener.onReturnToMenu();
+        });
         
+        JPanel panelOrientacion = new JPanel(new FlowLayout());
+        panelOrientacion.setBackground(new Color(50, 50, 50));
+        panelOrientacion.setBorder(BorderFactory.createTitledBorder(
+        BorderFactory.createLineBorder(Color.YELLOW), 
+        "ORIENTACIÓN",
+    javax.swing.border.TitledBorder.CENTER,
+    javax.swing.border.TitledBorder.TOP,
+    new Font("Arial", Font.BOLD, 12),
+    Color.YELLOW));
+        
+        rbtnHorizontal = new JRadioButton("Horizontal", true);
+        rbtnVertical = new JRadioButton("Vertical");
+
+        ButtonGroup grupoOrientacion = new ButtonGroup();
+        grupoOrientacion.add(rbtnHorizontal);
+        grupoOrientacion.add(rbtnVertical);
+
+        rbtnHorizontal.addActionListener(e -> horizontalSeleccionado = true);
+        rbtnVertical.addActionListener(e -> horizontalSeleccionado = false);
+
+        panelOrientacion.add(rbtnHorizontal);
+        panelOrientacion.add(rbtnVertical);
+        
+        JPanel panelCentroCompleto = new JPanel(new BorderLayout());
+        panelCentroCompleto.setBackground(new Color(50, 50, 50));
+        panelCentroCompleto.add(panelBarcos, BorderLayout.CENTER);
+        panelCentroCompleto.add(panelOrientacion, BorderLayout.EAST);
+
+        panel.add(panelConexion, BorderLayout.WEST);
+        panel.add(panelCentroCompleto, BorderLayout.CENTER);
+        panel.add(panelControles, BorderLayout.EAST); 
+        
+        
+                return panel;
       }
       
 }
