@@ -1,7 +1,11 @@
 
 package GUI;
 
+import Barcos.Acorazado;
 import Barcos.BARCOS;
+import Barcos.Destructor;
+import Barcos.Portaaviones;
+import Barcos.Submarino;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,7 +41,7 @@ public class Tablero {
     //Estados del juego
     private String player1Username;
     private String player2Username;
-    private int dificulad;
+    private int dificultad;
     private boolean modoTutorial;
     
     //FASES DEL JUEGO
@@ -102,7 +106,7 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
      public Tablero(String player1Username, int dificultad, boolean modoTutorial, 
                Avisos listener, LoginManager loginManager) {
     this.player1Username = player1Username;
-    this.dificulad = dificultad;
+    this.dificultad = dificultad;
     this.modoTutorial = modoTutorial;
     this.listener = listener;
     this.loginManager = loginManager;
@@ -373,7 +377,7 @@ if (jugador == 1) {
     boton.setFont(new Font("Arial", Font.BOLD, 12));
     boton.addActionListener(e -> {
         barcoSeleccionadoCodigo = codigoBarco;
-        tamañoBarcoSeleccionado = tamaño;
+        tamanoBarcoSeleccionado = tamaño;
         String nombre = NOMBRES_BARCOS.getOrDefault(codigoBarco, "Desconocido");
         mostrarMensaje("Barco seleccionado: " + nombre, false);
     });
@@ -389,19 +393,19 @@ if (jugador == 1) {
         }
         
         if (username.equalsIgnoreCase("exit")) {
-            if (listener != null) listener.onReturnToMenu();
+            if (listener != null) listener.avisarVolverMenu();
             return;
         }
         
         if (username.equalsIgnoreCase(player1Username)) {
-        mostrarMensaje("❌ ERROR: No puedes jugar contra ti mismo (" + player1Username + ")", true);
-        txtPlayer2.setText(""); // Limpiar campo
-        txtPlayer2.requestFocus(); // Volver al campo
+        mostrarMensaje("ERROR: No puedes jugar contra ti mismo (" + player1Username + ")", true);
+        txtPlayer2.setText(""); 
+        txtPlayer2.requestFocus(); 
         return;
     }
-        // VERIFICACIÓN 2: Debe existir en el sistema
+        
         if (!loginManager.usuarioExiste(username)) {
-            mostrarMensaje("❌ El jugador '" + username + "' no existe. Debe registrarse primero.", true);
+            mostrarMensaje("El jugador '" + username + "' no existe. Debe registrarse primero.", true);
             return;
         }
         
@@ -412,10 +416,153 @@ if (jugador == 1) {
         txtPlayer2.setVisible(false);
         btnConectar.setVisible(false);
         
-        mostrarMensaje("✅ Rival conectado: " + username, false);
+        mostrarMensaje("Rival conectado: " + username, false);
         actualizarUI();
         
     }
+    
+    
+    
+    private void manejarClickMiTablero(int jugador, int fila, int columna) {
+
+    if (faseActual == FaseJuego.COLOCANDO_PLAYER1 && jugador != 1) return;
+    if (faseActual == FaseJuego.COLOCANDO_PLAYER2 && jugador != 2) return;
+
+    TableroLogico tablero = (jugador == 1)
+        ? tableroLogicoPlayer1
+        : tableroLogicoPlayer2;
+
+    JButton[][] celdas = (jugador == 1)
+        ? celdasPlayer1
+        : celdasPlayer2;
+
+BARCOS barco;
+
+ switch (barcoSeleccionadoCodigo.toUpperCase()) {
+        case "PA":
+            barco = new Portaaviones();
+            break;
+        case "AZ":
+            barco = new Acorazado();
+            break;
+        case "SM":
+            barco = new Submarino();
+            break;
+        case "DT":
+            barco = new Destructor();
+            break;
+        default:
+            mostrarMensaje("Error: codigo '" + barcoSeleccionadoCodigo + "' no válido", true);
+            return;
+}
+boolean colocado = tablero.colocarBarcoManual(
+    fila, columna,
+    barco,
+    horizontalSeleccionado
+);
+
+    if (!colocado) {
+        mostrarMensaje("No se puede colocar ahí", true);
+        return;
+    }
+
+    if (jugador == 1) barcosColocadosPlayer1++;
+    else barcosColocadosPlayer2++;
+
+    actualizarVisualizacionTablero(celdas, tablero);
+
+  
+// cambio de fase
+if (jugador == 1 && barcosColocadosPlayer1 >= dificulad) {
+    faseActual = FaseJuego.COLOCANDO_PLAYER2;
+    mostrarMensaje( player1Username + " termino de colocar sus barcos.\n  Turno de " + player2Username, false);
+}
+
+if (jugador == 2 && barcosColocadosPlayer2 >= dificulad) {
+    mostrarMensaje( player2Username + " termino de colocar sus barcos.\n Ya pueden iniciar el juego", false);
+    btnIniciarJuego.setEnabled(true);
+}
+
+    actualizarUI();
+}
+    
+    
+    private void manejarDisparo(int fila, int columna) {
+    if (faseActual != FaseJuego.EN_JUEGO) {
+        mostrarMensaje("El juego no ha iniciado", true);
+        return;
+    }
+
+    TableroLogico tableroEnemigo = turnoPlayer1 ? tableroLogicoPlayer2 : tableroLogicoPlayer1;
+    JButton[][] celdasEnemigo = turnoPlayer1 ? celdasPlayer2 : celdasPlayer1;
+
+    boolean impacto = tableroEnemigo.procesarImpactoYRegenerar(fila, columna);
+    char tipoBarco = tableroEnemigo.getUltimoTipoImpactado(); // AGUA si falló
+    boolean hundido = tableroEnemigo.isUltimoBarcoHundido();
+
+    actualizarVisualizacionTablero(celdasEnemigo, tableroEnemigo);
+
+    if (!impacto) {
+        mostrarMensaje("¡Fallo! Agua en [" + fila + "," + columna + "]", false);
+    } else {
+        String nombreBarco = NOMBRES_BARCOS.get(tipoBarco);
+        mostrarMensaje("¡IMPACTO! " + nombreBarco + " en [" + fila + "," + columna + "]", false);
+
+        if (hundido) {
+            mostrarMensaje("¡HUNDIDO! " + nombreBarco + " destruido!", false);
+        }
+
+        if (tableroEnemigo.todosBarcosHundidos()) {
+            if (listener != null) {
+                listener.avisarFin(turnoPlayer1 ? player1Username + " GANA!" : player2Username + " GANA!");
+            }
+            return;
+        }
+    }
+
+    cambiarTurno();
+}
+    
+    
+    
+        private void iniciarJuego() {
+        if (barcosColocadosPlayer1 < dificultad || barcosColocadosPlayer2 < dificultad) {
+            mostrarMensaje("Ambos jugadores deben colocar todos sus barcos", true);
+            return;
+        }
+        
+        faseActual = FaseJuego.EN_JUEGO;
+        turnoPlayer1 = true;
+        
+        // Mostrar ambos tableros
+        panelTablero1.setVisible(true);
+        panelTablero2.setVisible(true);
+        
+        mostrarMensaje("¡JUEGO INICIADO! Turno de " + player1Username, false);
+        actualizarUI();
+    }
+    
+    
+    
+    
+        private void cambiarTurno() {
+        turnoPlayer1 = !turnoPlayer1;
+        
+        if (turnoPlayer1) {
+            tableroLogicoPlayer2.limpiarFallos();
+        } else {
+            tableroLogicoPlayer1.limpiarFallos();
+        }
+        
+        actualizarVisualizacionTablero(celdasPlayer1, tableroLogicoPlayer1);
+        actualizarVisualizacionTablero(celdasPlayer2, tableroLogicoPlayer2);
+
+        
+        mostrarMensaje("Turno de " + (turnoPlayer1 ? player1Username : player2Username), false);
+        actualizarUI();
+    }
+    
+    
          private void mostrarMensaje(String mensaje, boolean esError) {
         if (listener != null) {
             listener.avisar(mensaje, esError);
