@@ -2,6 +2,8 @@
 package GUI;
 
 import Barcos.BARCOS;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
@@ -116,6 +118,16 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
     celdasPlayer2ParaColocar = new JButton [8][8];
     
     
+     }
+     
+     private JPanel getPanel(){
+         return panelPrincipal;
+     }
+     
+     private void crearInterfaz(){
+         panelPrincipal = new JPanel (new BorderLayout());
+         panelPrincipal.setBackground(new Color(30,30,30));
+         
      }
      
      
