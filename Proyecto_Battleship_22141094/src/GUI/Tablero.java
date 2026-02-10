@@ -128,7 +128,9 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
     celdasPlayer1 = new JButton[8][8];
     celdasPlayer2 = new JButton [8][8];
     celdasPlayer2ParaColocar = new JButton [8][8];
-    
+    crearInterfaz();
+    actualizarUI();
+
     
      }
      
@@ -148,6 +150,8 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
         JPanel panelCentral = crearPanelCentral();
         panelPrincipal.add(panelCentral, BorderLayout.CENTER);
          
+        JPanel panelInferior = crearPanelInferior();
+        panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
      }
      
      
@@ -188,7 +192,19 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
        
          //TABLERO PLAYER 2
     String tituloPlayer2 = player2Username != null ? 
-        "TABLERO DE " + player2Username.toUpperCase() : "TABLERO JUGADOR 2";  
+        "TABLERO DE " + player2Username.toUpperCase() : "TABLERO JUGADOR 2";
+    
+    
+    panelTablero1 = crearPanelTableroIndividual(tituloPLayer1, tableroLogicoPlayer1, 1);
+    panel.add(panelTablero1);
+
+    panelTablero2 = crearPanelTableroIndividual(tituloPlayer2, tableroLogicoPlayer2, 2);
+    panel.add(panelTablero2);
+    
+    // Inicialmente solo mostrar tablero de Player 1
+    panelTablero2.setVisible(false);
+    
+    
     
     return panel;
      }
@@ -281,6 +297,8 @@ if (jugador == 1) {
         txtPlayer2.setPreferredSize(new Dimension(200, 30));
         
         btnConectar = new JButton("Conectar Rival");
+        btnConectar.addActionListener(e -> conectarPlayer2());
+
         btnConectar.setFont(new Font("Arial", Font.BOLD, 14));
         btnConectar.setBackground(new Color(0, 150, 0));
         btnConectar.setForeground(Color.WHITE);
