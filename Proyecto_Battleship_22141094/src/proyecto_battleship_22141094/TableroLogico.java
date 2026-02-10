@@ -63,7 +63,7 @@ public boolean colocarBarcoManual(int fila, int columna, BARCOS barco, boolean h
              if(tableroBarcos[f][columna] != null) return false;
              }
              
-             for (int f = fila; f < fila; f++) {
+             for (int f = fila+tamano; f < fila; f++) {
                  tableroBarcos [f][columna]=barco;
       } 
     }
@@ -90,7 +90,7 @@ private void colocarBarcoAleatorio(BARCOS barco, int index){
         intentos ++;
         int fila = (int) (Math.random()*filas);
         int columna = (int)(Math.random()*filas);
-        boolean horizontal = Math.random()>9.5;
+        boolean horizontal = Math.random()>0.5;
         
         if(horizontal){
          if(columna + tamano > columnas) continue;
@@ -162,6 +162,20 @@ public void limpiarFallos(){
     }
  
 }
+public String getEstadoBarcos() {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < totalBarcos; i++) {
+        BARCOS b = barcos[i];
+        if (b != null && !b.estaHundido()) {
+            sb.append(b.getCodigo())
+              .append(":")
+              .append(b.getVida())
+              .append("  "); // separador
+        }
+    }
+    return sb.toString();
+}
+
 
 public boolean procesarImpactoYRegenerar(int fila, int columna){
     ultimoTipoImpactado=AGUA;

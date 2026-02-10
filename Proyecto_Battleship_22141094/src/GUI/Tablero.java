@@ -134,7 +134,7 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
     
      }
      
-     private JPanel getPanel(){
+     JPanel getPanel(){
          return panelPrincipal;
      }
      
@@ -209,7 +209,20 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
     return panel;
      }
      
-     
+     private void actualizarContadorBarcos() {
+    if (faseActual == FaseJuego.EN_JUEGO) {
+        if (turnoPlayer1) {
+            lblContadorBarcos.setText(player1Username + " Barcos: " + tableroLogicoPlayer1.getEstadoBarcos());
+        } else {
+            lblContadorBarcos.setText(player2Username + " Barcos: " + tableroLogicoPlayer2.getEstadoBarcos());
+        }
+    } else if (faseActual == FaseJuego.COLOCANDO_PLAYER1) {
+        lblContadorBarcos.setText("Barcos colocados: " + barcosColocadosPlayer1 + "/" + dificultad);
+    } else if (faseActual == FaseJuego.COLOCANDO_PLAYER2) {
+        lblContadorBarcos.setText("Barcos colocados: " + barcosColocadosPlayer2 + "/" + dificultad);
+    }
+}
+
      
      
       private JPanel crearPanelTableroIndividual(String titulo, TableroLogico tableroLogico, int jugador){
@@ -383,7 +396,10 @@ if (jugador == 1) {
         panel.add(panelConexion, BorderLayout.WEST);
         panel.add(panelCentroCompleto, BorderLayout.CENTER);
         panel.add(panelControles, BorderLayout.EAST); 
-        
+        panelControles.add(btnIniciarJuego);
+        panelControles.add(btnRendirse);
+        panelControles.add(btnVolverMenu);
+
         
                 return panel;
       }
@@ -540,6 +556,8 @@ if (jugador == 2 && barcosColocadosPlayer2 >= dificultad) {
     boolean hundido = tableroEnemigo.isUltimoBarcoHundido();
 
     actualizarVisualizacionTablero(celdasEnemigo, tableroEnemigo);
+    //VER VIDAS EN TABLERO
+      actualizarContadorBarcos();
 
     if (!impacto) {
         mostrarMensaje("¡Fallo! Agua en [" + fila + "," + columna + "]", false);

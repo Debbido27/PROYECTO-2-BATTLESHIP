@@ -49,7 +49,7 @@ public class MainWindow1 extends JFrame {
    crearPanelConfiguracion();
    crearPanelReportes();
     crearPanelPerfil();
-   
+   crearPanelBattleship();
 
     mostrarPantalla("INICIO");
     setVisible(true);  
@@ -610,7 +610,7 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
             @Override
             public void avisarFin(String winner) {
                 JOptionPane.showMessageDialog(MainWindow1.this, 
-                    "🏆 ¡JUEGO TERMINADO! 🏆\n\n" + winner + "\n\nRegresando al menú...",
+                    "¡JUEGO TERMINADO! \n\n" + winner + "\n\nRegresando al menú...",
                     "Fin del Juego",
                     JOptionPane.INFORMATION_MESSAGE);
                 mostrarPantalla("MENU");
