@@ -301,7 +301,7 @@ if (jugador == 1) {
             btnRendirse.setForeground(Color.WHITE);
             btnRendirse.addActionListener(e -> rendirse());
             
-        JButton btnVolverMenu = new JButton("VOLVER AL MENÚ");
+        JButton btnVolverMenu = new JButton("VOLVER AL MENU");
         btnVolverMenu.setFont(new Font("Arial", Font.BOLD, 14));
         btnVolverMenu.setBackground(new Color(200, 0, 0));
         btnVolverMenu.setForeground(Color.WHITE);
@@ -313,7 +313,7 @@ if (jugador == 1) {
         panelOrientacion.setBackground(new Color(50, 50, 50));
         panelOrientacion.setBorder(BorderFactory.createTitledBorder(
         BorderFactory.createLineBorder(Color.YELLOW), 
-        "ORIENTACIÓN",
+        "ORIENTACION",
     javax.swing.border.TitledBorder.CENTER,
     javax.swing.border.TitledBorder.TOP,
     new Font("Arial", Font.BOLD, 12),
@@ -353,7 +353,7 @@ if (jugador == 1) {
     
     int opcion = JOptionPane.showConfirmDialog(panelPrincipal,
         "¿Estás seguro de rendirte?\n\n" +
-        (turnoPlayer1 ? player1Username : player2Username) + " perderá el juego.",
+        (turnoPlayer1 ? player1Username : player2Username) + " perdera el juego.",
         "Confirmar Rendición",
         JOptionPane.YES_NO_OPTION,
         JOptionPane.WARNING_MESSAGE);
@@ -361,12 +361,30 @@ if (jugador == 1) {
     if (opcion == JOptionPane.YES_OPTION) {
         String ganador = turnoPlayer1 ? player2Username : player1Username;
         if (listener != null) {
-            listener.avisarFin(ganador + " gana por rendición!");
+            listener.avisarFin(ganador + " gana por rendicion!");
         }
-    }
+       }
       }
       
+    private JButton crearBotonBarco(String texto, String codigoBarco, int tamaño, Color color) {
+    JButton boton = new JButton(texto);
+    boton.setBackground(color);
+    boton.setForeground(Color.WHITE);
+    boton.setFont(new Font("Arial", Font.BOLD, 12));
+    boton.addActionListener(e -> {
+        barcoSeleccionadoCodigo = codigoBarco;
+        tamañoBarcoSeleccionado = tamaño;
+        String nombre = NOMBRES_BARCOS.getOrDefault(codigoBarco, "Desconocido");
+        mostrarMensaje("Barco seleccionado: " + nombre, false);
+    });
+    return boton;
 }
+
+      
+      
+}
+      
+
        
     
          
@@ -377,4 +395,3 @@ if (jugador == 1) {
       
 
         
-    
