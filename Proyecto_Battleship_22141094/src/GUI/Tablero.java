@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -342,6 +343,27 @@ if (jugador == 1) {
         
         
                 return panel;
+      }
+      
+      private void rendirse(){
+    if (faseActual != FaseJuego.EN_JUEGO) {
+        mostrarMensaje("Solo puedes rendirte durante el juego", true);
+        return;
+    }
+    
+    int opcion = JOptionPane.showConfirmDialog(panelPrincipal,
+        "¿Estás seguro de rendirte?\n\n" +
+        (turnoPlayer1 ? player1Username : player2Username) + " perderá el juego.",
+        "Confirmar Rendición",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE);
+    
+    if (opcion == JOptionPane.YES_OPTION) {
+        String ganador = turnoPlayer1 ? player2Username : player1Username;
+        if (listener != null) {
+            listener.avisarFin(ganador + " gana por rendición!");
+        }
+    }
       }
       
 }
