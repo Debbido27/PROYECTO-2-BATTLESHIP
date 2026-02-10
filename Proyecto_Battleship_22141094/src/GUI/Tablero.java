@@ -301,7 +301,7 @@ if (jugador == 1) {
         JPanel panelConexion = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
         panelConexion.setBackground(new Color(50, 50, 50));
         
-        JLabel lblPlayer2 = new JLabel("Username del Rival:");
+        JLabel lblPlayer2 = new JLabel(" ");
         lblPlayer2.setFont(new Font("Arial", Font.BOLD, 14));
         lblPlayer2.setForeground(Color.WHITE);
         
@@ -594,7 +594,8 @@ if (jugador == 2 && barcosColocadosPlayer2 >= dificultad) {
         // Mostrar ambos tableros
         panelTablero1.setVisible(true);
         panelTablero2.setVisible(true);
-        
+            actualizarVisualizacionTablero(celdasPlayer1, tableroLogicoPlayer1);
+            actualizarVisualizacionTablero(celdasPlayer2, tableroLogicoPlayer2);
         mostrarMensaje("¡JUEGO INICIADO! Turno de " + player1Username, false);
         actualizarUI();
     }
@@ -671,7 +672,7 @@ String estadoBarco = (barco != null) ? barco.getCodigo() : String.valueOf(Tabler
                     boolean esTurnoDisparo = (faseActual == FaseJuego.EN_JUEGO) &&
                                               ((turnoPlayer1 && !esTableroPlayer1) ||
                                                (!turnoPlayer1 && esTableroPlayer1));
-                    celda.setEnabled(esTurnoDisparo && estadoDisparo == TableroLogico.AGUA);
+celda.setEnabled(esTurnoDisparo);
                 }
             }
         }

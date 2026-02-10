@@ -451,7 +451,7 @@ public class MainWindow1 extends JFrame {
         
         JPanel panelBienvenida = new JPanel();
         panelBienvenida.setBackground(new Color(250, 250, 250));
-        JLabel lblBienvenida = new JLabel("Bienvenido: " + usuarioActual);
+        JLabel lblBienvenida = new JLabel("Bienvenido: " ); //+ usuarioActual);
         lblBienvenida.setFont(new Font("Arial", Font.BOLD, 16));
         panelBienvenida.add(lblBienvenida);
         panelMenu.add(panelBienvenida, BorderLayout.CENTER);
