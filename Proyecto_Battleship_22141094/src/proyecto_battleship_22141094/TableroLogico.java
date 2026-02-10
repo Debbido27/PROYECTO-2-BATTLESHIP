@@ -16,9 +16,9 @@ private int [] barcoColumna;
 private boolean [] barcoHorizontal;
 private int totalBarcos;
 
-static final char AGUA = 'A';
-static final char IMPACTO = 'X';
-static final char FALLO ='F';
+public static final char AGUA = 'A';
+public static final char IMPACTO = 'X';
+public static final char FALLO ='F';
 
 public TableroLogico (int filas, int columnas){
     this.filas=filas;

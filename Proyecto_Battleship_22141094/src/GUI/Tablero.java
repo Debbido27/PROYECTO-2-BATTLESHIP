@@ -234,6 +234,13 @@ if (jugador == 1) {
             final int columna = j;
             
 
+            celda.addActionListener(e -> {
+    if (faseActual == FaseJuego.EN_JUEGO) {
+        manejarDisparo(fila, columna);
+    } else {
+        manejarClickMiTablero(jugador, fila, columna);
+    }
+});
    
    celdas[i][j]=celda;
    grid.add(celda);
@@ -310,7 +317,7 @@ if (jugador == 1) {
         btnVolverMenu.setBackground(new Color(200, 0, 0));
         btnVolverMenu.setForeground(Color.WHITE);
         btnVolverMenu.addActionListener(e -> {
-            if (listener != null) listener.onReturnToMenu();
+            if (listener != null) listener.();
         });
         
         JPanel panelOrientacion = new JPanel(new FlowLayout());
@@ -562,6 +569,103 @@ if (jugador == 2 && barcosColocadosPlayer2 >= dificulad) {
         actualizarUI();
     }
     
+         
+private void actualizarVisualizacionTablero(JButton[][] celdas, TableroLogico tableroLogico) {
+    boolean esTableroPlayer1 = (tableroLogico == tableroLogicoPlayer1);
+    boolean esMiTablero = (faseActual != FaseJuego.EN_JUEGO) ||
+                           (turnoPlayer1 && esTableroPlayer1) ||
+                           (!turnoPlayer1 && !esTableroPlayer1);
+
+    int filasTablero = tableroLogico.getDisparoEn(0,0) != 0 ? celdas.length : 8;
+    int columnasTablero = filasTablero > 0 ? celdas[0].length : 8;
+
+    for (int i = 0; i < filasTablero; i++) {
+        for (int j = 0; j < columnasTablero; j++) {
+            JButton celda = celdas[i][j];
+
+            char estadoDisparo = tableroLogico.getDisparoEn(i, j);
+            BARCOS barco = tableroLogico.getBarcoEn(i, j);
+String estadoBarco = (barco != null) ? barco.getCodigo() : String.valueOf(TableroLogico.AGUA);
+
+            // Tablero activo para colocar
+            boolean esTableroActivo = (faseActual == FaseJuego.COLOCANDO_PLAYER1 && esTableroPlayer1) ||
+                                      (faseActual == FaseJuego.COLOCANDO_PLAYER2 && !esTableroPlayer1);
+
+            // Colores y texto según disparo
+            if (estadoDisparo == TableroLogico.IMPACTO) {
+                celda.setBackground(new Color(255, 100, 100));
+                celda.setText("X");
+                celda.setForeground(Color.WHITE);
+                celda.setEnabled(false);
+            } else if (estadoDisparo == TableroLogico.FALLO) {
+                celda.setBackground(new Color(200, 220, 255));
+                celda.setText("F");
+                celda.setForeground(Color.BLUE);
+                celda.setEnabled(false);
+            } else {
+                // Sin disparo
+                celda.setText("");
+                if (esMiTablero) {
+                    // Mostrar barcos solo en tu tablero o tutorial
+                    if (!estadoBarco.equals(String.valueOf(TableroLogico.AGUA))) {
+                        celda.setBackground(new Color(90, 90, 0));
+                        celda.setText(String.valueOf(estadoBarco));
+                        celda.setForeground(Color.WHITE);
+                    } else {
+                        celda.setBackground(new Color(0, 151, 209));
+                    }
+                   celda.setEnabled(esTableroActivo && estadoBarco.equals(String.valueOf(TableroLogico.AGUA)));
+                } else {
+                    // Tablero enemigo
+                    celda.setBackground(new Color(158, 158, 158));
+                    boolean esTurnoDisparo = (faseActual == FaseJuego.EN_JUEGO) &&
+                                              ((turnoPlayer1 && !esTableroPlayer1) ||
+                                               (!turnoPlayer1 && esTableroPlayer1));
+                    celda.setEnabled(esTurnoDisparo && estadoDisparo == TableroLogico.AGUA);
+                }
+            }
+        }
+    }
+}
+
+private void actualizarUI() {
+    switch (faseActual) {
+        case CONECTANDO_PLAYER2:
+            lblEstado.setText("CONECTA A TU RIVAL");
+            lblContadorBarcos.setText("Ingresa el username del jugador 2");
+            panelTablero1.setVisible(true);
+            panelTablero2.setVisible(false);
+            break;
+        case COLOCANDO_PLAYER1:
+            lblEstado.setText(player1Username + " - COLOCA TUS BARCOS");
+            lblContadorBarcos.setText("Barcos colocados: " + barcosColocadosPlayer1 + "/" + dificultad);
+            panelTablero1.setVisible(true);
+            panelTablero2.setVisible(false);
+            break;
+        case COLOCANDO_PLAYER2:
+            lblEstado.setText(player2Username + " - COLOCA TUS BARCOS");
+            lblContadorBarcos.setText("Barcos colocados: " + barcosColocadosPlayer2 + "/" + dificultad);
+            panelTablero1.setVisible(false);
+            panelTablero2.setVisible(true);
+            break;
+        case EN_JUEGO:
+            lblEstado.setText("EN JUEGO - TURNO DE: " + 
+                             (turnoPlayer1 ? player1Username : player2Username));
+            lblContadorBarcos.setText("");
+            panelTablero1.setVisible(true);
+            panelTablero2.setVisible(true);
+            break;
+        case TERMINADO:
+            lblEstado.setText("JUEGO TERMINADO");
+            lblContadorBarcos.setText("");
+            break;
+    }
+
+    // Actualizar visualización de ambos tableros
+    if (celdasPlayer1 != null) actualizarVisualizacionTablero(celdasPlayer1, tableroLogicoPlayer1);
+    if (celdasPlayer2 != null) actualizarVisualizacionTablero(celdasPlayer2, tableroLogicoPlayer2);
+}
+
     
          private void mostrarMensaje(String mensaje, boolean esError) {
         if (listener != null) {
