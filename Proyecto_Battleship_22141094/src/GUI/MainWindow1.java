@@ -587,6 +587,49 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
     
     panelPrincipal.add(panelPerfil, "PERFIL");
 }
+     
+        private void crearPanelBattleship() {
+    System.out.println("Creando Battleship para: " + usuarioActual);
+    
+    // Crear una instancia de Tablero - USUARIO SIEMPRE ESTÁ LOGUEADO
+        String nombreJugador1 = (usuarioActual == null || usuarioActual.trim().isEmpty()) 
+                          ? "Jugador1" 
+                          : usuarioActual;
+    Tablero tablero = new Tablero(
+            nombreJugador1,
+        4,             // dificultad NORMAL
+        true,          // modoTutorial
+        new Tablero.Avisos() {
+            @Override
+            public void avisar(String message, boolean isError) {
+                String titulo = isError ? "Error" : "Información";
+                int tipo = isError ? JOptionPane.ERROR_MESSAGE : JOptionPane.INFORMATION_MESSAGE;
+                JOptionPane.showMessageDialog(MainWindow1.this, message, titulo, tipo);
+            }
+            
+            @Override
+            public void avisarFin(String winner) {
+                JOptionPane.showMessageDialog(MainWindow1.this, 
+                    "🏆 ¡JUEGO TERMINADO! 🏆\n\n" + winner + "\n\nRegresando al menú...",
+                    "Fin del Juego",
+                    JOptionPane.INFORMATION_MESSAGE);
+                mostrarPantalla("MENU");
+            }
+            
+            @Override
+            public void avisarVolverMenu() {
+                mostrarPantalla("MENU");
+            }
+        },
+        loginManager
+    );
+    
+    // Obtener el panel del tablero
+    JPanel panelBattleship = tablero.getPanel();
+    
+    // Agregar al CardLayout
+    panelPrincipal.add(panelBattleship, "BATTLESHIP");
+}
     
     
     
