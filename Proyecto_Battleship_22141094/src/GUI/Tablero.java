@@ -5,6 +5,7 @@ import Barcos.BARCOS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BorderFactory;
@@ -31,7 +32,7 @@ public class Tablero {
     
     //Estados del juego
     private String player1Username;
-    private String player2username;
+    private String player2Username;
     private int dificulad;
     private boolean modoTutorial;
     
@@ -62,7 +63,7 @@ public class Tablero {
         //Comoponentes UI
         private JLabel lblEstado;
         private JLabel lblContadorBarcos;
-        private JPanel panelTabler1;
+        private JPanel panelTablero1;
         private Jpanel panelTablero2;
         private JTextField txtPlayer2;
         private JButton btnConectar;
@@ -137,6 +138,7 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
          
      }
      
+     
      private JPanel crearPanelSuperior(){
          JPanel panel = new JPanel (new BorderLayout());
          panel.setBackground(new Color(50,50,50));;
@@ -160,7 +162,23 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
         panel.add(lblContadorBarcos, BorderLayout.SOUTH);
         
         return panel;
-        
+     }
+     
+     private JPanel crearPanelCentral(){
+         JPanel panel = new JPanel (new GridLayout(1,2,30,0));
+         panel.setBackground(new Color(30,30,39));
+         panel.setBorder(BorderFactory.createEmptyBorder(20,40,20,40));
+         
+         //TABLERO PLAYER 1
+         String tituloPLayer1= player1Username != null ?
+                 "Tablero de" + player1Username.toUpperCase():"TABLERO JUGADOR1";
+         
+       
+         //TABLERO PLAYER 2
+    String tituloPlayer2 = player2Username != null ? 
+        "TABLERO DE " + player2Username.toUpperCase() : "TABLERO JUGADOR 2";  
+    
+    return panel;
      }
      
       
