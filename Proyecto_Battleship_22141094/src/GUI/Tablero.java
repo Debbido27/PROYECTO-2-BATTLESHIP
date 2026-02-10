@@ -68,6 +68,16 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
           TAMANOS_BARCOS.put("DT",2);
       }
       
+      public interface Avisos{
+          void avisar(String aviso, boolean error);
+          void avisarFin(String winner);
+          void avisarVolverMenu();
+      }
+      
+      private Avisos listener;
+      
+      
+     
       
       
 }
