@@ -4,13 +4,16 @@ package GUI;
 import Barcos.BARCOS;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import proyecto_battleship_22141094.LoginManager;
 import proyecto_battleship_22141094.TableroLogico;
 
@@ -128,8 +131,37 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
          panelPrincipal = new JPanel (new BorderLayout());
          panelPrincipal.setBackground(new Color(30,30,30));
          
+         //PANELSUPERIOR CON LA INFORAMCION
+         JPanel panelSuperior = crearPanelSuperior();
+         panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
+         
      }
      
+     private JPanel crearPanelSuperior(){
+         JPanel panel = new JPanel (new BorderLayout());
+         panel.setBackground(new Color(50,50,50));;
+         panel.setBorder(BorderFactory.createEmptyBorder(15,20,15,20));
+         
+        JLabel lblTitulo = new JLabel("BATTLESHIP DINAMICO", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 28));
+        lblTitulo.setForeground(Color.WHITE);
+        
+        lblEstado = new JLabel("", SwingConstants.CENTER);
+        lblEstado.setFont(new Font("Arial", Font.BOLD, 16));
+        lblEstado.setForeground(Color.YELLOW);
+        lblEstado.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
+        
+        lblContadorBarcos = new JLabel("", SwingConstants.CENTER);
+        lblContadorBarcos.setFont(new Font("Arial", Font.PLAIN, 14));
+        lblContadorBarcos.setForeground(Color.CYAN);
+        
+        panel.add(lblTitulo, BorderLayout.NORTH);
+        panel.add(lblEstado, BorderLayout.CENTER);
+        panel.add(lblContadorBarcos, BorderLayout.SOUTH);
+        
+        return panel;
+        
+     }
      
       
       
