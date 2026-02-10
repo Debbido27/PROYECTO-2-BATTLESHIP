@@ -25,7 +25,7 @@ public class Tablero {
     private JRadioButton rbtVertital;
     
     //Estados del juego
-    private String playerUsername;
+    private String player1Username;
     private String player2username;
     private int dificulad;
     private boolean modoTutorial;
@@ -40,7 +40,19 @@ public class Tablero {
     }
     
         private FaseJuego faseActual;
+     
+            // Para el sistema de clicks de barcos
+    private String barcoSeleccionadoCodigo;
+    private BARCOS barcoSeleccionadoObjeto;
+    private int tamanoBarcoSeleccionado;    
+    private JButton primeraCeldaSeleccionada;
+    private int filaPrimera;
+    private int columnaPrimera;
+    private int barcosColocadosPlayer1;
+    private int barcosColocadosPlayer2;
     
+       // Turno actual (solo para fase EN_JUEGO)
+        private boolean turnoPlayer1;
         
         //Comoponentes UI
         private JLabel lblEstado;
@@ -76,7 +88,36 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
       
       private Avisos listener;
       
-      
+      //CONSTRUCTOR
+     public Tablero(String player1Username, int dificultad, boolean modoTutorial, 
+               Avisos listener, LoginManager loginManager) {
+    this.player1Username = player1Username;
+    this.dificulad = dificultad;
+    this.modoTutorial = modoTutorial;
+    this.listener = listener;
+    this.loginManager = loginManager;
+    
+    tableroLogicoPlayer1 = new TableroLogico(8,8);
+    tableroLogicoPlayer2 = new TableroLogico(8,8);
+    
+    faseActual = FaseJuego.CONECTANDO_PLAYER2;
+    barcosColocadosPlayer1=0;
+    barcosColocadosPlayer2=0;
+    
+    barcoSeleccionadoCodigo="PA";
+    tamanoBarcoSeleccionado=5;
+    
+    barcoSeleccionadoObjeto=null;
+    primeraCeldaSeleccionada=null;
+    horizontalSeleccionado=true;
+    
+    celdasPlayer1 = new JButton[8][8];
+    celdasPlayer2 = new JButton [8][8];
+    celdasPlayer2ParaColocar = new JButton [8][8];
+    
+    
+     }
+     
      
       
       
