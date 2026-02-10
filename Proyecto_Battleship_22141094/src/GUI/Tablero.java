@@ -4,6 +4,7 @@ package GUI;
 import Barcos.BARCOS;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.HashMap;
@@ -181,6 +182,79 @@ private static final Map<String, Integer> TAMANOS_BARCOS = new HashMap<>();
     return panel;
      }
      
+     
+     
+     
+      private JPanel crearPanelTableroIndividual(String titulo, TableroLogico tableroLogico, int jugador){
+    JPanel panel = new JPanel(new BorderLayout());
+    panel.setBackground(new Color(240, 240, 240)); 
+    panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    
+    // Título
+    
+    
+    JLabel lblTitulo = new JLabel(titulo, SwingConstants.CENTER);
+    lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
+if (jugador == 1) {
+    lblTitulo.setForeground(new Color(0, 100, 0)); 
+} else {
+    lblTitulo.setForeground(new Color(0, 0, 150)); 
+}
+    lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+    
+    
+    
+    JPanel grid = new JPanel(new GridLayout(8, 8, 1, 1));
+    grid.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 2)); // Gris oscuro
+    
+    JButton[][] celdas = new JButton[8][8];
+    
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            JButton celda = new JButton();
+            celda.setPreferredSize(new Dimension(55, 55));
+            celda.setBackground(new Color(230, 230, 230)); 
+            celda.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1)); 
+            celda.setFont(new Font("Arial", Font.BOLD, 12));
+            celda.setForeground(Color.BLACK);
+            celda.setToolTipText("[" + i + "," + j + "]");
+            
+            final int fila = i;
+            final int columna = j;
+            
+
+   
+   celdas[i][j]=celda;
+   grid.add(celda);
+   
+       
+       }
+        
+    }
+    
+     if(jugador==1){
+         celdasPlayer1=celdas;
+     }else{
+         celdasPlayer2=celdas;
+     }
+     
+      panel.add(lblTitulo, BorderLayout.NORTH);
+    panel.add(grid, BorderLayout.CENTER);
+    
+    return panel;
+    
+      }
       
       
 }
+       
+    
+         
+    
+        
+
+        
+      
+
+        
+    
