@@ -552,22 +552,26 @@ if (jugador == 2 && barcosColocadosPlayer2 >= dificultad) {
     JButton[][] celdasEnemigo = turnoPlayer1 ? celdasPlayer2 : celdasPlayer1;
 
     boolean impacto = tableroEnemigo.procesarImpactoYRegenerar(fila, columna);
-    char tipoBarco = tableroEnemigo.getUltimoTipoImpactado(); // AGUA si falló
+    String tipoBarco = tableroEnemigo.getUltimoTipoImpactado(); // AGUA si falló
     boolean hundido = tableroEnemigo.isUltimoBarcoHundido();
 
     actualizarVisualizacionTablero(celdasEnemigo, tableroEnemigo);
     //VER VIDAS EN TABLERO
       actualizarContadorBarcos();
+        BARCOS barco = tableroEnemigo.getBarcoEn(fila, columna);
+        int vidaRestante = (barco != null) ? barco.getVida() : 0; // <-- evita NullPointerException
 
-    if (!impacto) {
-        mostrarMensaje("¡Fallo! Agua en [" + fila + "," + columna + "]", false);
-    } else {
-        String nombreBarco = NOMBRES_BARCOS.get(tipoBarco);
-        mostrarMensaje("¡IMPACTO! " + nombreBarco + " en [" + fila + "," + columna + "]", false);
+        if (!impacto) {
+            mostrarMensaje("¡Fallo! Agua", false);
+        } else {
+            String nombreBarco = (barco != null) ? barco.getNombre() : NOMBRES_BARCOS.get(tipoBarco);
+            mostrarMensaje("¡IMPACTO! " + nombreBarco + " - Vida restante: " + vidaRestante, false);
 
-        if (hundido) {
-            mostrarMensaje("¡HUNDIDO! " + nombreBarco + " destruido!", false);
+            if (hundido) {
+                mostrarMensaje("¡HUNDIDO! " + nombreBarco + " destruido!", false);
+            }
         }
+
 
         if (tableroEnemigo.todosBarcosHundidos()) {
             if (listener != null) {
@@ -575,10 +579,11 @@ if (jugador == 2 && barcosColocadosPlayer2 >= dificultad) {
             }
             return;
         }
-    }
+    
 
     cambiarTurno();
 }
+
     
     
     
@@ -633,9 +638,9 @@ private void actualizarVisualizacionTablero(JButton[][] celdas, TableroLogico ta
     for (int i = 0; i < filasTablero; i++) {
         for (int j = 0; j < columnasTablero; j++) {
             JButton celda = celdas[i][j];
+            BARCOS barco = tableroLogico.getBarcoEn(i, j);
 
             char estadoDisparo = tableroLogico.getDisparoEn(i, j);
-            BARCOS barco = tableroLogico.getBarcoEn(i, j);
 String estadoBarco = (barco != null) ? barco.getCodigo() : String.valueOf(TableroLogico.AGUA);
 
             // Tablero activo para colocar

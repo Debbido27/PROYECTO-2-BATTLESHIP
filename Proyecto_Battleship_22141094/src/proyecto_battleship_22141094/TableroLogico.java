@@ -8,7 +8,7 @@ private int columnas;
 
 private BARCOS [][] tableroBarcos;  
 private char [][] tableroDisparos;
-private char ultimoTipoImpactado;
+private String ultimoTipoImpactado;
 private boolean ultimoBarcoHundido;
 private BARCOS [] barcos;
 private int [] barcoFila;
@@ -178,7 +178,7 @@ public String getEstadoBarcos() {
 
 
 public boolean procesarImpactoYRegenerar(int fila, int columna){
-    ultimoTipoImpactado=AGUA;
+    ultimoTipoImpactado="A";
     ultimoBarcoHundido=false;
 
     if(fila<0 || fila>=filas || columna<0 || columna>=columnas)
@@ -196,7 +196,7 @@ public boolean procesarImpactoYRegenerar(int fila, int columna){
 
     barco.recibirDano();
     tableroDisparos[fila][columna]=IMPACTO;
-    ultimoTipoImpactado=barco.getCodigo().charAt(0);
+    ultimoTipoImpactado=barco.getCodigo();
     ultimoBarcoHundido=barco.estaHundido();
 
     
@@ -257,7 +257,7 @@ private void eliminarBarcoCompleto (BARCOS barco){
       }
   }
 
-    public char getUltimoTipoImpactado() {
+    public String getUltimoTipoImpactado() {
         return ultimoTipoImpactado;
     }
 

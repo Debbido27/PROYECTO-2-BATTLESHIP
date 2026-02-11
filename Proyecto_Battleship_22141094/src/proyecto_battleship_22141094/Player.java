@@ -61,7 +61,6 @@ public class Player {
 
   @Override
  //SOBREESCRIBIR LA CLASE OBJECT
-  //To string para poder traducirlo, devuelve el string y no el espacio en memoria
   
   public String toString(){
       return "Usuario: "+username+"\n"+"Contrasena: "+password+"\n";
