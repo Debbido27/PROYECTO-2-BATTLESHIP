@@ -42,7 +42,7 @@ public class CONFIGURACION {
     }
 
     public void setModoJuego(String nuevoModo) {
-        this.modoJuego = modoJuego;
+        this.modoJuego = nuevoModo.toUpperCase();
     }
 
     public int getMaxBarcos() {
@@ -53,6 +53,17 @@ public class CONFIGURACION {
         this.maxBarcos = maxBarcos;
     }
     
+    public boolean esModoArcade(){
+        return modoJuego.equals("ARCADE");
+    }
+    
+    @Override
+    public String toString(){
+          return "Configuracion: " + 
+               "Dificultad=" + dificultad + 
+               ", Modo=" + modoJuego + 
+               ", MaxBarcos=" + maxBarcos;      
+    }
   
     
     
