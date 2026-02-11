@@ -1,13 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package proyecto_battleship_22141094;
 
-/**
- *
- * @author Dell
- */
+
 public class CONFIGURACION {
+    
+    private String dificultad = "NORMAL";
+    private String modoJuego ="TUTORIAL";
+    private int maxBarcos=4;
+    
+    public CONFIGURACION(){
+        
+    }
+    
     
 }
