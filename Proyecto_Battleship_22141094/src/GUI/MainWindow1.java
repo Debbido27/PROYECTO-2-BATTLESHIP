@@ -596,7 +596,11 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
      
      private void crearPanelConfiguracion(){
          CONFIGURACION config = new CONFIGURACION();
-         
+      JPanel panelConfig = new JPanel(new BorderLayout());
+      panelConfig.setBackground(new Color(250, 250, 250));
+      panelConfig.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); 
+      
+      
      }
      
      
