@@ -152,6 +152,12 @@ public class MainWindow1 extends JFrame {
 }
 
     
+    
+    
+    
+    
+    
+    
     private void iniciarSesion(){
         String user = txtUser.getText();
         String pass = new String(txtPassword.getPassword());
@@ -587,6 +593,23 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
     
     panelPrincipal.add(panelPerfil, "PERFIL");
 }
+     
+     private void crearPanelConfiguracion(){
+         CONFIGURACION config = new CONFIGURACION();
+         
+     }
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      
         private void crearPanelBattleship() {
     System.out.println("Creando Battleship para: " + usuarioActual);
