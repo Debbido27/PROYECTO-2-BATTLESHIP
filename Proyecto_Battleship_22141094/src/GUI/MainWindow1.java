@@ -31,7 +31,7 @@ public class MainWindow1 extends JFrame {
     private JTextField txtUser;
     private JPasswordField txtPassword;
     private String usuarioActual;
-
+    private CONFIGURACION configGlobal;
     
     
     public MainWindow1 (){
@@ -595,17 +595,47 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
 }
      
      private void crearPanelConfiguracion(){
-         CONFIGURACION config = new CONFIGURACION();
+          configGlobal = new CONFIGURACION();
+         
       JPanel panelConfig = new JPanel(new BorderLayout());
       panelConfig.setBackground(new Color(250, 250, 250));
       panelConfig.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); 
       
+      JLabel titulo = new JLabel ("",SwingConstants.CENTER);
+      titulo.setFont(new Font("Arial", Font.BOLD, 28));
+      titulo.setForeground(new Color(40, 40, 40)); 
       
+     JLabel lblConfigActual = new JLabel("", SwingConstants.CENTER);
+     lblConfigActual.setFont(new Font("Arial", Font.ITALIC, 14));
+     lblConfigActual.setForeground(new Color(80, 80, 80));
+     actualizarEtiquetaConfig(lblConfigActual); 
+     
+     
+    JPanel panelTitulo = new JPanel(new BorderLayout());
+    panelTitulo.setBackground(new Color(250, 250, 250));
+    panelTitulo.add(titulo, BorderLayout.NORTH);
+    panelTitulo.add(lblConfigActual, BorderLayout.SOUTH);
+    
+    panelConfig.add(panelTitulo, BorderLayout.NORTH);
+    
+    JPanel panelOpciones = new JPanel(new GridLayout(3, 1, 20, 20));
+    panelOpciones.setBorder(BorderFactory.createEmptyBorder(40, 150, 40, 150));
+    panelOpciones.setBackground(new Color(250, 250, 250));
+    
+    JButton btnDificultad = new JButton("a. Dificultad");
+    btnDificultad.setFont(new Font("Arial", Font.BOLD, 16));
+    
+    
+    
      }
      
      
      
-     
+     private void actualizarEtiquetaConfig(JLabel lbl) {
+     if (configGlobal != null) {
+        lbl.setText("Configuración actual: " + configGlobal.toString());
+    }
+}
      
      
      
@@ -742,14 +772,7 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
     return panel;
 }
 
-     private void crearPanelConfiguracion() {
-    JPanel panelConfig = crearPanelBasico("CONFIGURACIÓN");
-    
-    JButton btnVolver = crearBotonVolver();
-    panelConfig.add(btnVolver, BorderLayout.SOUTH);
-    
-    panelPrincipal.add(panelConfig, "CONFIG");
-}
+
      
      private void crearPanelReportes() {
     JPanel panelReportes = crearPanelBasico("REPORTES");
