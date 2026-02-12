@@ -154,6 +154,46 @@ public class Battleship {
             }
         }
     }
+            
+            
+            
+                private static void mostrarMiPerfil() {
+        while (true) {
+           
+            System.out.println("\n"+COLOR.CYAN + "=".repeat(50)+COLOR.RESET);
+            System.out.println("           M I   P E R F I L");
+            System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
+            System.out.println("\n Usuario actual: " + usuarioActual);
+            System.out.println("\n" +COLOR.CYAN+ "-".repeat(50)+COLOR.RESET);
+            System.out.println("\n1. Ver mis datos");
+            System.out.println("2. Modificar mis datos");
+            System.out.println("3. Eliminar mi cuenta");
+            System.out.println("4. Volver al Menú");
+            System.out.println("\n" + "-".repeat(50));
+            System.out.print("Selecciona una opcion: ");
+            String opcion = entrada.nextLine();
+              
+            
+            switch(opcion){
+                case "1":
+                    break;
+                    
+                case "2":
+                break;
+                
+                case "3":
+                    break;
+                    
+                case "4":
+                    return;
+                    
+                default:
+                    System.out.println(COLOR.RED+"INGRESE UNA OPCION VALIDA!!! Presiona Enter...."+COLOR.RESET);
+                    entrada.nextLine();
+                
+        }
+            }
+                }
 
         }
 
