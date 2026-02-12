@@ -40,7 +40,7 @@ public class MainWindow1 extends JFrame {
     //txtUser = new JTextField(15);
     ///txtPassword = new JPasswordField(15);
     mensajeLabel = new JLabel("", SwingConstants.CENTER);
-
+    configGlobal = new CONFIGURACION();  
     VENTANA_CONFI();
     CrearPantallaIni();
     crearPanelLogin();
@@ -50,7 +50,6 @@ public class MainWindow1 extends JFrame {
    crearPanelReportes();
     crearPanelPerfil();
    crearPanelBattleship();
-configGlobal = new CONFIGURACION();
     mostrarPantalla("INICIO");
     setVisible(true);  
     }
@@ -595,13 +594,12 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
 }
      
      private void crearPanelConfiguracion(){
-          configGlobal = new CONFIGURACION();
          
       JPanel panelConfig = new JPanel(new BorderLayout());
       panelConfig.setBackground(new Color(250, 250, 250));
       panelConfig.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); 
       
-      JLabel titulo = new JLabel ("",SwingConstants.CENTER);
+      JLabel titulo = new JLabel ("CONFIGURACION",SwingConstants.CENTER);
       titulo.setFont(new Font("Arial", Font.BOLD, 28));
       titulo.setForeground(new Color(40, 40, 40)); 
       
@@ -624,9 +622,27 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
     
     JButton btnDificultad = new JButton("a. Dificultad");
     btnDificultad.setFont(new Font("Arial", Font.BOLD, 16));
+        btnDificultad.addActionListener(e -> mostrarSubMenuDificultad(lblConfigActual));
+
+            JButton btnModoJuego = new JButton("b. Modo de Juego");
+    btnModoJuego.setFont(new Font("Arial", Font.BOLD, 16));
+    btnModoJuego.addActionListener(e -> mostrarSubMenuModoJuego(lblConfigActual));
     
+        JButton btnRegresar = new JButton("c. Regresar al Menú Principal");
+    btnRegresar.setFont(new Font("Arial", Font.BOLD, 16));
+    btnRegresar.setBackground(new Color(70, 130, 180));
+    btnRegresar.setForeground(Color.WHITE);
+    btnRegresar.addActionListener(e -> mostrarPantalla("MENU"));
     
+    panelOpciones.add(btnDificultad);
+    panelOpciones.add(btnModoJuego);
+    panelOpciones.add(btnRegresar);
     
+    panelConfig.add(panelOpciones, BorderLayout.CENTER);
+        JButton btnVolver = crearBotonVolver();
+    panelConfig.add(btnVolver, BorderLayout.SOUTH);
+    
+    panelPrincipal.add(panelConfig, "CONFIG");
      }
      
      
@@ -634,6 +650,7 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
      private void actualizarEtiquetaConfig(JLabel lbl) {
      if (configGlobal != null) {
         lbl.setText("Configuración actual: " + configGlobal.toString());
+        
     }
 }
      
@@ -772,7 +789,7 @@ private void mostrarSubMenuModoJuego(JLabel lblConfigActual) {
                break;
                
             case "Configuración":
-                mostrarPantalla("CONFIG");
+                mostrarPantalla("CONFIGURACION");
                 break;
                 
             case "Reportes":
