@@ -257,6 +257,43 @@ public class TABLERO_VISUAL {
       
       private void jugar(){
           
+          while (faseActual == FaseJuego.EN_JUEGO) {
+            
+            System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
+            System.out.println("              B A T T L E S H I P");
+            System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
+            
+            //operador ternario
+            String jugadorActual = turnoPlayer1 ? player1Username : player2Username;
+            System.out.println("\nTURNO DE: " + jugadorActual.toUpperCase());
+            System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
+            
+            // Mostrar ambos tableros
+            System.out.println(COLOR.ORANGE+"\nTU TABLERO:"+COLOR.RESET);
+            //operador ternario
+            mostrarTablero(turnoPlayer1 ? tableroLogicoPlayer1 : tableroLogicoPlayer2, true);
+            
+            System.out.println(COLOR.ORANGE+"\nTABLERO ENEMIGO:"+COLOR.RESET);
+            mostrarTablero(turnoPlayer1 ? tableroLogicoPlayer2 : tableroLogicoPlayer1, this.modoTutorial);            
+            
+
+            // Mostrar estado de barcos
+            if (turnoPlayer1) {
+                System.out.println(COLOR.ORANGE+"\nTus barcos: " + tableroLogicoPlayer1.getEstadoBarcos()+COLOR.RESET);
+            } else {
+                System.out.println(COLOR.ORANGE+"\nTus barcos: " + tableroLogicoPlayer2.getEstadoBarcos()+COLOR.RESET);
+            }
+            
+            System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
+            System.out.println("1.Disparar");
+            System.out.println("2.Rendirse");
+            System.out.print("\nSelecciona acción: ");
+            
+            String accion = entrada.nextLine();
+            
+            
+                  }
+          
       }
       
         
