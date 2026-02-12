@@ -1,6 +1,10 @@
 
 package IMPRESIONES;
+import Barcos.Acorazado;
 import Barcos.BARCOS;
+import Barcos.Destructor;
+import Barcos.Portaaviones;
+import Barcos.Submarino;
 import java.util.Scanner;
 import proyecto_battleship_22141094.LoginManager;
 import proyecto_battleship_22141094.TableroLogico;
@@ -189,7 +193,64 @@ public class TABLERO_VISUAL {
             }
             
             
+            
+            System.out.print("\nOrientacion (H = Horizontal, V = Vertical): ");
+            String orientacion = entrada.nextLine().toUpperCase();
+            horizontalSeleccionado = orientacion.equals("H");
+            
+            
+            // Elegir posición
+            System.out.print("\nFila (0-7): ");
+            int fila = Integer.parseInt(entrada.nextLine());
+            System.out.print("Columna (0-7): ");
+            int columna = Integer.parseInt(entrada.nextLine());
+            
+            // Crear barco
+            BARCOS barco;
+            switch (barcoSeleccionadoCodigo) {
+                case "PA": barco = new Portaaviones(); break;
+                case "AZ": barco = new Acorazado(); break;
+                case "SM": barco = new Submarino(); break;
+                case "DT": barco = new Destructor(); break;
+                default: barco = new Destructor(); break;
+            }
+            
+            //SE manda a llamar el metodo colocar barco manuel, donde el usuario elige en que pocisiones inicalmente
+            boolean colocado = tablero.colocarBarcoManual(fila, columna, barco, horizontalSeleccionado);
+            
+            //VALIDACION SI SE COLOCADO ESTA BIEN
+                if (colocado) {
+                    barcosColocados++;
+                if (jugador == 1) {
+                     barcosColocadosPlayer1++;
+                } else {
+                        barcosColocadosPlayer2++;
+                }
+                         System.out.println(COLOR.GREEN+"\nBarco colocado exitosamente!"+COLOR.RESET);
+                } else {
+                         System.out.println(COLOR.RED+"\nNo se puede colocar el barco ahí"+COLOR.RESET);
+                }
+
+                     System.out.print("\nPresiona Enter para continuar...");
+                     entrada.nextLine();
+            
+            
         }
+            //SE HACE EL CAMBIO DE FASE
+                if (jugador == 1) {
+                    faseActual = FaseJuego.COLOCANDO_PLAYER2;
+                    System.out.println("\n " + player1Username + " termino de colocar sus barcos!");
+                    System.out.println("Turno de " + player2Username);
+                } else {
+                    System.out.println("\n " + player2Username + " termino de colocar sus barcos!");
+                    System.out.println(COLOR.PURPLE+"\nYA PUEDEN INICIAR EL JUEGO!"+COLOR.RESET);
+                    faseActual = FaseJuego.EN_JUEGO;
+                    turnoPlayer1 = true;
+                }
+
+                System.out.print("\nPresiona Enter para continuar...");
+                entrada.nextLine();
+          
         
         
       }
