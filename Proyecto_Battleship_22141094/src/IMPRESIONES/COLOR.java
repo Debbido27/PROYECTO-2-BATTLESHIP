@@ -14,4 +14,10 @@ public class COLOR {
     public static final String PURPLE = "\033[35m";        
     public static final String ORANGE = "\033[38;5;208m";
     
+    //COLORES BARCOS
+public static final String PORTAVIONES = "\033[37m";
+public static final String DESTRUCTOR  = "\033[90m"; 
+public static final String SUBMARINO   = "\033[91m"; 
+public static final String ACORAZADO   = "\033[93m"; 
+    
 }

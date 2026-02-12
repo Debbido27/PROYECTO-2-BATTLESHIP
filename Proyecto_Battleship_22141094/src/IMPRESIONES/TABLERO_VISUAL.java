@@ -101,6 +101,9 @@ public class TABLERO_VISUAL {
         
        } 
        
+       
+       
+       
       private void colocarBarcos(int jugador){
         String username = (jugador == 1) ? player1Username : player2Username;
         TableroLogico tablero = (jugador == 1) ? tableroLogicoPlayer1 : tableroLogicoPlayer2;
@@ -109,7 +112,8 @@ public class TABLERO_VISUAL {
         barcosColocados = barcosColocadosPlayer1;
         } else {
             barcosColocados = barcosColocadosPlayer2;
-        } 
+        }
+      
         
         //mientras barcos colocados sea menor a los barcos que pide dificultad se pide colocar barco
         while(barcosColocados < dificultad){
@@ -122,11 +126,75 @@ public class TABLERO_VISUAL {
             
           mostrarTablero(tablero, true);
 
+         //MENU DE BARCOS
+            System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
+            System.out.println("         S E L E C C I O N A R   B A R C O");
+            System.out.println("=".repeat(60));
+            System.out.println("\n1.Portaaviones (5 espacios)");
+            System.out.println("2.Acorazado (4 espacios)");
+            System.out.println("3.Submarino (3 espacios)");
+            System.out.println("4.Destructor (2 espacios)");
+            System.out.println(COLOR.ORANGE+"\n0. Terminar colocacion (cuando tengas todos)");
+            System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
+            
+            System.out.print("Selecciona un barco: ");
+            String opcion = entrada.nextLine();
+            
+            if (opcion.equals("0")) {
+                if (barcosColocados == dificultad) {
+                    break;
+                } else {
+                    System.out.println(COLOR.RED+"\nDebes colocar " + dificultad + " barcos. Llevas " + barcosColocados+COLOR.RESET);
+                    System.out.print("Presiona Enter para continuar...");
+                    entrada.nextLine();
+                    continue;
           
-          
+             }
+          } 
+            
+            //BARCO SELECCIONADO
+            switch(opcion){
+                
+                case "1":
+                    barcoSeleccionadoCodigo = COLOR.PORTAVIONES+"PA"+COLOR.RESET;
+                    tamanoBarcoSeleccionado=5;
+                    System.out.println(COLOR.GREEN+"\nPoortaaviones seleccionado"+COLOR.RESET);
+                    break;
+                    
+                case "2":
+                    barcoSeleccionadoCodigo = COLOR.ACORAZADO+"AZ"+COLOR.RESET;
+                    tamanoBarcoSeleccionado=4;
+                    System.out.println(COLOR.GREEN+"\nAcorazado seleccionado"+COLOR.RESET);
+                    break;
+                    
+                case "3":
+                    barcoSeleccionadoCodigo = COLOR.SUBMARINO+"SM"+COLOR.RESET;
+                    tamanoBarcoSeleccionado=3;
+                    System.out.println(COLOR.GREEN+"\nSubmarino seleccionado"+COLOR.RESET);
+                    break;
+                    
+                case "4":
+                    barcoSeleccionadoCodigo = COLOR.DESTRUCTOR+"DT"+COLOR.RESET;
+                    tamanoBarcoSeleccionado=2;
+                    System.out.println(COLOR.GREEN+"\nDestructor seleccionado"+COLOR.RESET);
+                    break;
+                    
+                default:
+                    System.out.println(COLOR.RED+"\nOpcion invalida"+COLOR.RESET);
+                    System.out.print("Presiona Enter para continuar...");
+                    entrada.nextLine();
+                    continue;
+                    
+                        
+            }
+            
+            
         }
         
+        
       }
+      
+        
         
      private void mostrarTablero(TableroLogico tablero, boolean mostrarBarcos) {
         System.out.println("\n    0  1  2  3  4  5  6  7");
