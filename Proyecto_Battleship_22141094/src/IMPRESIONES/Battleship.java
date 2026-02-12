@@ -268,15 +268,42 @@ public class Battleship {
     }      
     
     
-    private static void mostrarConfiguracoin(){
+    private static void mostrarConfiguracion(){
         while(true){
             limpiarPantalla();
             System.out.println(COLOR.CYAN+"\n"+"=".repeat(50)+COLOR.RESET);
+            System.out.println("           C O N F I G U R A C I O N");
+            System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
+            System.out.println("\nConfiguracion actual: " + configGlobal);
+            System.out.println("\n" + "-".repeat(50));
+            System.out.println("\na.Configurar Dificultad");
+            System.out.println("b.Configurar Modo de Juego");
+            System.out.println("c.Volver al Menu Principal");
+            System.out.println(COLOR.CYAN+"\n" + "-".repeat(50)+COLOR.RESET);
+            System.out.print("Selecciona una opcion: ");
             
+            String opcion = entrada.nextLine().toLowerCase();
+            
+            switch(opcion){
+                case "a":
+                    configurarDificultad();
+                    break;
+                    
+                case "b":
+                    break;
+                    
+                case "c":
+                    return;
+                    
+                default:
+                    System.out.println("Opcion invalidad. Presione enter...");
+                    entrada.nextLine();
+                 
+            }
         }
     }
     
-    private static void configurarDifitulcad(){
+    private static void configurarDificultad(){
         limpiarPantalla();
         System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
         System.out.println("           C O N F I G U R A R   D I F I C U L T A D");
@@ -311,6 +338,8 @@ public class Battleship {
         entrada.nextLine();
         
     }
+    
+    
     
     public static void limpiarPantalla() {
     System.out.print("\033[H\033[2J");
