@@ -110,6 +110,8 @@ public class TABLERO_VISUAL {
        
        
       private void colocarBarcos(int jugador){
+          
+          limpiarPantalla();
         String username = (jugador == 1) ? player1Username : player2Username;
         TableroLogico tablero = (jugador == 1) ? tableroLogicoPlayer1 : tableroLogicoPlayer2;
         int barcosColocados;    
@@ -252,12 +254,13 @@ public class TABLERO_VISUAL {
                 System.out.print("\nPresiona Enter para continuar...");
                 entrada.nextLine();
           
+                
         
         
       }
       
       private void jugar(){
-          
+          limpiarPantalla();
           while (faseActual == FaseJuego.EN_JUEGO) {
             
             System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
@@ -441,7 +444,18 @@ public class TABLERO_VISUAL {
     }
     
 
-    
+        private void limpiarPantalla() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            for (int i = 0; i < 30; i++) System.out.println();
+        }
+    }
 }
 
 
