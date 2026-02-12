@@ -206,7 +206,30 @@ public class Battleship {
         entrada.nextLine();
     }
          
-         
+           private static void modificarDatosPerfil() {
+        System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
+        System.out.println("           M O D I F I C A R   D A T O S");
+        System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RED);
+        
+        System.out.print("\nNuevo usuario (Enter para no cambiar): ");
+        String nuevoUser = entrada.nextLine();
+        if (nuevoUser.isEmpty()) nuevoUser = null;
+        
+        System.out.print("Nueva contrasena (Enter para no cambiar): ");
+        String nuevoPass = entrada.nextLine();
+        if (nuevoPass.isEmpty()) nuevoPass = null;
+        
+        String respuesta = loginManager.modificarDatos(nuevoUser, nuevoPass);
+        System.out.println("\n" + respuesta);
+        
+        if (respuesta.contains(COLOR.GREEN+"exito") && nuevoUser != null+COLOR.RESET) {
+            usuarioActual = nuevoUser;
+        }
+        
+        System.out.println("\nPresiona Enter para continuar...");
+        entrada.nextLine();
+    }
+      
 
         }
 
