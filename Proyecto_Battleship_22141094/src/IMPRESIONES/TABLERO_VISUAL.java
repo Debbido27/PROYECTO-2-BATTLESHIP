@@ -14,7 +14,7 @@ public class TABLERO_VISUAL {
     private String player2Username;
     private int dificultad;
     private boolean modoTutorial;
-    private Scanner scanner;    
+    private Scanner entrada;    
     
     //ENUM FASES DE JUEGO
         private enum FaseJuego {
@@ -43,6 +43,24 @@ public class TABLERO_VISUAL {
     
     
     private Avisos listener;
+        public TABLERO_VISUAL (String player1Username, int dificultad, boolean modoTutorial, 
+                         Avisos listener, LoginManager loginManager) {
+        this.player1Username = player1Username;
+        this.dificultad = dificultad;
+        this.modoTutorial = modoTutorial;
+        this.listener = listener;
+        this.loginManager = loginManager;
+        this.entrada = new Scanner(System.in);
+        
+        tableroLogicoPlayer1 = new TableroLogico(8, 8);
+        tableroLogicoPlayer2 = new TableroLogico(8, 8);
+        
+        faseActual = FaseJuego.CONECTANDO_PLAYER2;
+        barcosColocadosPlayer1 = 0;
+        barcosColocadosPlayer2 = 0;
+        
+        }
+    
 }
 
 
