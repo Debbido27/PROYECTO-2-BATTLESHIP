@@ -291,6 +291,24 @@ public class TABLERO_VISUAL {
             
             String accion = entrada.nextLine();
             
+            //VALIDACION DE ELEGIR EL MODO DE JUEGO USUARIO
+            if (accion.equals("2")) {
+               
+                continue;
+            }
+            
+            //SE VALIDA QUE SEA UNA OPCION VALDIA
+            
+            if (!accion.equals("1")) {
+                System.out.println(COLOR.RED+"\npcion invalida"+COLOR.RESET);
+                System.out.print("Presiona Enter para continuar...");
+                entrada.nextLine();
+                continue;
+            }
+            
+            //DISPRAR
+            
+            
             
                   }
           
