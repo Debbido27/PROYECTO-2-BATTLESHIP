@@ -34,9 +34,10 @@ public class Battleship {
             
             switch (opcion) {
                 case "1":
-                    
+                    mostrarPantallaLogin();
                     break;
                 case "2":
+                    mostrarPantallaRegistro();
                     break;
                 case "3":
                     System.out.println("\nGracias por jugar! Hasta pronto ");
@@ -52,6 +53,34 @@ public class Battleship {
     }  
     
     
+        private static void mostrarPantallaLogin() {
+       
+        System.out.println("\n" + COLOR.CYAN+"=".repeat(30)+COLOR.RESET);
+        System.out.println("           I N I C I A R    S E S I O N");
+        System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
+        
+        System.out.print("\n Usuario: ");
+        String user = entrada.nextLine();
+        
+        System.out.print("Contrasena: ");
+        String pass = entrada.nextLine();
+        
+        
+        //Se manda a llamar el metodo login en donde se reisa si el jugador existe
+        if (loginManager.login(user, pass)) {
+            usuarioActual = user;
+            System.out.println(COLOR.GREEN+"\n Login exitoso Bienvenido, " + user+COLOR.RESET);
+            System.out.println("\nPresiona Enter para continuar...");
+            entrada.nextLine();
+        } else {
+            System.out.println(COLOR.RED+"\nUsuario o contrasena incorrectos"+COLOR.RESET);
+            System.out.println("\nPresiona Enter para continuar...");
+            entrada.nextLine();
+        }
+        
+    }
+        
+        
         private void mostrarPantallaRegistro(){
             
         System.out.println("\n" + COLOR.CYAN+"=".repeat(30)+COLOR.RESET);
