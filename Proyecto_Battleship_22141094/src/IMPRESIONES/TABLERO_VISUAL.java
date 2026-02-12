@@ -431,7 +431,9 @@ public class TABLERO_VISUAL {
         }
         System.out.println(COLOR.BLUE_SEA+"   " + "-".repeat(24)+COLOR.RESET);
 
+//        
       }
+     
      
          private String obtenerNombreBarco(String codigo) {
         switch (codigo) {
@@ -443,6 +445,52 @@ public class TABLERO_VISUAL {
         }
     }
     
+         
+         
+    private void rendirse() {
+    System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
+    System.out.println("           RENDIRSE?");
+    System.out.println("=".repeat(60));
+    System.out.print("\nEstas seguro? (S/N): ");
+    
+    String confirmacion = entrada.nextLine().toUpperCase();
+    
+    if (confirmacion.equals("S")) {
+        String ganador = turnoPlayer1 ? player2Username : player1Username;
+        String perdedor = turnoPlayer1 ? player1Username : player2Username;
+        
+        // AGREGAR LOGS Y PUNTOS POR RENDICIÓN
+        String modo = modoTutorial ? "TUTORIAL" : "ARCADE";
+        String dificultadStr = switch (dificultad) {
+            case 5 -> "EASY";
+            case 4 -> "NORMAL";
+            case 2 -> "EXPERT";
+            case 1 -> "GENIUS";
+            default -> "NORMAL";
+        };
+        
+        Player playerGanador = loginManager.buscarPlayer(ganador);
+        if (playerGanador != null) {
+            playerGanador.agregarLog(perdedor + " se rindio contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")");
+            playerGanador.setPuntos(playerGanador.getPuntos() + 3);
+        }
+        
+        Player playerPerdedor = loginManager.buscarPlayer(perdedor);
+        if (playerPerdedor != null) {
+            playerPerdedor.agregarLog(perdedor + " se rindio contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")");
+        }
+        
+        System.out.println(COLOR.CYAN+"\n️  " + perdedor + " se rinde! Ganador: " + ganador+COLOR.RESET);
+        
+        if (listener != null) {
+            listener.avisarFin(COLOR.CYAN+ganador + " gana por rendición!"+COLOR.RESET);
+        }
+        
+        faseActual = FaseJuego.TERMINADO;
+        System.out.print("\nPresiona Enter para volver al menú...");
+        entrada.nextLine();
+    }
+}
 
         private void limpiarPantalla() {
         try {
