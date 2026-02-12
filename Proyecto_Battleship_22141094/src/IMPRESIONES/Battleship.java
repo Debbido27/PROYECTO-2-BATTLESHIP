@@ -279,7 +279,29 @@ public class Battleship {
         System.out.println("4.GENIUS  - 1 barco");
         System.out.println("\n" + "-".repeat(50));
         System.out.print("Selecciona dificultad: ");
+          
+        String opcion = entrada.nextLine();
+        String dificultad ="";
+        
+        switch (opcion){
+            case "1": dificultad = "EASY";break;
+            case "2": dificultad = "NORMAL"; break;
+            case "3": dificultad = "EXPERT"; break;
+            case "4": dificultad = "GENIUS"; break;
+            default:
+                System.out.println(COLOR.RED+"\nOPCION INVALIDAD"+COLOR.RESET);
+                System.out.println("Presiona enter para continuar...");
+                entrada.nextLine();
+                return;
             
+        }
+        
+        configGlobal.setDificultad(dificultad);
+        System.out.println("\nDificultad cambiada a: "+dificultad);
+        System.out.println(" Barcos permitido: "+configGlobal.getMaxBarcos());
+        System.out.println("\nPresiona enter para continuar....");
+        entrada.nextLine();
+        
     }
     
     public static void limpiarPantalla() {
