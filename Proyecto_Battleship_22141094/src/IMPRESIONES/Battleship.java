@@ -290,6 +290,7 @@ public class Battleship {
                     break;
                     
                 case "b":
+                    configurarModoJuego();
                     break;
                     
                 case "c":
@@ -339,7 +340,16 @@ public class Battleship {
         
     }
     
-    
+    private static void configurarModoJuego(){
+        limpiarPantalla();
+        System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
+        System.out.println("           C O N F I G U R A R   M O D O   D E   J U E G O");
+        System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
+        System.out.println("\n1.TUTORIAL - Muestra todos los barcos");
+        System.out.println("2.ARCADE   - Esconde los barcos del oponente");
+        System.out.println(COLOR.CYAN+"\n" + "-".repeat(50)+COLOR.RESET);
+        System.out.print("Selecciona modo: ");
+    }
     
     public static void limpiarPantalla() {
     System.out.print("\033[H\033[2J");
