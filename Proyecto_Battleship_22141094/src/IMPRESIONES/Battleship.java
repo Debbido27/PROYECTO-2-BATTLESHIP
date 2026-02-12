@@ -157,7 +157,7 @@ public class Battleship {
             
             
             
-                private static void mostrarMiPerfil() {
+         private static void mostrarMiPerfil() {
         while (true) {
            
             System.out.println("\n"+COLOR.CYAN + "=".repeat(50)+COLOR.RESET);
@@ -176,6 +176,7 @@ public class Battleship {
             
             switch(opcion){
                 case "1":
+                    verDatosPerfil();
                     break;
                     
                 case "2":
@@ -194,6 +195,18 @@ public class Battleship {
         }
             }
                 }
+         
+         private static void verDatosPerfil() {
+        System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
+        System.out.println("           M I S   D A T O S");
+        System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
+        System.out.println("\n" + loginManager.verDatos());
+        System.out.println(COLOR.CYAN+"\n" + "-".repeat(50)+COLOR.RESET);
+        System.out.println("Presiona Enter para continuar...");
+        entrada.nextLine();
+    }
+         
+         
 
         }
 
