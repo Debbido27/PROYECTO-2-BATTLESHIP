@@ -268,6 +268,14 @@ public class Battleship {
     }      
     
     
+    private static void mostrarConfiguracoin(){
+        while(true){
+            limpiarPantalla();
+            System.out.println(COLOR.CYAN+"\n"+"=".repeat(50)+COLOR.RESET);
+            
+        }
+    }
+    
     private static void configurarDifitulcad(){
         limpiarPantalla();
         System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
