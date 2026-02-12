@@ -15,7 +15,7 @@ public class Battleship {
        mostrarPantallaInicio();
     }
     
-    private void mostrarPantallaInicio(){
+    private static void mostrarPantallaInicio(){
         String opcion;
         boolean salir = false;
         
@@ -82,7 +82,7 @@ public class Battleship {
     }
         
         
-        private void mostrarPantallaRegistro(){
+        private static void mostrarPantallaRegistro(){
             
         System.out.println("\n" + COLOR.CYAN+"=".repeat(30)+COLOR.RESET);
         System.out.println("           C R E A R   C U E N T A");
@@ -229,7 +229,38 @@ public class Battleship {
         System.out.println("\nPresiona Enter para continuar...");
         entrada.nextLine();
     }
+           
+    private static void eliminarCuenta() {
       
+        System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
+        System.out.println(COLOR.RED+"   E L I M I N A R   C U E N T A   ️"+COLOR.RESET);
+        System.out.println("=".repeat(50));
+        System.out.println(COLOR.RED+"\nESTÁS SEGURO? Esta acción NO se puede deshacer."+COLOR.RESET);
+        System.out.print("\nEscribe 'ELIMINAR' para confirmar: ");
+        
+        String confirmacion = entrada.nextLine();
+        
+        //SE MANDA A LLAMAR LOGINMANAGER ELMINAR CUENTA
+        if (confirmacion.equals("ELIMINAR")) {
+            String respuesta = loginManager.eliminarCuenta();
+            System.out.println("\n" + respuesta);
+            
+            if (respuesta.contains(COLOR.GREEN+"exito"+COLOR.RESET)) {
+                usuarioActual = null;
+                System.out.println("\nRedirigiendo al inicio...");
+                System.out.println("Presiona Enter para continuar...");
+                entrada.nextLine();
+                mostrarPantallaInicio();
+            } else {
+                System.out.println("\nPresiona Enter para continuar...");
+                entrada.nextLine();
+            }
+        } else {
+            System.out.println("\nEliminacio cancelada");
+            System.out.println("Presiona Enter para continuar...");
+            entrada.nextLine();
+        }
+    }      
 
         }
 
