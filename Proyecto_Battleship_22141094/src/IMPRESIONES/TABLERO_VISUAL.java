@@ -210,11 +210,11 @@ public class TABLERO_VISUAL {
             
             // Crear barco
             BARCOS barco;
-            switch (barcoSeleccionadoCodigo) {
-                case "PA": barco = new Portaaviones(); break;
-                case "AZ": barco = new Acorazado(); break;
-                case "SM": barco = new Submarino(); break;
-                case "DT": barco = new Destructor(); break;
+            switch (opcion) {
+                case "1": barco = new Portaaviones(); break;
+                case "2": barco = new Acorazado(); break;
+                case "3": barco = new Submarino(); break;
+                case "4": barco = new Destructor(); break;
                 default: barco = new Destructor(); break;
             }
             
@@ -297,7 +297,7 @@ public class TABLERO_VISUAL {
             
             //VALIDACION DE ELEGIR EL MODO DE JUEGO USUARIO
             if (accion.equals("2")) {
-               
+                rendirse();
                 continue;
             }
             
@@ -333,7 +333,7 @@ public class TABLERO_VISUAL {
                 } else {
                     String nombreBarco = obtenerNombreBarco(tipoBarco);
                     BARCOS barco = tableroEnemigo.getBarcoEn(fila, columna);
-                int vidaRestante = (barco != null) ? barco.getVida() : 0;
+            int vidaRestante = tableroEnemigo.getVidaBarcoEn(fila, columna);
                     
                     System.out.println("IMPACTO! " + nombreBarco);
                     System.out.println("Vida restante: " + vidaRestante);

@@ -290,6 +290,11 @@ private void eliminarBarcoCompleto (BARCOS barco){
           System.out.println("");
       }
   }
+  public int getVidaBarcoEn(int fila, int columna) {
+    BARCOS barco = getBarcoEn(fila, columna);
+    return (barco != null) ? barco.getVida() : 0;
+}
+  
   
   public void imprimirTableroDisparos(){
       for (int i = 0; i < filas; i++) {
