@@ -72,8 +72,9 @@ public class Battleship {
             System.out.println(COLOR.GREEN+"\n Login exitoso Bienvenido, " + user+COLOR.RESET);
             System.out.println("\nPresiona Enter para continuar...");
             entrada.nextLine();
+            mostrarMenuPrincipal();
         } else {
-            System.out.println(COLOR.RED+"\nUsuario o contrasena incorrectos"+COLOR.RESET);
+            System.out.println("\n"+COLOR.RED+"Usuario o contrasena incorrectos"+COLOR.RESET);
             System.out.println("\nPresiona Enter para continuar...");
             entrada.nextLine();
         }
@@ -88,26 +89,71 @@ public class Battleship {
         System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
         
             System.out.print("\nNuevo Uusuario: ");
-            String user = entrada.next();
+            String user = entrada.nextLine();
             
             System.out.print("\nNueva contrasena: ");
-            String pass = entrada.next();
+            String pass = entrada.nextLine();
             
             //SE LLAMA EL METODO CREAR PLAYER QUE VLIDA SI EXISTE O NO EL JUGADOR
             if(loginManager.crearPlayer(user, pass)){
                 usuarioActual=user;
-                System.out.println(COLOR.GREEN+"\nCUENTA CREADA EXITOSAMENTE!!");
+                System.out.println("\n"+COLOR.GREEN+"CUENTA CREADA EXITOSAMENTE!!");
                 System.out.println("\nPresiona Enter para continuar...");
-                entrada.next();
+                entrada.nextLine();
+                mostrarMenuPrincipal();
             }else{
-                System.out.println(COLOR.RED+"\nEl usuario ya existe, o se alcanzo el maximo de jugadores");
+                System.out.println("\n"+COLOR.RED+"El usuario ya existe, o se alcanzo el maximo de jugadores");
                 System.out.println("\nPresiona Enter para continuar...");
+                entrada.nextLine();
             }
             
         }
     
         
-        
+            private static void mostrarMenuPrincipal() {
+        while (usuarioActual != null) {
+         
+            System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
+            System.out.println("           M E N U   P R I N C I P A L");
+            System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
+            System.out.println("\n Bienvenido: " + usuarioActual);
+            System.out.println("\n" + "-".repeat(50));
+            System.out.println("\n1.Jugar Battleship");
+            System.out.println("2. Configuracion");
+            System.out.println("3. Reportes");
+            System.out.println("4. Mi Perfil");
+            System.out.println("5. Cerrar Sesion");
+            System.out.println("\n" + "-".repeat(50));
+            System.out.print("Selecciona una opcion: ");
+            
+            String opcion = entrada.nextLine();
+            
+            switch (opcion) {
+                case "1":
+               
+                    break;
+                case "2":
+                   
+                    break;
+                case "3":
+               
+                    break;
+                case "4":
+                    
+                    break;
+                case "5":
+                    usuarioActual = null;
+                    loginManager.logout();
+                    System.out.println(COLOR.GREEN+"\n Sesion cerrada exitosamente"+COLOR.RESET);
+                    System.out.println("Presiona Enter para continuar...");
+                    entrada.nextLine();
+                    return;
+                default:
+                    System.out.println(COLOR.RED+"\n Opcion invalida. Presiona Enter..."+COLOR.RESET);
+                    entrada.nextLine();
+            }
+        }
+    }
 
         }
 
