@@ -122,6 +122,8 @@ public class TABLERO_VISUAL {
             
           mostrarTablero(tablero, true);
 
+          
+          
         }
         
       }
@@ -137,18 +139,18 @@ public class TABLERO_VISUAL {
                 BARCOS barco = tablero.getBarcoEn(i, j);
                 
                 if (disparo == TableroLogico.IMPACTO) {
-                    System.out.print(" 💥");
+                    System.out.print(COLOR.RED+"X"+COLOR.RESET);
                 } else if (disparo == TableroLogico.FALLO) {
-                    System.out.print(" 💧");
+                    System.out.print(COLOR.WHITE+"F"+COLOR.RESET);
                 } else if (mostrarBarcos && barco != null) {
                     System.out.print(" " + barco.getCodigo());
                 } else {
-                    System.out.print("  ~");
+                    System.out.print(COLOR.BLUE_SEA+"  ~"+COLOR.RESET);
                 }
             }
-            System.out.println(" |");
+            System.out.println(COLOR.BLUE_SEA+" |"+COLOR.RESET);
         }
-        System.out.println("   " + "-".repeat(24));
+        System.out.println(COLOR.BLUE_SEA+"   " + "-".repeat(24)+COLOR.RESET);
         
         
       }
