@@ -157,6 +157,7 @@ public class Battleship {
             
             
             
+            
          private static void mostrarMiPerfil() {
         while (true) {
            limpiarPantalla();
@@ -265,6 +266,21 @@ public class Battleship {
             entrada.nextLine();
         }
     }      
+    
+    
+    private static void configurarDifitulcad(){
+        limpiarPantalla();
+        System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
+        System.out.println("           C O N F I G U R A R   D I F I C U L T A D");
+        System.out.println("=".repeat(50));
+        System.out.println("\n1.EASY    - 5 barcos");
+        System.out.println("2.NORMAL  - 4 barcos");
+        System.out.println("3.EXPERT  - 2 barcos");
+        System.out.println("4.GENIUS  - 1 barco");
+        System.out.println("\n" + "-".repeat(50));
+        System.out.print("Selecciona dificultad: ");
+            
+    }
     
     public static void limpiarPantalla() {
     System.out.print("\033[H\033[2J");
