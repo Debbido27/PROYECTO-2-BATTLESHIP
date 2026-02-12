@@ -39,7 +39,7 @@ public class Battleship {
                 case "2":
                     break;
                 case "3":
-                    System.out.println("\n¡Gracias por jugar! Hasta pronto ");
+                    System.out.println("\nGracias por jugar! Hasta pronto ");
                     System.exit(0);
                     break;
                 default:
