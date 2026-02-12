@@ -60,7 +60,7 @@ public class Player {
     }
 
     
-    public void agregaLog(String log){
+    public void agregarLog(String log){
         for (int i = logs.length -1; i>0; i++) {
             logs[i]=logs[i-1];
         }
