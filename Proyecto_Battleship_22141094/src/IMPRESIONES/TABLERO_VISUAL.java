@@ -101,7 +101,57 @@ public class TABLERO_VISUAL {
         
        } 
        
-      
+      private void colocarBarcos(int jugador){
+        String username = (jugador == 1) ? player1Username : player2Username;
+        TableroLogico tablero = (jugador == 1) ? tableroLogicoPlayer1 : tableroLogicoPlayer2;
+        int barcosColocados;    
+        if (jugador == 1) {
+        barcosColocados = barcosColocadosPlayer1;
+        } else {
+            barcosColocados = barcosColocadosPlayer2;
+        } 
+        
+        //mientras barcos colocados sea menor a los barcos que pide dificultad se pide colocar barco
+        while(barcosColocados < dificultad){
+            System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
+            System.out.println("         C O L O C A R   B A R C O S");
+            System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
+            System.out.println(COLOR.YELLOW+"\nJugador " + jugador + ": " + username+COLOR.RESET);
+            System.out.println("Barcos colocados: " + barcosColocados + "/" + dificultad);
+            System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);     
+            
+          mostrarTablero(tablero, true);
+
+        }
+        
+      }
+        
+     private void mostrarTablero(TableroLogico tablero, boolean mostrarBarcos) {
+        System.out.println("\n    0  1  2  3  4  5  6  7");
+        System.out.println("   " + "-".repeat(24));        
+     
+                for (int i = 0; i < 8; i++) {
+            System.out.print(i + " |");
+            for (int j = 0; j < 8; j++) {
+                char disparo = tablero.getDisparoEn(i, j);
+                BARCOS barco = tablero.getBarcoEn(i, j);
+                
+                if (disparo == TableroLogico.IMPACTO) {
+                    System.out.print(" 💥");
+                } else if (disparo == TableroLogico.FALLO) {
+                    System.out.print(" 💧");
+                } else if (mostrarBarcos && barco != null) {
+                    System.out.print(" " + barco.getCodigo());
+                } else {
+                    System.out.print("  ~");
+                }
+            }
+            System.out.println(" |");
+        }
+        System.out.println("   " + "-".repeat(24));
+        
+        
+      }
 
     
 }
