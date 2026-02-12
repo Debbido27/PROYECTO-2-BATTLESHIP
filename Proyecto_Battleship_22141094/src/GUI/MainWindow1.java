@@ -50,7 +50,7 @@ public class MainWindow1 extends JFrame {
    crearPanelReportes();
     crearPanelPerfil();
    crearPanelBattleship();
-
+configGlobal = new CONFIGURACION();
     mostrarPantalla("INICIO");
     setVisible(true);  
     }
@@ -640,9 +640,61 @@ JPanel panelModificar = new JPanel((LayoutManager) new java.awt.GridLayout(2, 2,
      
      
      
+private void mostrarSubMenuDificultad(JLabel lblConfigActual) {
+    String[] opciones = {"EASY", "NORMAL", "EXPERT", "GENIUS"};
+    String seleccion = (String) JOptionPane.showInputDialog(
+        this,
+        "Seleccione la dificultad:\n" +
+        "• EASY = 5 barcos\n" +
+        "• NORMAL = 4 barcos\n" +
+        "• EXPERT = 2 barcos\n" +
+        "• GENIUS = 1 barco",
+        "Configurar Dificultad",
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        opciones,
+        configGlobal.getDificultad() 
+    );
+    
+    if (seleccion != null) {
+        configGlobal.setDificultad(seleccion);
+        actualizarEtiquetaConfig(lblConfigActual);
+        
+        JOptionPane.showMessageDialog(this, 
+            "✓ Dificultad cambiada a: " + seleccion + 
+            "\n✓ Barcos permitidos: " + configGlobal.getMaxBarcos(),
+            "Configuración Actualizada",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+}
      
      
-     
+private void mostrarSubMenuModoJuego(JLabel lblConfigActual) {
+    String[] opciones = {"TUTORIAL", "ARCADE"};
+    String seleccion = (String) JOptionPane.showInputDialog(
+        this,
+        "Seleccione el modo de juego:\n" +
+        "• TUTORIAL = Muestra todos los barcos\n" +
+        "• ARCADE = Esconde los barcos del oponente",
+        "Configurar Modo de Juego",
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        opciones,
+        configGlobal.getModoJuego() 
+    );
+    
+    if (seleccion != null) {
+        configGlobal.setModoJuego(seleccion);
+        actualizarEtiquetaConfig(lblConfigActual);
+        
+        JOptionPane.showMessageDialog(this, 
+            "✓ Modo de juego cambiado a: " + seleccion,
+            "Configuración Actualizada",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+}
+
+  
      
      
         private void crearPanelBattleship() {
