@@ -49,9 +49,36 @@ public class Battleship {
             }
         }while(true);
         
-            
-       
+    }  
     
-}
+    
+        private void mostrarPantallaRegistro(){
+            
+        System.out.println("\n" + COLOR.CYAN+"=".repeat(30)+COLOR.RESET);
+        System.out.println("           C R E A R   C U E N T A");
+        System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
+        
+            System.out.print("\nNuevo Uusuario: ");
+            String user = entrada.next();
+            
+            System.out.print("\nNueva contrasena: ");
+            String pass = entrada.next();
+            
+            //SE LLAMA EL METODO CREAR PLAYER QUE VLIDA SI EXISTE O NO EL JUGADOR
+            if(loginManager.crearPlayer(user, pass)){
+                usuarioActual=user;
+                System.out.println(COLOR.GREEN+"\nCUENTA CREADA EXITOSAMENTE!!");
+                System.out.println("\nPresiona Enter para continuar...");
+                entrada.next();
+            }else{
+                System.out.println(COLOR.RED+"\nEl usuario ya existe, o se alcanzo el maximo de jugadores");
+                System.out.println("\nPresiona Enter para continuar...");
+            }
+            
+        }
+    
+        
+        
+
         }
 

@@ -9,5 +9,9 @@ public class COLOR {
     public static final String YELLOW = "\033[33m";
     public static final String WHITE = "\033[37m";
     public static final String BLUE_SEA = "\033[34m";   
-    public static final String METAL_GRAY = "\033[90m";    
+    public static final String METAL_GRAY = "\033[90m"; 
+    public static final String GREEN = "\033[32m";         
+    public static final String PURPLE = "\033[35m";        
+    public static final String ORANGE = "\033[38;5;208m";
+    
 }
