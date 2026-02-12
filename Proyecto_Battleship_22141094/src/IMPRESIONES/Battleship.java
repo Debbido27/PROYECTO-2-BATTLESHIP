@@ -112,7 +112,7 @@ public class Battleship {
         
             private static void mostrarMenuPrincipal() {
         while (usuarioActual != null) {
-         
+         limpiarPantalla();
             System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
             System.out.println("           M E N U   P R I N C I P A L");
             System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
@@ -139,7 +139,7 @@ public class Battleship {
                
                     break;
                 case "4":
-                    
+                    mostrarMiPerfil();
                     break;
                 case "5":
                     usuarioActual = null;
@@ -159,7 +159,7 @@ public class Battleship {
             
          private static void mostrarMiPerfil() {
         while (true) {
-           
+           limpiarPantalla();
             System.out.println("\n"+COLOR.CYAN + "=".repeat(50)+COLOR.RESET);
             System.out.println("           M I   P E R F I L");
             System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
@@ -168,7 +168,7 @@ public class Battleship {
             System.out.println("\n1. Ver mis datos");
             System.out.println("2. Modificar mis datos");
             System.out.println("3. Eliminar mi cuenta");
-            System.out.println("4. Volver al Menú");
+            System.out.println("4. Volver al Menu");
             System.out.println("\n" + "-".repeat(50));
             System.out.print("Selecciona una opcion: ");
             String opcion = entrada.nextLine();
@@ -176,16 +176,20 @@ public class Battleship {
             
             switch(opcion){
                 case "1":
+                    
                     verDatosPerfil();
                     break;
                     
                 case "2":
+                    modificarDatosPerfil();
                 break;
                 
                 case "3":
+                    eliminarCuenta();
                     break;
                     
                 case "4":
+                    
                     return;
                     
                 default:
@@ -261,6 +265,12 @@ public class Battleship {
             entrada.nextLine();
         }
     }      
+    
+    public static void limpiarPantalla() {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+}
+
 
         }
 

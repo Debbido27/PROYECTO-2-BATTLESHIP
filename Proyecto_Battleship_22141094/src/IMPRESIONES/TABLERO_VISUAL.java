@@ -60,6 +60,49 @@ public class TABLERO_VISUAL {
         barcosColocadosPlayer2 = 0;
         
         }
+       private void conectarPlayer2() {
+        
+        System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
+        System.out.println("              C O N E C T A R   R I V A L");
+        System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
+        System.out.println("\nJugador 1: " + player1Username);
+        System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
+        System.out.print("Ingresa el username del rival (o 'exit' para volver): ");
+        
+        String username = entrada.nextLine().trim();
+        
+        if(username.equalsIgnoreCase("exit")){
+            if(listener!=null) listener.avisarVolverMenu();
+            return;
+        }
+        
+        if(username.equalsIgnoreCase(player1Username)){
+            System.out.println(COLOR.RED+"\nERROR NO PUEDES JUGAR CONTRA TI MISMO!!"+COLOR.RESET);
+            System.out.println("\nPresiona Enter para continuar...");
+            entrada.nextLine();
+            return;
+        }
+        
+        if(!loginManager.usuarioExiste(username)){
+            System.out.println(COLOR.RED+"\nEl jugador "+ username + "- NO EXISTE. "+ username +" Debe crear una cuenta primero"+COLOR.RESET);
+            System.out.println("\nPrecionsa Enter para continuar...");
+            entrada.nextLine();
+            return;
+        }
+        
+        player2Username = username;
+        
+        //SE CAMBIA LA FASE
+        faseActual = FaseJuego.COLOCANDO_PLAYER1;
+        
+           System.out.println(COLOR.GREEN+"\nRival conectado exitosamente: "+username+COLOR.RESET);
+           System.out.println("\nPresiona enter par comenzar a colocar los barcos...");
+           entrada.nextLine();
+        
+       } 
+       
+      
+
     
 }
 
