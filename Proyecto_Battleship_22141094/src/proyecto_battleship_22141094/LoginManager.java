@@ -109,6 +109,36 @@ public boolean usuarioExiste(String username) {
      return "Datos modificados exitosamente "+"Nuevo Usuario: "+newUsername+"\n"+"Nueva Contrasena: "+newPassword+"\n";
 }
  
+ 
+   public Player [] getRankingJugadores(){
+           Player[] ranking = new Player[totalPlayers];
+    for (int i = 0; i < totalPlayers; i++) {
+        ranking[i] = players[i];
+    }
+    
+    // Burbuja simple para ordenar por puntos (mayor a menor)
+    for (int i = 0; i < totalPlayers - 1; i++) {
+        for (int j = 0; j < totalPlayers - 1 - i; j++) {
+            if (ranking[j].getPuntos() < ranking[j + 1].getPuntos()) {
+                Player temp = ranking[j];
+                ranking[j] = ranking[j + 1];
+                ranking[j + 1] = temp;
+            }
+        }
+    }
+    return ranking;
+   }
+   
+   
+   
+   public String[] getMisUltimosJuegos() {
+    if (CurrentUser == null) {
+        return new String[]{"No hay usuario logueado"};
+    }
+    return CurrentUser.getLogs();
+}
+   
+   
  public String eliminarCuenta(){
      if(CurrentUser==null){
          return "Error, no hay usuario logueado";
