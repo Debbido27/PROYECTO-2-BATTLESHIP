@@ -255,6 +255,10 @@ public class TABLERO_VISUAL {
         
       }
       
+      private void jugar(){
+          
+      }
+      
         
         
      private void mostrarTablero(TableroLogico tablero, boolean mostrarBarcos) {
