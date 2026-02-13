@@ -55,7 +55,7 @@ public class Battleship {
     
         private static void mostrarPantallaLogin() {
        
-        System.out.println("\n" + COLOR.CYAN+"=".repeat(30)+COLOR.RESET);
+        System.out.println("\n" + COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
         System.out.println("           I N I C I A R    S E S I O N");
         System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
         
@@ -133,7 +133,7 @@ public class Battleship {
                
                     break;
                 case "2":
-                   
+                   mostrarConfiguracion();
                     break;
                 case "3":
                
@@ -307,7 +307,7 @@ public class Battleship {
     private static void configurarDificultad(){
         limpiarPantalla();
         System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
-        System.out.println("           C O N F I G U R A R   D I F I C U L T A D");
+        System.out.println("  C O N F I G U R A R   D I F I C U L T A D");
         System.out.println("=".repeat(50));
         System.out.println("\n1.EASY    - 5 barcos");
         System.out.println("2.NORMAL  - 4 barcos");
@@ -343,12 +343,35 @@ public class Battleship {
     private static void configurarModoJuego(){
         limpiarPantalla();
         System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
-        System.out.println("           C O N F I G U R A R   M O D O   D E   J U E G O");
+        System.out.println("    C O N F I G U R A R   M O D O   D E   J U E G O");
         System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
         System.out.println("\n1.TUTORIAL - Muestra todos los barcos");
         System.out.println("2.ARCADE   - Esconde los barcos del oponente");
         System.out.println(COLOR.CYAN+"\n" + "-".repeat(50)+COLOR.RESET);
         System.out.print("Selecciona modo: ");
+        
+        String opcion = entrada.nextLine();
+        String modo ="";
+        
+        switch (opcion){
+            case "1": 
+                modo = "TUTORIAL"; 
+                break;
+                
+            case "2":
+                modo ="ARCADE";
+                break;
+                
+            default:
+                System.out.println(COLOR.RED+"\nOpcion inalida!!"+COLOR.RESET);
+                System.out.println("Presione enter para continuar...");
+                entrada.nextInt();
+                return;
+        }
+        configGlobal.setModoJuego(modo);
+        System.out.println(COLOR.GREEN+"\nModo de juego cambiado a: "+modo+COLOR.RESET);
+        System.out.println("Presione enter para continuar...");
+        entrada.nextInt();
     }
     
     public static void limpiarPantalla() {
