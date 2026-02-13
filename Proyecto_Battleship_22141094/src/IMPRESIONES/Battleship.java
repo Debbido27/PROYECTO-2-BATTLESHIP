@@ -137,7 +137,7 @@ public class Battleship {
                    mostrarConfiguracion();
                     break;
                 case "3":
-               
+               mostrarReportes();
                     break;
                 case "4":
                     mostrarMiPerfil();
@@ -191,7 +191,6 @@ public class Battleship {
                     break;
                     
                 case "4":
-                    mostrarReportes();
                     return;
                     
                 default:
@@ -444,11 +443,60 @@ public class Battleship {
     
     private static void mostrarReportes(){
         while(true){
-            
+                  limpiarPantalla();
+        System.out.println(COLOR.CYAN+"\n\n\n\n" + "=".repeat(60)+COLOR.RESET);
+        System.out.println("           R E P O R T E S");
+        System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
+        System.out.println("\n1.Mis ultimos 10 juegos");
+        System.out.println("2.Ranking de Jugadores");
+        System.out.println("3.Volver al Menú Principal");
+        System.out.println("\n" + "-".repeat(60));
+        System.out.print("Selecciona una opcion: ");
+        
+        String opcion = entrada.nextLine();
+        
+        switch (opcion) {
+            case "1":
+                mostrarMisUltimosJuegos();
+                break;
+            case "2":
+                mostrarRanking();
+                break;
+            case "3":
+                return;
+            default:
+                System.out.println(COLOR.RED+"\nOpcion inválida"+COLOR.RESET);
+                System.out.print("Presiona Enter...");
+                entrada.nextLine();
+        }  
         }
     }
     
     
+    private static void mostrarMisUltimosJuegos(){
+            limpiarPantalla();
+    System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
+    System.out.println("       M I S   Ú L T I M O S   10   J U E G O S");
+    System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
+    
+    String[] logs = loginManager.getMisUltimosJuegos();
+    boolean hayLogs = false;
+    
+    for (int i = 0; i < logs.length; i++) {
+        if (logs[i] != null && !logs[i].isEmpty()) {
+            System.out.println((i + 1) + ". " + logs[i]);
+            hayLogs = true;
+        }
+    }
+    
+    if (!hayLogs) {
+        System.out.println("\nNo hay partidas registradas aún.");
+    }
+    
+    System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
+    System.out.print("Presiona Enter para continuar...");
+    entrada.nextLine();
+    }
     
     private static void mostrarRanking(){
         limpiarPantalla();
@@ -462,7 +510,7 @@ public class Battleship {
             if (ranking.length == 0) {
                 System.out.println(COLOR.CYAN+"\nNo hay jugadores registrados."+COLOR.RESET);
             } else {
-                System.out.println(COLOR.CYAN+"\n  POSICIÓN  |  JUGADOR  |  PUNTOS"+COLOR.RESET);
+                System.out.println(COLOR.CYAN+"\n  POSICION  |  JUGADOR  |  PUNTOS"+COLOR.RESET);
                 System.out.println(COLOR.CYAN+"-".repeat(60)+COLOR.RESET);
 
                 for (int i = 0; i < ranking.length; i++) {
