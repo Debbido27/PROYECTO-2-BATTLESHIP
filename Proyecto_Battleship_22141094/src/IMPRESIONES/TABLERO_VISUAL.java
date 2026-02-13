@@ -64,7 +64,30 @@ public class TABLERO_VISUAL {
         barcosColocadosPlayer1 = 0;
         barcosColocadosPlayer2 = 0;
         
+        iniciarJuego();
+        
         }
+         
+        
+        public void iniciarJuego() {
+        while (faseActual != FaseJuego.TERMINADO) {
+            switch (faseActual) {
+                case CONECTANDO_PLAYER2:
+                    conectarPlayer2();
+                    break;
+                case COLOCANDO_PLAYER1:
+                    colocarBarcos(1);
+                    break;
+                case COLOCANDO_PLAYER2:
+                    colocarBarcos(2);
+                    break;
+                case EN_JUEGO:
+                    jugar();
+                    break;
+            }
+        }
+    }
+        
        private void conectarPlayer2() {
         
         System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
@@ -136,7 +159,7 @@ public class TABLERO_VISUAL {
          //MENU DE BARCOS
             System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
             System.out.println("         S E L E C C I O N A R   B A R C O");
-            System.out.println("=".repeat(60));
+            System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
             System.out.println("\n1.Portaaviones (5 espacios)");
             System.out.println("2.Acorazado (4 espacios)");
             System.out.println("3.Submarino (3 espacios)");
@@ -231,7 +254,7 @@ public class TABLERO_VISUAL {
                 }
                          System.out.println(COLOR.GREEN+"\nBarco colocado exitosamente!"+COLOR.RESET);
                 } else {
-                         System.out.println(COLOR.RED+"\nNo se puede colocar el barco ahí"+COLOR.RESET);
+                         System.out.println(COLOR.RED+"\nNo se puede colocar el barco ahi"+COLOR.RESET);
                 }
 
                      System.out.print("\nPresiona Enter para continuar...");
@@ -408,11 +431,11 @@ public class TABLERO_VISUAL {
         
         
      private void mostrarTablero(TableroLogico tablero, boolean mostrarBarcos) {
-        System.out.println("\n    0  1  2  3  4  5  6  7");
-        System.out.println("   " + "-".repeat(24));        
+        System.out.println(COLOR.BLUE_SEA+"\n    0  1  2  3  4  5  6  7"+COLOR.RESET);
+        System.out.println(COLOR.BLUE_SEA+"   " + "-".repeat(24)+COLOR.RESET);        
      
                 for (int i = 0; i < 8; i++) {
-            System.out.print(i + " |");
+            System.out.print(i + COLOR.BLUE_SEA+" |"+COLOR.RESET);
             for (int j = 0; j < 8; j++) {
                 char disparo = tablero.getDisparoEn(i, j);
                 BARCOS barco = tablero.getBarcoEn(i, j);

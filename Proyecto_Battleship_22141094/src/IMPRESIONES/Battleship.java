@@ -4,7 +4,7 @@ package IMPRESIONES;
 import java.util.Scanner;
 import proyecto_battleship_22141094.CONFIGURACION;
 import proyecto_battleship_22141094.LoginManager;
-
+import IMPRESIONES.TABLERO_VISUAL;
 public class Battleship {
     private static LoginManager loginManager = new LoginManager();
     private static CONFIGURACION configGlobal = new CONFIGURACION();
@@ -130,7 +130,7 @@ public class Battleship {
             
             switch (opcion) {
                 case "1":
-               
+                jugarBattleship();
                     break;
                 case "2":
                    mostrarConfiguracion();
@@ -274,7 +274,7 @@ public class Battleship {
             System.out.println(COLOR.CYAN+"\n"+"=".repeat(50)+COLOR.RESET);
             System.out.println("           C O N F I G U R A C I O N");
             System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
-            System.out.println("\nConfiguracion actual: " + configGlobal);
+            System.out.println("\nConfiguracion actual: " + "\n"+configGlobal);
             System.out.println("\n" + "-".repeat(50));
             System.out.println("\na.Configurar Dificultad");
             System.out.println("b.Configurar Modo de Juego");
@@ -371,11 +371,78 @@ public class Battleship {
         configGlobal.setModoJuego(modo);
         System.out.println(COLOR.GREEN+"\nModo de juego cambiado a: "+modo+COLOR.RESET);
         System.out.println("Presione enter para continuar...");
-        entrada.nextInt();
+        entrada.nextLine();
+        
     }
     
     
     private static void jugarBattleship(){
+            limpiarPantalla();
+    System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
+    System.out.println("           I N I C I A N D O   B A T T L E S H I P");
+    System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
+    
+    String nombreJugador = (usuarioActual == null || usuarioActual.trim().isEmpty()) 
+                         ? "Jugador1" 
+                         : usuarioActual;
+    
+    boolean modoTutorial = configGlobal.getModoJuego().equals("TUTORIAL");
+    int dificultad = convertirDificultad(configGlobal.getDificultad());
+    
+    System.out.println("\nJugador: " + nombreJugador);
+    System.out.println("Dificultad: " + configGlobal.getDificultad() + " (" + dificultad + " barcos)");
+    System.out.println("Modo: " + configGlobal.getModoJuego());
+    System.out.println("\nPreparando juego en consola...");
+    System.out.print("\nPresiona Enter para comenzar!");
+    entrada.nextLine();
+         TABLERO_VISUAL tablero = new TABLERO_VISUAL(
+        nombreJugador,
+        dificultad,
+        modoTutorial,
+        new TABLERO_VISUAL.Avisos() {
+            @Override
+            public void avisar(String aviso, boolean error) {
+                System.out.println("\n" + (error ? "X " : "ℹ️ ") + aviso);
+                System.out.print("Presiona Enter para continuar...");
+                entrada.nextLine();
+            }
+            
+            @Override
+            public void avisarFin(String winner) {
+                limpiarPantalla();
+                System.out.println("\n" + "=".repeat(60));
+                System.out.println("           F I N   D E L   J U E G O 🏆");
+                System.out.println("=".repeat(60));
+                System.out.println("\n👑 " + winner + " ha ganado!");
+                System.out.println("\n" + "⭐".repeat(60));
+                System.out.print("\nPresiona Enter para volver al menú...");
+                entrada.nextLine();
+            }
+            
+            @Override
+            public void avisarVolverMenu() {
+                System.out.println("\n🔙 Volviendo al menú principal...");
+            }
+        },
+        loginManager
+    );
+    }
+    
+    
+    
+    private static int convertirDificultad(String dificultad) {
+    switch (dificultad) {
+        case "EASY": return 5;
+        case "NORMAL": return 4;
+        case "EXPERT": return 2;
+        case "GENIUS": return 1;
+        default: return 4;
+    }
+    }
+    
+    
+    private static void mostrarRaving(){
+        limpiarPantalla();
         
     }
     public static void limpiarPantalla() {

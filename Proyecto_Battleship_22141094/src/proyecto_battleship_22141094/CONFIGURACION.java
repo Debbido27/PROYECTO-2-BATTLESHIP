@@ -60,9 +60,9 @@ public class CONFIGURACION {
     @Override
     public String toString(){
           return "Configuracion: " + 
-               "Dificultad=" + dificultad + 
-               ", Modo=" + modoJuego + 
-               ", MaxBarcos=" + maxBarcos;      
+               "\nDificultad=" + dificultad + 
+               "\n Modo=" + modoJuego + 
+               "\nMaxBarcos=" + maxBarcos;      
     }
   
     
