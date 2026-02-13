@@ -5,6 +5,7 @@ import java.util.Scanner;
 import proyecto_battleship_22141094.CONFIGURACION;
 import proyecto_battleship_22141094.LoginManager;
 import IMPRESIONES.TABLERO_VISUAL;
+import proyecto_battleship_22141094.Player;
 public class Battleship {
     private static LoginManager loginManager = new LoginManager();
     private static CONFIGURACION configGlobal = new CONFIGURACION();
@@ -190,7 +191,7 @@ public class Battleship {
                     break;
                     
                 case "4":
-                    
+                    mostrarReportes();
                     return;
                     
                 default:
@@ -411,11 +412,11 @@ public class Battleship {
             public void avisarFin(String winner) {
                 limpiarPantalla();
                 System.out.println("\n" + "=".repeat(60));
-                System.out.println("           F I N   D E L   J U E G O 🏆");
+                System.out.println("           F I N   D E L   J U E G O ");
                 System.out.println("=".repeat(60));
-                System.out.println("\n👑 " + winner + " ha ganado!");
+                System.out.println("\n" + winner + " ha ganado!");
                 System.out.println("\n" + "⭐".repeat(60));
-                System.out.print("\nPresiona Enter para volver al menú...");
+                System.out.print("\nPresiona Enter para volver al menu...");
                 entrada.nextLine();
             }
             
@@ -441,8 +442,45 @@ public class Battleship {
     }
     
     
-    private static void mostrarRaving(){
+    private static void mostrarReportes(){
+        while(true){
+            
+        }
+    }
+    
+    
+    
+    private static void mostrarRanking(){
         limpiarPantalla();
+        
+            System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
+            System.out.println("           R A N K I N G   D E   J U G A D O R E S");
+            System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
+
+            Player[] ranking = loginManager.getRankingJugadores();
+
+            if (ranking.length == 0) {
+                System.out.println(COLOR.CYAN+"\nNo hay jugadores registrados."+COLOR.RESET);
+            } else {
+                System.out.println(COLOR.CYAN+"\n  POSICIÓN  |  JUGADOR  |  PUNTOS"+COLOR.RESET);
+                System.out.println(COLOR.CYAN+"-".repeat(60)+COLOR.RESET);
+
+                for (int i = 0; i < ranking.length; i++) {
+                    Player p = ranking[i];
+                    String medalla = switch (i) {
+                        case 0 -> "1";
+                        case 1 -> "2";
+                        case 2 -> "3";
+                        default -> "   ";
+                    };
+                    System.out.printf("%s  %-3d       |  %-10s |  %d pts%n", 
+                        medalla, (i + 1), p.getUsername(), p.getPuntos());
+                }
+    }
+    
+    System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
+    System.out.print("Presiona Enter para continuar...");
+    entrada.nextLine();
         
     }
     public static void limpiarPantalla() {
