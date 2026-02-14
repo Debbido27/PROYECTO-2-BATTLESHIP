@@ -143,6 +143,21 @@ public class TABLERO_VISUAL {
         } else {
             barcosColocados = barcosColocadosPlayer2;
         }
+        
+        int countPA=0, countAZ=0, countSM=0, countDT=0;
+        
+          for (int i = 0; i < 8; i++) {
+              for (int j = 0; j < 8 ;j++) {
+                  BARCOS barco = tablero.getBarcoEn(i,j);
+                  if(barco !=null){
+                      String codigo = barco.getCodigo();
+                      if(codigo.contains("PA"))countPA++;
+                      else if(codigo.contains("AZ"))countAZ++;
+                      else if(codigo.contains("SM"))countSM++;
+                      else if(codigo.contains("DT"))countDT++;
+                  }
+              }
+          }
       
         
         //mientras barcos colocados sea menor a los barcos que pide dificultad se pide colocar barco
@@ -188,26 +203,52 @@ public class TABLERO_VISUAL {
                 case "1":
                     barcoSeleccionadoCodigo = COLOR.PORTAVIONES+"PA"+COLOR.RESET;
                     tamanoBarcoSeleccionado=5;
+                    if(countPA>=1){
+                        System.out.println(COLOR.RED+"\nYa tienes un poortaviones, solo puedes seleccionar 1"+COLOR.RESET);
+                        System.out.println("Presiona Enter para continuar...");
+                        entrada.nextLine();
+                        continue;
+                    }
                     System.out.println(COLOR.GREEN+"\nPoortaaviones seleccionado"+COLOR.RESET);
                     break;
                     
                 case "2":
                     barcoSeleccionadoCodigo = COLOR.ACORAZADO+"AZ"+COLOR.RESET;
                     tamanoBarcoSeleccionado=4;
+                    if(countAZ>=1){
+                        System.out.println(COLOR.RED+"\nYa tienes un acorazado, solo puedes seleccionar 1"+COLOR.RESET);
+                        System.out.println("Presiona Enter para continuar...");
+                        entrada.nextLine();
+                        continue;
+                    }
                     System.out.println(COLOR.GREEN+"\nAcorazado seleccionado"+COLOR.RESET);
                     break;
                     
                 case "3":
                     barcoSeleccionadoCodigo = COLOR.SUBMARINO+"SM"+COLOR.RESET;
                     tamanoBarcoSeleccionado=3;
+                        if(countSM>=1){
+                        System.out.println(COLOR.RED+"\nYa tienes un submarino, solo puedes seleccionar 1"+COLOR.RESET);
+                        System.out.println("Presiona Enter para continuar...");
+                        entrada.nextLine();
+                        continue;
+                    }
                     System.out.println(COLOR.GREEN+"\nSubmarino seleccionado"+COLOR.RESET);
                     break;
                     
                 case "4":
                     barcoSeleccionadoCodigo = COLOR.DESTRUCTOR+"DT"+COLOR.RESET;
                     tamanoBarcoSeleccionado=2;
+                            int maxDestructores = (dificultad == 5) ? 2 : 1;
+                            if (countDT >= maxDestructores) {
+                         System.out.println(COLOR.RED+"\nYa tienes " + countDT + " destructor(es). Máximo: " + maxDestructores + 
+                               (dificultad==5 ? " (EASY permite 2)" : " (solo 1)")+COLOR.RESET);
+                                System.out.println("Presiona enter para continuar...");
+                                entrada.nextLine();
+                            }
                     System.out.println(COLOR.GREEN+"\nDestructor seleccionado"+COLOR.RESET);
                     break;
+                    
                     
                 default:
                     System.out.println(COLOR.RED+"\nOpcion invalida"+COLOR.RESET);
@@ -228,9 +269,11 @@ public class TABLERO_VISUAL {
             // Elegir posición
             System.out.print("\nFila (0-7): ");
             int fila = Integer.parseInt(entrada.nextLine());
+            
+           
             System.out.print("Columna (0-7): ");
             int columna = Integer.parseInt(entrada.nextLine());
-            
+
             // Crear barco
             BARCOS barco;
             switch (opcion) {
@@ -313,13 +356,13 @@ public class TABLERO_VISUAL {
             
             System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
             System.out.println("1.Disparar");
-            System.out.println("2.Rendirse");
+            System.out.println("-1.Rendirse");
             System.out.print("\nSelecciona acción: ");
             
             String accion = entrada.nextLine();
             
             //VALIDACION DE ELEGIR EL MODO DE JUEGO USUARIO
-            if (accion.equals("2")) {
+            if (accion.equals("-1")) {
                 rendirse();
                 continue;
             }
@@ -339,7 +382,8 @@ public class TABLERO_VISUAL {
         //DISPARAR
                     try {
                 System.out.print("\nFila (0-7): ");
-                int fila = Integer.parseInt(entrada.nextLine());
+                
+                int fila = Integer.parseInt(entrada.next());
                 System.out.print("Columna (0-7): ");
                 int columna = Integer.parseInt(entrada.nextLine());
                 
