@@ -346,7 +346,10 @@ public class TABLERO_VISUAL {
             System.out.println(COLOR.ORANGE+"\nTABLERO ENEMIGO:"+COLOR.RESET);
             mostrarTablero(turnoPlayer1 ? tableroLogicoPlayer2 : tableroLogicoPlayer1, this.modoTutorial);            
             
+            int barcosRival = turnoPlayer1 ? tableroLogicoPlayer2.contarBarcosNoHundidos():tableroLogicoPlayer1.contarBarcosNoHundidos();
 
+            
+              System.out.println(COLOR.ORANGE+(turnoPlayer1 ? player2Username : player1Username+" tiene "+barcosRival+" barcos activos"+COLOR.RESET));
             // Mostrar estado de barcos
             if (turnoPlayer1) {
                 System.out.println(COLOR.ORANGE+"\nTus barcos: " + tableroLogicoPlayer1.getEstadoBarcos()+COLOR.RESET);
@@ -370,16 +373,13 @@ public class TABLERO_VISUAL {
             //SE VALIDA QUE SEA UNA OPCION VALDIA
             
             if (!accion.equals("1")) {
-                System.out.println(COLOR.RED+"\npcion invalida"+COLOR.RESET);
+                System.out.println(COLOR.RED+"\nOpcion invalida"+COLOR.RESET);
                 System.out.print("Presiona Enter para continuar...");
                 entrada.nextLine();
                 continue;
             }
-            
-            //DISPRAR
-            
-                    
-        //DISPARAR
+ 
+            //Disparar
                     try {
                 System.out.print("\nFila (0-7): ");
                 
@@ -433,11 +433,11 @@ public class TABLERO_VISUAL {
                     playerGanador.setPuntos(playerGanador.getPuntos() + 3);
                 }
     
-    // Log perdedor
-    Player playerPerdedor = loginManager.buscarPlayer(perdedor);
-    if (playerPerdedor != null) {
-        playerPerdedor.agregarLog(COLOR.RED+perdedor + " perdió contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")"+COLOR.RESET);
-    }
+                    // Log perdedor
+                    Player playerPerdedor = loginManager.buscarPlayer(perdedor);
+                    if (playerPerdedor != null) {
+                        playerPerdedor.agregarLog(COLOR.RED+perdedor + " perdió contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")"+COLOR.RESET);
+                    }
     
                     System.out.println(COLOR.CYAN+"\n¡" + ganador.toUpperCase() + " HA GANADO!"+COLOR.RESET);
                     System.out.println(COLOR.CYAN+"\n" + "⭐".repeat(30)+COLOR.RESET);
