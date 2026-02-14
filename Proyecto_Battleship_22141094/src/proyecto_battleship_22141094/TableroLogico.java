@@ -242,6 +242,17 @@ private void eliminarBarcoCompleto (BARCOS barco){
     }
 }
 
+  public int contarBarcosNoHundidos(){
+      int contador =0;
+      
+      for (int i = 0; i < totalBarcos; i++) {
+          if(barcos[i]!=null&&!barcos[i].estaHundido()){
+              contador++;
+          }
+      }
+      return contador;
+  }
+
   private void regenerarTodosBarcos(){
       BARCOS [] barcosTemp = new BARCOS[totalBarcos];
       System.arraycopy(barcos, 0, barcosTemp, 0, totalBarcos);
