@@ -45,7 +45,8 @@ public class Battleship {
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Opcion invalida. Presiona Enter para continuar...");
+                    System.out.println(COLOR.RED+"Opcion invalida!"+COLOR.RESET);
+                    System.out.println("Presiona enter para poder continuar...");
                     entrada.nextLine();
             
             }
@@ -211,34 +212,44 @@ public class Battleship {
         entrada.nextLine();
     }
          
-           private static void modificarDatosPerfil() {
-        System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
-        System.out.println("           M O D I F I C A R   D A T O S");
-        System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RED);
-        
-        System.out.print("\nNuevo usuario (Enter para no cambiar): ");
-        String nuevoUser = entrada.nextLine();
-        if (nuevoUser.isEmpty()) nuevoUser = null;
-        
-        System.out.print("Nueva contrasena (Enter para no cambiar): ");
-        String nuevoPass = entrada.nextLine();
-        if (nuevoPass.isEmpty()) nuevoPass = null;
-        
-        String respuesta = loginManager.modificarDatos(nuevoUser, nuevoPass);
-        System.out.println("\n" + respuesta);
-        
-        if (respuesta.contains(COLOR.GREEN+"exito") && nuevoUser != null+COLOR.RESET) {
-            usuarioActual = nuevoUser;
-        }
-        
-        System.out.println("\nPresiona Enter para continuar...");
-        entrada.nextLine();
-    }
+            private static void modificarDatosPerfil() {
+                System.out.println(COLOR.CYAN + "\n" + "=".repeat(50) + COLOR.RESET);
+                System.out.println("           M O D I F I C A R   D A T O S");
+                System.out.println(COLOR.CYAN + "=".repeat(50) + COLOR.RESET);
+
+                System.out.print("\nNuevo usuario: ");
+                String nuevoUser;
+                while (true) {
+                    nuevoUser = entrada.nextLine().trim();
+                    if (!nuevoUser.isEmpty()) break;
+                    System.out.print(COLOR.RED+"Debe ingresar un usuario. "+COLOR.RESET
+                            + "\nIntente de nuevo: ");
+                }
+
+                System.out.print("Nueva contrasena: ");
+                String nuevoPass;
+                while (true) {
+                    nuevoPass = entrada.nextLine().trim();
+                    if (!nuevoPass.isEmpty()) break;
+                    System.out.print(COLOR.RED+"Debe ingresar una contrasena."+COLOR.RESET
+                            + "\n Intente de nuevo: ");
+                }
+
+                String respuesta = loginManager.modificarDatos(nuevoUser, nuevoPass);
+                System.out.println("\n" + respuesta);
+
+                if (respuesta.contains("exito") || respuesta.contains("exito")) {
+                    usuarioActual = nuevoUser;
+                }
+
+                System.out.println("\nPresiona Enter para continuar...");
+                entrada.nextLine();
+            }
            
     private static void eliminarCuenta() {
       
         System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
-        System.out.println(COLOR.RED+"   E L I M I N A R   C U E N T A   ️"+COLOR.RESET);
+        System.out.println(COLOR.RED+"   E L I M I N A R   C U E N T A   "+COLOR.RESET);
         System.out.println("=".repeat(50));
         System.out.println(COLOR.RED+"\nESTÁS SEGURO? Esta acción NO se puede deshacer."+COLOR.RESET);
         System.out.print("\nEscribe 'ELIMINAR' para confirmar: ");
@@ -256,6 +267,7 @@ public class Battleship {
                 System.out.println("Presiona Enter para continuar...");
                 entrada.nextLine();
                 mostrarPantallaInicio();
+                return;
             } else {
                 System.out.println("\nPresiona Enter para continuar...");
                 entrada.nextLine();
@@ -364,7 +376,7 @@ public class Battleship {
                 break;
                 
             default:
-                System.out.println(COLOR.RED+"\nOpcion inalida!!"+COLOR.RESET);
+                System.out.println(COLOR.RED+"\nOpcion invalida!!"+COLOR.RESET);
                 System.out.println("Presione enter para continuar...");
                 entrada.nextLine();
                 return;
@@ -403,7 +415,7 @@ public class Battleship {
         new TABLERO_VISUAL.Avisos() {
             @Override
             public void avisar(String aviso, boolean error) {
-                System.out.println("\n" + (error ? "X " : "ℹ️ ") + aviso);
+                System.out.println("\n" + (error ? "X " : "️Info") + aviso);
                 System.out.print("Presiona Enter para continuar...");
                 entrada.nextLine();
             }
@@ -415,7 +427,7 @@ public class Battleship {
                 System.out.println("           F I N   D E L   J U E G O ");
                 System.out.println("=".repeat(60));
                 System.out.println("\n" + winner + " ha ganado!");
-                System.out.println("\n" + "⭐".repeat(60));
+                System.out.println("\n" + "=".repeat(60));
                 System.out.print("\nPresiona Enter para volver al menu...");
                 entrada.nextLine();
             }
@@ -517,9 +529,9 @@ public class Battleship {
                 for (int i = 0; i < ranking.length; i++) {
                     Player p = ranking[i];
                     String medalla = switch (i) {
-                        case 0 -> "1";
-                        case 1 -> "2";
-                        case 2 -> "3";
+                        case 0 -> "LEYEND";
+                        case 1 -> "MASTER";
+                        case 2 -> "VETERAN";
                         default -> "   ";
                     };
                     System.out.printf("%s  %-3d       |  %-10s |  %d pts%n", 

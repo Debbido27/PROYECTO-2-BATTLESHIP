@@ -180,10 +180,10 @@ public class TABLERO_VISUAL {
             System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
             System.out.println("         S E L E C C I O N A R   B A R C O");
             System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
-            System.out.println("\n1.Portaaviones (5 espacios)");
-            System.out.println("2.Acorazado (4 espacios)");
-            System.out.println("3.Submarino (3 espacios)");
-            System.out.println("4.Destructor (2 espacios)");
+            System.out.println("\n1.Portaaviones  (5 espacios)");
+            System.out.println("2.Acorazado      (4 espacios)");
+            System.out.println("3.Submarino      (3 espacios)");
+            System.out.println("4.Destructor     (2 espacios)");
             System.out.println(COLOR.ORANGE+"\n0. Terminar colocacion (cuando tengas todos)");
             System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
             
@@ -246,10 +246,11 @@ public class TABLERO_VISUAL {
                     tamanoBarcoSeleccionado=2;
                             int maxDestructores = (dificultad == 5) ? 2 : 1;
                             if (countDT >= maxDestructores) {
-                         System.out.println(COLOR.RED+"\nYa tienes " + countDT + " destructor(es). Máximo: " + maxDestructores + 
+                         System.out.println(COLOR.RED+"\nYa tienes " + countDT + " destructor(es). Maximo: " + maxDestructores + 
                                (dificultad==5 ? " (EASY permite 2)" : " (solo 1)")+COLOR.RESET);
                                 System.out.println("Presiona enter para continuar...");
                                 entrada.nextLine();
+                                continue;
                             }
                     System.out.println(COLOR.GREEN+"\nDestructor seleccionado"+COLOR.RESET);
                     break;
@@ -415,6 +416,8 @@ public class TABLERO_VISUAL {
           limpiarPantalla();
           while (faseActual == FaseJuego.EN_JUEGO) {
             
+       
+                
             System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
             System.out.println("              B A T T L E S H I P");
             System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
@@ -487,7 +490,7 @@ public class TABLERO_VISUAL {
                     System.out.println(COLOR.RED + "Fila debe ser entre 0 y 7" + COLOR.RESET);
                 }
             } catch (NumberFormatException e) {
-                System.out.println(COLOR.RED + "Debe ingresar un número" + COLOR.RESET);
+                System.out.println(COLOR.RED + "Debe ingresar un numero" + COLOR.RESET);
             }
         }
         
@@ -511,7 +514,7 @@ public class TABLERO_VISUAL {
                     System.out.println(COLOR.RED + "Columna debe ser entre 0 y 7" + COLOR.RESET);
                 }
             } catch (NumberFormatException e) {
-                System.out.println(COLOR.RED + "Debe ingresar un número" + COLOR.RESET);
+                System.out.println(COLOR.RED + "Debe ingresar un numero" + COLOR.RESET);
             }
         }
         
@@ -521,18 +524,25 @@ public class TABLERO_VISUAL {
         
                 TableroLogico tableroEnemigo = turnoPlayer1 ? tableroLogicoPlayer2 : tableroLogicoPlayer1;
                 
-                boolean impacto = tableroEnemigo.procesarImpactoYRegenerar(fila, columna);
+                boolean impacto = tableroEnemigo.procesarImpacto(fila, columna);
                 String tipoBarco = tableroEnemigo.getUltimoTipoImpactado();
                 boolean hundido = tableroEnemigo.isUltimoBarcoHundido();
                 
                 System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
+                System.out.println(COLOR.ORANGE + "\nTU TABLERO:" + COLOR.RESET);
+                mostrarTablero(turnoPlayer1 ? tableroLogicoPlayer1 : tableroLogicoPlayer2, true);
+
+                System.out.println(COLOR.ORANGE + "\nTABLERO ENEMIGO:" + COLOR.RESET);
+                mostrarTablero(tableroEnemigo, modoTutorial);
                 
+                System.out.println(COLOR.CYAN + "\n" + "=".repeat(60) + COLOR.RESET);
+
                 if (!impacto) {
                     System.out.println("AGUA! Fallaste el disparo");
                 } else {
                     String nombreBarco = obtenerNombreBarco(tipoBarco);
                     BARCOS barco = tableroEnemigo.getBarcoEn(fila, columna);
-            int vidaRestante = tableroEnemigo.getVidaBarcoEn(fila, columna);
+                    int vidaRestante = tableroEnemigo.ultimaVidaRestante;
                     
                     System.out.println(COLOR.RED+"---IMPACTO! " + nombreBarco+COLOR.RESET);
                     System.out.println("Vida restante: " + vidaRestante);
@@ -568,7 +578,7 @@ public class TABLERO_VISUAL {
                     // Log perdedor
                     Player playerPerdedor = loginManager.buscarPlayer(perdedor);
                     if (playerPerdedor != null) {
-                        playerPerdedor.agregarLog(COLOR.RED+perdedor + " perdió contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")"+COLOR.RESET);
+                        playerPerdedor.agregarLog(COLOR.RED+perdedor + " perdio contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")"+COLOR.RESET);
                     }
     
                     System.out.println(COLOR.CYAN+"\n" + ganador.toUpperCase() + " HA GANADO!"+COLOR.RESET);
@@ -579,21 +589,20 @@ public class TABLERO_VISUAL {
                     }
                     
                     faseActual = FaseJuego.TERMINADO;
-                    System.out.print("\nPresiona Enter para volver al menú...");
-                    entrada.nextLine();
+  
                     return;
                 }
-                
-                // Cambiar turno
-                turnoPlayer1 = !turnoPlayer1;
-                
-                // Limpiar fallos
-                if (turnoPlayer1) {
+                                if (turnoPlayer1) {
                     tableroLogicoPlayer2.limpiarFallos();
                 } else {
                     tableroLogicoPlayer1.limpiarFallos();
                 }
+                // Cambiar turno
+                turnoPlayer1 = !turnoPlayer1;
                 
+                                       // Limpiar fallos
+
+
             } catch (NumberFormatException e) {
                 System.out.println(COLOR.RED+"\nError: Ingresa números válidos"+COLOR.RESET);
             }
@@ -616,14 +625,16 @@ public class TABLERO_VISUAL {
                 char disparo = tablero.getDisparoEn(i, j);
                 BARCOS barco = tablero.getBarcoEn(i, j);
                 
+                
+                /////////////////////////////////////
                 if (disparo == TableroLogico.IMPACTO) {
-                    System.out.print(COLOR.RED+"X"+COLOR.RESET);
+                    System.out.print(COLOR.RED+" X"+COLOR.RESET);
                 } else if (disparo == TableroLogico.FALLO) {
-                    System.out.print(COLOR.WHITE+"F"+COLOR.RESET);
+                    System.out.print(COLOR.WHITE+" F"+COLOR.RESET);
                 } else if (mostrarBarcos && barco != null) {
                     System.out.print(" " + barco.getCodigo());
                 } else {
-                    System.out.print(" "+COLOR.BLUE_SEA+"  ~"+COLOR.RESET);
+                    System.out.print(COLOR.BLUE_SEA+"  ~"+COLOR.RESET);
                 }
             }
             System.out.println(COLOR.BLUE_SEA+" |"+COLOR.RESET);
@@ -685,8 +696,7 @@ public class TABLERO_VISUAL {
         }
         
         faseActual = FaseJuego.TERMINADO;
-        System.out.print("\nPresiona Enter para volver al menu...");
-        entrada.nextLine();
+
     }
 }
 

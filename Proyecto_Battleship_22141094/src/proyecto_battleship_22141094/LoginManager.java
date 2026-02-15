@@ -1,6 +1,8 @@
 
 package proyecto_battleship_22141094;
 
+import IMPRESIONES.COLOR;
+
 
 public class LoginManager {
 //Se usa static para que pueda ser usada sin declararse en cada metodo donde se usara
@@ -83,7 +85,7 @@ public boolean usuarioExiste(String username) {
      if (CurrentUser==null){
          return "Error, no hay usuario";
      }
-     return "Tus Dtos "+CurrentUser.toString();
+     return "Tus Datos "+CurrentUser.toString();
  }
 
  public String modificarDatos(String newUsername, String newPassword){
@@ -169,7 +171,7 @@ public boolean usuarioExiste(String username) {
           totalPlayers--;
           
           CurrentUser=null;
-          return"Cuenta elinada exitosamente"+" El usuario"+usernameEliminar+"Ya no existe";
+          return(COLOR.GREEN+"Cuenta elinada exitosamente"+" El usuario"+usernameEliminar+"Ya no existe"+COLOR.RESET);
  }
 
 
