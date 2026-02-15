@@ -209,7 +209,7 @@ public class TABLERO_VISUAL {
                     barcoSeleccionadoCodigo = COLOR.PORTAVIONES+"PA"+COLOR.RESET;
                     tamanoBarcoSeleccionado=5;
                     if(countPA>=1){
-                        System.out.println(COLOR.RED+"\nYa tienes un poortaviones, solo puedes seleccionar 1"+COLOR.RESET);
+                        System.out.println(COLOR.RED+"\nYa tienes un portaaviones, solo puedes seleccionar 1"+COLOR.RESET);
                         System.out.println("Presiona Enter para continuar...");
                         entrada.nextLine();
                         continue;
@@ -265,22 +265,80 @@ public class TABLERO_VISUAL {
             }
             
             
+                String orientacion = "";
+                while (true) {
+                    System.out.print("\nOrientacion (H = Horizontal, V = Vertical): ");
+                    orientacion = entrada.nextLine().trim().toUpperCase();
+                    if (orientacion.equals("H") || orientacion.equals("V")) {
+                        break;
+                    } else {
+                        System.out.println(COLOR.RED + "Error: Debes ingresar H o V" + COLOR.RESET);
+                    }
+                }
+                horizontalSeleccionado = orientacion.equals("H");
             
-            System.out.print("\nOrientacion (H = Horizontal, V = Vertical): ");
-            String orientacion = entrada.nextLine().toUpperCase();
-            horizontalSeleccionado = orientacion.equals("H");
-            
-            
-            // Elegir posición
-            System.out.print("\nFila (0-7): ");
-             int    fila = Integer.parseInt(entrada.nextLine());
+                    int fila = -1;
+                    int columna = -1;
+                    boolean cancelado = false;
 
-                
-           
-            System.out.print("Columna (0-7): ");
-           
-               int  columna = Integer.parseInt(entrada.nextLine());
-          
+                    // Validar fila
+                    while (true) {
+                        System.out.print("\nFila (0-7) o -1 para cancelar: ");
+                        String filaStr = entrada.nextLine().trim();
+
+                        if (filaStr.equals("-1")) {
+                            System.out.println(COLOR.YELLOW + "Colocacion cancelada." + COLOR.RESET);
+                            cancelado = true;
+                            break;
+                        }
+
+                        try {
+                            fila = Integer.parseInt(filaStr);
+                            if (fila >= 0 && fila < 8) {
+                                break; // Fila válida
+                            } else {
+                                System.out.println(COLOR.RED + "Error: La fila debe ser 0-7" + COLOR.RESET);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println(COLOR.RED + "Error: Debes ingresar un numero" + COLOR.RESET);
+                        }
+                    }
+
+                    if (cancelado) {
+                        System.out.print("Presiona Enter para continuar...");
+                        entrada.nextLine();
+                        continue; 
+                    }
+
+                    // Validar columna
+                    while (true) {
+                        System.out.print("Columna (0-7) o -1 para cancelar: ");
+                        String colStr = entrada.nextLine().trim();
+
+                        if (colStr.equals("-1")) {
+                            System.out.println(COLOR.YELLOW + "Colocacion cancelada." + COLOR.RESET);
+                            cancelado = true;
+                            break;
+                        }
+
+                        try {
+                            columna = Integer.parseInt(colStr);
+                            if (columna >= 0 && columna < 8) {
+                                break; // Columna válida
+                            } else {
+                                System.out.println(COLOR.RED + "Error: La columna debe ser 0-7" + COLOR.RESET);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println(COLOR.RED + "Error: Debes ingresar un numero" + COLOR.RESET);
+                        }
+                    }
+
+                    if (cancelado) {
+                        System.out.print("Presiona Enter para continuar...");
+                        entrada.nextLine();
+                        continue;
+                    }
+
                 
 
             // Crear barco
@@ -375,9 +433,9 @@ public class TABLERO_VISUAL {
             mostrarTablero(turnoPlayer1 ? tableroLogicoPlayer2 : tableroLogicoPlayer1, this.modoTutorial);            
             
             int barcosRival = turnoPlayer1 ? tableroLogicoPlayer2.contarBarcosNoHundidos():tableroLogicoPlayer1.contarBarcosNoHundidos();
-
             
-              System.out.println(COLOR.ORANGE+(turnoPlayer1 ? player2Username : player1Username+" tiene "+barcosRival+" barcos activos"+COLOR.RESET));
+            
+              System.out.println(COLOR.ORANGE+(turnoPlayer1 ? player2Username : player1Username) + " tiene " + barcosRival + " barcos activos" + COLOR.RESET);
             // Mostrar estado de barcos
             if (turnoPlayer1) {
                 System.out.println(COLOR.ORANGE+"\nTus barcos: " + tableroLogicoPlayer1.getEstadoBarcos()+COLOR.RESET);
@@ -476,7 +534,7 @@ public class TABLERO_VISUAL {
                     BARCOS barco = tableroEnemigo.getBarcoEn(fila, columna);
             int vidaRestante = tableroEnemigo.getVidaBarcoEn(fila, columna);
                     
-                    System.out.println("IMPACTO! " + nombreBarco);
+                    System.out.println(COLOR.RED+"---IMPACTO! " + nombreBarco+COLOR.RESET);
                     System.out.println("Vida restante: " + vidaRestante);
                     
                     if (hundido) {
@@ -513,8 +571,8 @@ public class TABLERO_VISUAL {
                         playerPerdedor.agregarLog(COLOR.RED+perdedor + " perdió contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")"+COLOR.RESET);
                     }
     
-                    System.out.println(COLOR.CYAN+"\n¡" + ganador.toUpperCase() + " HA GANADO!"+COLOR.RESET);
-                    System.out.println(COLOR.CYAN+"\n" + "⭐".repeat(30)+COLOR.RESET);
+                    System.out.println(COLOR.CYAN+"\n" + ganador.toUpperCase() + " HA GANADO!"+COLOR.RESET);
+                    System.out.println(COLOR.CYAN+"\n" + "=".repeat(30)+COLOR.RESET);
                     
                     if (listener != null) {
                         listener.avisarFin(ganador);
@@ -565,7 +623,7 @@ public class TABLERO_VISUAL {
                 } else if (mostrarBarcos && barco != null) {
                     System.out.print(" " + barco.getCodigo());
                 } else {
-                    System.out.print(COLOR.BLUE_SEA+"  ~"+COLOR.RESET);
+                    System.out.print(" "+COLOR.BLUE_SEA+"  ~"+COLOR.RESET);
                 }
             }
             System.out.println(COLOR.BLUE_SEA+" |"+COLOR.RESET);
@@ -612,7 +670,7 @@ public class TABLERO_VISUAL {
         
         Player playerGanador = loginManager.buscarPlayer(ganador);
         if (playerGanador != null) {
-            playerGanador.agregarLog(perdedor + " se rindio contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")");
+            playerGanador.agregarLog(perdedor +" se rindio contra " + ganador + " en modo " + dificultadStr + modo );
             playerGanador.setPuntos(playerGanador.getPuntos() + 3);
         }
         
@@ -621,8 +679,7 @@ public class TABLERO_VISUAL {
             playerPerdedor.agregarLog(perdedor + " se rindio contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")");
         }
         
-        System.out.println(COLOR.CYAN+"\n️" + perdedor + " se rinde!\n--- Ganador: " + ganador+COLOR.RESET);
-        
+        System.out.println(COLOR.CYAN + "\n" + perdedor + " se rinde! Ganador: " + ganador + COLOR.RESET);        
         if (listener != null) {
             listener.avisarFin(COLOR.CYAN+ganador + " gana por rendicion!"+COLOR.RESET);
         }
