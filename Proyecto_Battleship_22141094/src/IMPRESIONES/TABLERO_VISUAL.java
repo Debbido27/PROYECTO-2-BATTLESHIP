@@ -6,6 +6,7 @@ import Barcos.Destructor;
 import Barcos.Portaaviones;
 import Barcos.Submarino;
 import java.util.Scanner;
+
 import proyecto_battleship_22141094.LoginManager;
 import proyecto_battleship_22141094.Player;
 import proyecto_battleship_22141094.TableroLogico;
@@ -14,7 +15,7 @@ public class TABLERO_VISUAL {
     private TableroLogico tableroLogicoPlayer1;
     private TableroLogico tableroLogicoPlayer2;
     private LoginManager loginManager;
-    
+    private Battleship battleship;
     private String player1Username;
     private String player2Username;
     private int dificultad;
@@ -70,6 +71,9 @@ public class TABLERO_VISUAL {
          
         
         public void iniciarJuego() {
+            
+            //SE USAN LAS FASES PARA PODER RECORRER LOS METODOS
+            //PARA QUE EL JUEGO PUEDA MANTENER EL FLUJO
         while (faseActual != FaseJuego.TERMINADO) {
             switch (faseActual) {
                 case CONECTANDO_PLAYER2:
@@ -101,6 +105,7 @@ public class TABLERO_VISUAL {
         
         if(username.equalsIgnoreCase("exit")){
             if(listener!=null) listener.avisarVolverMenu();
+            faseActual = FaseJuego.TERMINADO;
             return;
         }
         
@@ -268,11 +273,15 @@ public class TABLERO_VISUAL {
             
             // Elegir posición
             System.out.print("\nFila (0-7): ");
-            int fila = Integer.parseInt(entrada.nextLine());
-            
+             int    fila = Integer.parseInt(entrada.nextLine());
+
+                
            
             System.out.print("Columna (0-7): ");
-            int columna = Integer.parseInt(entrada.nextLine());
+           
+               int  columna = Integer.parseInt(entrada.nextLine());
+          
+                
 
             // Crear barco
             BARCOS barco;
@@ -295,6 +304,25 @@ public class TABLERO_VISUAL {
                 } else {
                         barcosColocadosPlayer2++;
                 }
+                
+                switch (opcion){
+                    case "1":
+                        countPA++;
+                        break;
+                        
+                    case "2":
+                        countAZ++;
+                        break;
+                        
+                    case "3":
+                        countSM++;
+                        break;
+                        
+                    case "4":
+                        countDT++;
+                        break;
+                    
+                }
                          System.out.println(COLOR.GREEN+"\nBarco colocado exitosamente!"+COLOR.RESET);
                 } else {
                          System.out.println(COLOR.RED+"\nNo se puede colocar el barco ahi"+COLOR.RESET);
@@ -308,10 +336,10 @@ public class TABLERO_VISUAL {
             //SE HACE EL CAMBIO DE FASE
                 if (jugador == 1) {
                     faseActual = FaseJuego.COLOCANDO_PLAYER2;
-                    System.out.println("\n " + player1Username + " termino de colocar sus barcos!");
+                    System.out.println("\n" + player1Username + " termino de colocar sus barcos!");
                     System.out.println("Turno de " + player2Username);
                 } else {
-                    System.out.println("\n " + player2Username + " termino de colocar sus barcos!");
+                    System.out.println("\n" + player2Username + " termino de colocar sus barcos!");
                     System.out.println(COLOR.PURPLE+"\nYA PUEDEN INICIAR EL JUEGO!"+COLOR.RESET);
                     faseActual = FaseJuego.EN_JUEGO;
                     turnoPlayer1 = true;
@@ -357,10 +385,11 @@ public class TABLERO_VISUAL {
                 System.out.println(COLOR.ORANGE+"\nTus barcos: " + tableroLogicoPlayer2.getEstadoBarcos()+COLOR.RESET);
             }
             
+            
             System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
             System.out.println("1.Disparar");
             System.out.println("-1.Rendirse");
-            System.out.print("\nSelecciona acción: ");
+            System.out.print("\nSelecciona accion: ");
             
             String accion = entrada.nextLine();
             
@@ -379,14 +408,59 @@ public class TABLERO_VISUAL {
                 continue;
             }
  
-            //Disparar
-                    try {
-                System.out.print("\nFila (0-7): ");
-                
-                int fila = Integer.parseInt(entrada.next());
-                System.out.print("Columna (0-7): ");
-                int columna = Integer.parseInt(entrada.nextLine());
-                
+            try{
+            int fila=  -1;
+            int columna =-1;
+            
+            
+            //VALIDACION DE TABLERO INGRESAR DATOS
+        while (true) {
+            System.out.print("\nFila (0-7) o -1 para rendirse: ");
+            String filaStr = entrada.nextLine().trim();
+            if (filaStr.equals("-1")) {
+                rendirse();
+                break; 
+            }
+            try {
+                fila = Integer.parseInt(filaStr);
+                if (fila >= 0 && fila < 8) {
+                    break; 
+                } else {
+                    System.out.println(COLOR.RED + "Fila debe ser entre 0 y 7" + COLOR.RESET);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(COLOR.RED + "Debe ingresar un número" + COLOR.RESET);
+            }
+        }
+        
+        if (faseActual != FaseJuego.EN_JUEGO) {
+            continue;
+        }
+        
+        // Validar columna
+        while (true) {
+            System.out.print("Columna (0-7) o -1 para rendirse: ");
+            String colStr = entrada.nextLine().trim();
+            if (colStr.equals("-1")) {
+                rendirse();
+                break;
+            }
+            try {
+                columna = Integer.parseInt(colStr);
+                if (columna >= 0 && columna < 8) {
+                    break;
+                } else {
+                    System.out.println(COLOR.RED + "Columna debe ser entre 0 y 7" + COLOR.RESET);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(COLOR.RED + "Debe ingresar un número" + COLOR.RESET);
+            }
+        }
+        
+        if (faseActual != FaseJuego.EN_JUEGO) {
+            continue;
+        }
+        
                 TableroLogico tableroEnemigo = turnoPlayer1 ? tableroLogicoPlayer2 : tableroLogicoPlayer1;
                 
                 boolean impacto = tableroEnemigo.procesarImpactoYRegenerar(fila, columna);
@@ -547,14 +621,14 @@ public class TABLERO_VISUAL {
             playerPerdedor.agregarLog(perdedor + " se rindio contra " + ganador + " en modo " + dificultadStr + " (" + modo + ")");
         }
         
-        System.out.println(COLOR.CYAN+"\n️  " + perdedor + " se rinde! Ganador: " + ganador+COLOR.RESET);
+        System.out.println(COLOR.CYAN+"\n️" + perdedor + " se rinde!\n--- Ganador: " + ganador+COLOR.RESET);
         
         if (listener != null) {
-            listener.avisarFin(COLOR.CYAN+ganador + " gana por rendición!"+COLOR.RESET);
+            listener.avisarFin(COLOR.CYAN+ganador + " gana por rendicion!"+COLOR.RESET);
         }
         
         faseActual = FaseJuego.TERMINADO;
-        System.out.print("\nPresiona Enter para volver al menú...");
+        System.out.print("\nPresiona Enter para volver al menu...");
         entrada.nextLine();
     }
 }

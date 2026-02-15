@@ -25,7 +25,7 @@ public class Battleship {
         System.out.println(COLOR.WHITE + "              B A T T L E S H I P" + COLOR.RESET);
         System.out.println(COLOR.WHITE +"                   22141094");
         System.out.println(COLOR.CYAN + "=".repeat(50) + COLOR.RESET);
-        System.out.println("\n1.  Iniciar Sesion");
+        System.out.println("\n1. Iniciar Sesion");
         System.out.println("2. Crear Cuenta");
         System.out.println("3. Salir");
         System.out.println("\n" + COLOR.CYAN + "-".repeat(50) + COLOR.RESET);
@@ -85,7 +85,7 @@ public class Battleship {
         
         private static void mostrarPantallaRegistro(){
             
-        System.out.println("\n" + COLOR.CYAN+"=".repeat(30)+COLOR.RESET);
+        System.out.println("\n" + COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
         System.out.println("           C R E A R   C U E N T A");
         System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
         
@@ -119,7 +119,7 @@ public class Battleship {
             System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
             System.out.println("\n Bienvenido: " + usuarioActual);
             System.out.println("\n" + "-".repeat(50));
-            System.out.println("\n1.Jugar Battleship");
+            System.out.println("\n1. Jugar Battleship");
             System.out.println("2. Configuracion");
             System.out.println("3. Reportes");
             System.out.println("4. Mi Perfil");
@@ -274,7 +274,7 @@ public class Battleship {
             System.out.println(COLOR.CYAN+"\n"+"=".repeat(50)+COLOR.RESET);
             System.out.println("           C O N F I G U R A C I O N");
             System.out.println(COLOR.CYAN+"=".repeat(50)+COLOR.RESET);
-            System.out.println("\nConfiguracion actual: " + "\n"+configGlobal);
+            System.out.println("\n"+configGlobal);
             System.out.println("\n" + "-".repeat(50));
             System.out.println("\na.Configurar Dificultad");
             System.out.println("b.Configurar Modo de Juego");
@@ -297,7 +297,8 @@ public class Battleship {
                     return;
                     
                 default:
-                    System.out.println("Opcion invalidad. Presione enter...");
+                    System.out.println(COLOR.RED+"Opcion invalida. "+COLOR.RESET);
+                    System.out.println("Presione enter...");
                     entrada.nextLine();
                  
             }
@@ -325,8 +326,8 @@ public class Battleship {
             case "3": dificultad = "EXPERT"; break;
             case "4": dificultad = "GENIUS"; break;
             default:
-                System.out.println(COLOR.RED+"\nOPCION INVALIDAD"+COLOR.RESET);
-                System.out.println("Presiona enter para continuar...");
+                System.out.println(COLOR.RED+"\nOpcion invalida"+COLOR.RESET);
+                System.out.println("\nPresiona enter para continuar...");
                 entrada.nextLine();
                 return;
             
@@ -365,7 +366,7 @@ public class Battleship {
             default:
                 System.out.println(COLOR.RED+"\nOpcion inalida!!"+COLOR.RESET);
                 System.out.println("Presione enter para continuar...");
-                entrada.nextInt();
+                entrada.nextLine();
                 return;
         }
         configGlobal.setModoJuego(modo);
@@ -421,7 +422,7 @@ public class Battleship {
             
             @Override
             public void avisarVolverMenu() {
-                System.out.println("\n🔙 Volviendo al menú principal...");
+                System.out.println("\nVolviendo al menu principal...");
             }
         },
         loginManager
@@ -449,7 +450,7 @@ public class Battleship {
         System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
         System.out.println("\n1.Mis ultimos 10 juegos");
         System.out.println("2.Ranking de Jugadores");
-        System.out.println("3.Volver al Menú Principal");
+        System.out.println("3.Volver al Menu Principal");
         System.out.println("\n" + "-".repeat(60));
         System.out.print("Selecciona una opcion: ");
         
@@ -465,7 +466,7 @@ public class Battleship {
             case "3":
                 return;
             default:
-                System.out.println(COLOR.RED+"\nOpcion inválida"+COLOR.RESET);
+                System.out.println(COLOR.RED+"\nOpcion invalida"+COLOR.RESET);
                 System.out.print("Presiona Enter...");
                 entrada.nextLine();
         }  
@@ -476,7 +477,7 @@ public class Battleship {
     private static void mostrarMisUltimosJuegos(){
             limpiarPantalla();
     System.out.println(COLOR.CYAN+"\n" + "=".repeat(60)+COLOR.RESET);
-    System.out.println("       M I S   Ú L T I M O S   10   J U E G O S");
+    System.out.println("       M I S   U L T I M O S   10   J U E G O S");
     System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
     
     String[] logs = loginManager.getMisUltimosJuegos();
@@ -490,7 +491,7 @@ public class Battleship {
     }
     
     if (!hayLogs) {
-        System.out.println("\nNo hay partidas registradas aún.");
+        System.out.println("\nNo hay partidas registradas aun.");
     }
     
     System.out.println(COLOR.CYAN+"\n" + "-".repeat(60)+COLOR.RESET);
