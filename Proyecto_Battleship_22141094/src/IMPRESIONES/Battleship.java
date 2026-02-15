@@ -222,8 +222,7 @@ public class Battleship {
                 while (true) {
                     nuevoUser = entrada.nextLine().trim();
                     if (!nuevoUser.isEmpty()) break;
-                    System.out.print(COLOR.RED+"Debe ingresar un usuario. "+COLOR.RESET
-                            + "\nIntente de nuevo: ");
+                    System.out.print(COLOR.RED + "Debe ingresar un usuario. " + COLOR.RESET + "\nIntente de nuevo: ");
                 }
 
                 System.out.print("Nueva contrasena: ");
@@ -231,14 +230,13 @@ public class Battleship {
                 while (true) {
                     nuevoPass = entrada.nextLine().trim();
                     if (!nuevoPass.isEmpty()) break;
-                    System.out.print(COLOR.RED+"Debe ingresar una contrasena."+COLOR.RESET
-                            + "\n Intente de nuevo: ");
+                    System.out.print(COLOR.RED + "Debe ingresar una contrasena." + COLOR.RESET + "\nIntente de nuevo: ");
                 }
 
                 String respuesta = loginManager.modificarDatos(nuevoUser, nuevoPass);
                 System.out.println("\n" + respuesta);
 
-                if (respuesta.contains("exito") || respuesta.contains("exito")) {
+                if (respuesta.contains("exitosamente")) {
                     usuarioActual = nuevoUser;
                 }
 
@@ -251,21 +249,22 @@ public class Battleship {
         System.out.println(COLOR.CYAN+"\n" + "=".repeat(50)+COLOR.RESET);
         System.out.println(COLOR.RED+"   E L I M I N A R   C U E N T A   "+COLOR.RESET);
         System.out.println("=".repeat(50));
-        System.out.println(COLOR.RED+"\nESTÁS SEGURO? Esta acción NO se puede deshacer."+COLOR.RESET);
+        System.out.println(COLOR.RED+"\nESTAS SEGURO? Esta accion NO se puede deshacer."+COLOR.RESET);
         System.out.print("\nEscribe 'ELIMINAR' para confirmar: ");
         
-        String confirmacion = entrada.nextLine();
+        String confirmacion = entrada.nextLine().toUpperCase();
         
         //SE MANDA A LLAMAR LOGINMANAGER ELMINAR CUENTA
         if (confirmacion.equals("ELIMINAR")) {
             String respuesta = loginManager.eliminarCuenta();
             System.out.println("\n" + respuesta);
             
-            if (respuesta.contains(COLOR.GREEN+"exito"+COLOR.RESET)) {
+            if (respuesta.contains("exitosamente")) {
                 usuarioActual = null;
                 System.out.println("\nRedirigiendo al inicio...");
                 System.out.println("Presiona Enter para continuar...");
                 entrada.nextLine();
+                
                 mostrarPantallaInicio();
                 return;
             } else {
@@ -273,7 +272,7 @@ public class Battleship {
                 entrada.nextLine();
             }
         } else {
-            System.out.println("\nEliminacio cancelada");
+            System.out.println("\nEliminacion cancelada");
             System.out.println("Presiona Enter para continuar...");
             entrada.nextLine();
         }
@@ -549,6 +548,5 @@ public class Battleship {
     System.out.flush();
 }
 
-
-        }
+ }
 

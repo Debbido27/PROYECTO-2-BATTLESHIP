@@ -102,14 +102,15 @@ private void colocarBarcoAleatorio(BARCOS barco, int index){
         
          if(horizontal){
              for (int c = columna; c < columna + tamano; c++) {
-                 if(tableroBarcos[fila][c] != null){
+                 
+                 if(tableroBarcos[fila][c] != null||tableroDisparos[fila][c]==IMPACTO){
                      espacioLibre=false;
                      break;
                  }
              }
         } else{
              for (int f = fila; f < fila+tamano; f++) {
-                 if(tableroBarcos[f][columna] != null){
+                 if(tableroBarcos[f][columna] != null||tableroDisparos[f][columna]==IMPACTO){
                      espacioLibre = false;
                      break;
                  }
@@ -118,6 +119,7 @@ private void colocarBarcoAleatorio(BARCOS barco, int index){
          
          if(!espacioLibre) continue;
          
+         //colocaf barco
          if(horizontal){
              for (int c = columna; c < columna+tamano; c++) {
                  tableroBarcos[fila][c]=barco;

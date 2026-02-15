@@ -102,7 +102,7 @@ public boolean usuarioExiste(String username) {
      if(!userNameNow.equals(newUsername)){
          Player existente = buscarPlayer(newUsername);
      if(existente!=null){
-         return "Error el usuario"+newUsername+"Ya existe";
+         return "Error el usuario "+newUsername+" Ya existe";
      }
      }
      

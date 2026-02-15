@@ -118,7 +118,7 @@ public class TABLERO_VISUAL {
         
         if(!loginManager.usuarioExiste(username)){
             System.out.println(COLOR.RED+"\nEl jugador "+ username + "- NO EXISTE. "+ username +" Debe crear una cuenta primero"+COLOR.RESET);
-            System.out.println("\nPrecionsa Enter para continuar...");
+            System.out.println("\nPresiona Enter para continuar...");
             entrada.nextLine();
             return;
         }
@@ -681,7 +681,8 @@ public class TABLERO_VISUAL {
         
         Player playerGanador = loginManager.buscarPlayer(ganador);
         if (playerGanador != null) {
-            playerGanador.agregarLog(perdedor +" se rindio contra " + ganador + " en modo " + dificultadStr + modo );
+            
+            playerGanador.agregarLog(perdedor +" se rindio contra " + ganador + " en modo " + dificultadStr +" "+ modo );
             playerGanador.setPuntos(playerGanador.getPuntos() + 3);
         }
         
