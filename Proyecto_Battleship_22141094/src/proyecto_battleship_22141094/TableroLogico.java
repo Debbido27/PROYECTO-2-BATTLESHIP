@@ -158,17 +158,16 @@ public void limpiarFallos(){
  
 }
 public String getEstadoBarcos() {
-    StringBuilder sb = new StringBuilder();
+    String resultado = "";  
+    
     for (int i = 0; i < totalBarcos; i++) {
         BARCOS b = barcos[i];
         if (b != null && !b.estaHundido()) {
-            sb.append(b.getCodigo())
-              .append(":")
-              .append(b.getVida())
-              .append("  "); // separador
+            resultado = resultado + b.getCodigo() + ":" + b.getVida() + "  ";
         }
     }
-    return sb.toString();
+    
+    return resultado;
 }
 
 
