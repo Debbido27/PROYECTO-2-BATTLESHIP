@@ -175,25 +175,30 @@ public boolean procesarImpacto(int fila, int columna){
     ultimoTipoImpactado="A";
     ultimoBarcoHundido=false;
 
+    //dentro de coordenadas
     if(fila<0 || fila>=filas || columna<0 || columna>=columnas)
         return false;
 
+    //si habia una x no se puede disprar
     if(tableroDisparos[fila][columna]!=AGUA)
         return false;
 
+    //se obtiene el barco en esa pocision
     BARCOS barco = tableroBarcos[fila][columna];
 
+    //si se gallo se mara como fallo
     if(barco==null){
         tableroDisparos[fila][columna]=FALLO;
         return false;
     }
 
+    //se le resta una vida
     barco.recibirDano();
-    
+    //guarda vida
     int vidarestante = barco.getVida();
-    tableroDisparos[fila][columna]=IMPACTO;
-    ultimoTipoImpactado=barco.getCodigo();
-    ultimoBarcoHundido=barco.estaHundido();
+    tableroDisparos[fila][columna]=IMPACTO;//pone x
+    ultimoTipoImpactado=barco.getCodigo();//tipo
+    ultimoBarcoHundido=barco.estaHundido();//hundirse
     ultimaVidaRestante=vidarestante;
     
     if(barco.estaHundido()){
@@ -252,6 +257,7 @@ private void eliminarBarcoCompleto (BARCOS barco){
 
   private void regenerarTodosBarcos(){
       BARCOS [] barcosTemp = new BARCOS[totalBarcos];
+      //se usa el array copy para no perder la referencia de los objeto barcos
       System.arraycopy(barcos, 0, barcosTemp, 0, totalBarcos);
       
       for (int i = 0; i < filas; i++) {
