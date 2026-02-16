@@ -51,6 +51,7 @@ public boolean colocarBarcoManual(int fila, int columna, BARCOS barco, boolean h
     if(horizontal){
         if(columna+tamano>columnas)return false;
      for (int c = columna; c < columna + tamano; c++) {
+         
             if(tableroBarcos[fila][c] != null) return false;
         }
      
@@ -82,21 +83,26 @@ public boolean colocarBarcoManual(int fila, int columna, BARCOS barco, boolean h
 private void colocarBarcoAleatorio(BARCOS barco, int index){
     boolean colocado = false;
     int tamano = barco.getTamano();
-    int intentos=0;
-    //CANTIDAD DE INTENTOS MIL SE PUEDE CAMBIAR EN UN FUTURO
-    final int MAX_INTENTOS=1000;
     
-    while (!colocado && intentos < MAX_INTENTOS){
-        intentos ++;
+   
+    
+    while (!colocado){
+       
+        //genera fila aleatorio
         int fila = (int) (Math.random()*filas);
+        //genera columna aleatoria
         int columna = (int)(Math.random()*columnas);
+        //true false pocision
         boolean horizontal = Math.random()>0.5;
         
+        
+        ///
         if(horizontal){
          if(columna + tamano > columnas) continue;
         }else{
             if(fila + tamano >filas)continue;
         }
+        
         
         boolean espacioLibre = true;
         
@@ -138,20 +144,7 @@ private void colocarBarcoAleatorio(BARCOS barco, int index){
         
     }
     
-    if(!colocado){
-              for (int i = 0; i < filas && !colocado; i++) {
-            for (int j = 0; j < columnas && !colocado; j++) {
-                if (tableroBarcos[i][j] == null) {
-                    tableroBarcos[i][j] = barco;
-                    barcos[index] = barco;
-                    barcoFila[index] = i;
-                    barcoColumna[index] = j;
-                    barcoHorizontal[index] = true;
-                    colocado = true;
-              }
-          }
-      }
-   }
+
 }
 
 public void limpiarFallos(){
