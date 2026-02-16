@@ -524,7 +524,8 @@ public class Battleship {
             } else {
                 System.out.println(COLOR.CYAN+"\n  POSICION  |  JUGADOR  |  PUNTOS"+COLOR.RESET);
                 System.out.println(COLOR.CYAN+"-".repeat(60)+COLOR.RESET);
-
+                     
+                System.out.println(COLOR.CYAN+"=".repeat(60)+COLOR.RESET);
                 for (int i = 0; i < ranking.length; i++) {
                     Player p = ranking[i];
                     String medalla = switch (i) {
@@ -533,8 +534,8 @@ public class Battleship {
                         case 2 -> "VETERAN";
                         default -> "   ";
                     };
-                    System.out.printf("%s  %-3d       |  %-10s |  %d pts%n", 
-                        medalla, (i + 1), p.getUsername(), p.getPuntos());
+                    
+                        System.out.println(medalla + "  " + (i + 1) + ".   " + p.getUsername() + " -      "  + p.getPuntos() + "  pts");
                 }
     }
     
