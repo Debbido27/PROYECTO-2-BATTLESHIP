@@ -92,7 +92,7 @@ private void colocarBarcoAleatorio(BARCOS barco, int index){
         int fila = (int) (Math.random()*filas);
         //genera columna aleatoria
         int columna = (int)(Math.random()*columnas);
-        //true false pocision
+        //true false pocision si es mayor es true, si es menor es false
         boolean horizontal = Math.random()>0.5;
         
         
