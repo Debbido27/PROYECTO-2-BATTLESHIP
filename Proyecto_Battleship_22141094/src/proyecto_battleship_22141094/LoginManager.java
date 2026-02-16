@@ -176,6 +176,7 @@ public boolean usuarioExiste(String username) {
  }
 
  
+ //COPIAS PARA EVITAR LOS NULL Y SE CREA CON LA POCISION CABAL DE JUGADORES
   public Player [] getPlayers(){
       Player [] copia = new Player [totalPlayers];
       for (int i = 0; i < totalPlayers; i++) {
