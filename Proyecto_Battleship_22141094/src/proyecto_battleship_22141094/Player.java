@@ -60,6 +60,8 @@ public class Player {
     }
 
     
+    //FOR INVERTIDO PARA PODER RECORRER LAS POCISIONES A LA DERECHA Y DE ESPACIO A EL NUEVO
+    
     public void agregarLog(String log){
         for (int i = logs.length -1; i>0; i--) {
             logs[i]=logs[i-1];
@@ -67,9 +69,10 @@ public class Player {
         logs[0]=log;
         if(CuentaLog<10)CuentaLog++;
     }
-  @Override
+  
  //SOBREESCRIBIR LA CLASE OBJECT
   
+    @Override
   public String toString(){
       return "Usuario: "+username+"\n"+"Contrasena: "+password+"\n";
   }

@@ -97,6 +97,7 @@ public boolean usuarioExiste(String username) {
          return "ERROR!, USUARIO O CONTRASENA NO PUEDEN ESTAR VACIOS!!";
      }
 
+     
      String userNameNow=CurrentUser.getUsername();
 
      if(!userNameNow.equals(newUsername)){
@@ -118,7 +119,7 @@ public boolean usuarioExiste(String username) {
         ranking[i] = players[i];
     }
     
-    // Burbuja simple para ordenar por puntos (mayor a menor)
+    //burbuja
     for (int i = 0; i < totalPlayers - 1; i++) {
         for (int j = 0; j < totalPlayers - 1 - i; j++) {
             if (ranking[j].getPuntos() < ranking[j + 1].getPuntos()) {
@@ -174,8 +175,7 @@ public boolean usuarioExiste(String username) {
           return(COLOR.GREEN+"Cuenta elinada exitosamente"+" El usuario"+usernameEliminar+"Ya no existe"+COLOR.RESET);
  }
 
-
-//OBTENER LA INFORMACION, se pone player para que retorne un objeto player de la clase
+ 
   public Player [] getPlayers(){
       Player [] copia = new Player [totalPlayers];
       for (int i = 0; i < totalPlayers; i++) {
